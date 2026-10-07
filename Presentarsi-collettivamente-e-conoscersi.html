@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Presentarsi e conoscersi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+#opts{grid-template-columns:1fr}#prompt{font-size:1.25rem}#prompt small{font-size:1.05rem}</style></head><body><div class="w">
+<section id="menu"><h1>Presentarsi e conoscersi</h1><div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="opts"></div><div class="fb" id="fb" aria-live="polite"></div>
+<button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div>
+<button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function go(){Q=sh(build(cfg)).slice(0,10);i=0;sc=0;er=[];show('play');nx()}
+function nx(){if(i>=Q.length)return fin();const q=Q[i];$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;const o=$('#opts');o.innerHTML='';q.o.forEach(t=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>ans(b,q);o.appendChild(b)})}
+function ans(b,q){[...$('#opts').children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=b.textContent==q.a;if(g)sc++;else{b.classList.add('ko');er.push(q.f)}snd(g);
+$('#fb').className='fb '+(g?'g':'b');$('#fb').textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#sc').textContent='⭐ '+sc;$('#next').hidden=false;i++}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=9?'Bravissimo!':sc>=6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano e ascolta.';
+$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;
+
+const S=[['pre','👋 Presentarsi'],['rac','📖 Raccontarsi'],['dom','❓ Fare domande ai compagni'],['ris','🤝 Rispondere e continuare']];
+const D=`pre|r|Entri in classe e ti presenti.|Buongiorno, mi chiamo Karim. Piacere!|Buongiorno, io chiamare Karim. Piacere!|Buongiorno, mi chiami Karim. Piacere!|Buongiorno, sono chiamo Karim. Piacere!
+pre|r|Un compagno ti dice «Piacere, sono Anna.»|Piacere, io sono Karim.|Piacere, io essere Karim.|Prego, io sono Karim.|Piacere, io chiamo Karim.
+pre|c|Vengo ___ Marocco.|dal|di|a|in|con il paese: vengo dal Marocco, dalla Nigeria, dall’Albania
+pre|c|Sono ___ Casablanca.|di|del|dalla|in|con la città: sono di… / vengo da…
+pre|r|Vuoi dire la tua età: hai trent’anni.|Ho trent’anni.|Sono trent’anni.|Io avere trent’anni.|Ho trent’anno.|l’età si dice con avere: ho trent’anni
+pre|c|Abito ___ Pisa.|a|in|di|da|con la città: abito a Pisa; con il paese: abito in Italia
+pre|c|Abito ___ Italia da due anni.|in|a|di|su
+pre|r|Dici che lavori in un ristorante.|Lavoro in un ristorante.|Lavorare in un ristorante.|Lavoro a un ristorante.|Io lavori in un ristorante.
+pre|r|Dici quali lingue parli: arabo e francese.|Parlo arabo e francese.|Parlare arabo e francese.|Parlo arabo e francesi.|Io parli arabo e francese.
+rac|c|Sono ___ in Italia due anni fa.|arrivato/a|arrivare|arrivo|arrivando|con arrivare si usa essere: sono arrivato/a
+rac|r|Racconti quando sei arrivato in Italia: due anni fa.|Sono arrivato/a in Italia due anni fa.|Ho arrivato in Italia due anni fa.|Arrivare in Italia due anni fa.|Sono arrivato/a in Italia da due anni.|due anni fa = momento nel passato; da due anni = e sono ancora qui
+rac|r|Dici che abiti in Italia da due anni e vivi ancora qui.|Abito in Italia da due anni.|Abito in Italia due anni fa.|Abitare in Italia da due anni.|Ho abitato in Italia da due anni.
+rac|r|Parli della tua famiglia: hai due figli.|Ho due figli.|Sono due figli.|Avere due figli.|Ho due figlio.
+rac|r|Dici che tua madre vive ancora nel tuo paese.|Mia madre vive nel mio paese.|Mia madre vivere nel mio paese.|La mia madre vive nel mio paese.|Mia madre vivono nel mio paese.|con i parenti al singolare: mia madre, mio padre (senza articolo)
+rac|r|Dici che ti piace cucinare.|Mi piace cucinare.|Io piace cucinare.|Mi piacere cucinare.|Ti piace cucinare.|mi piace + verbo all’infinito
+rac|c|Nel tempo libero gioco ___ calcio con gli amici.|a|in|di|con|si dice: giocare a calcio, a carte, a pallone
+rac|r|Racconti il lavoro che facevi nel tuo paese: il muratore.|Nel mio paese facevo il muratore.|Nel mio paese fare il muratore.|Nel mio paese faccio il muratore.|Nel mio paese ho facevo il muratore.|per le abitudini del passato si usa l’imperfetto: facevo
+rac|r|Racconti che ieri sei andato a scuola.|Ieri sono andato/a a scuola.|Ieri ho andato a scuola.|Ieri andare a scuola.|Ieri vado a scuola.|andare vuole essere: sono andato/a
+dom|r|Chiedi a un compagno come si chiama.|Come ti chiami?|Come chiami?|Come ti chiamo?|Come chiamare?
+dom|r|Chiedi a un compagno di dove è.|Di dove sei?|Di dove essere?|Di dove è?|Dove sei di?|con un compagno si usa tu: sei; con il professore si usa Lei: è
+dom|r|Chiedi l’età a un compagno.|Quanti anni hai?|Quanti anni sei?|Quanto anni hai?|Quanti anni avere?
+dom|r|Vuoi sapere da quanto tempo un compagno è in Italia.|Da quanto tempo sei in Italia?|Da quanto tempo essere in Italia?|Quando tempo sei in Italia?|Da quanto tempo hai in Italia?
+dom|r|Chiedi a un compagno che lavoro fa.|Che lavoro fai?|Che lavoro fare?|Che lavoro fa?|Che lavoro sei?
+dom|r|Vuoi sapere quali lingue parla un compagno.|Quali lingue parli?|Quali lingue parlare?|Che lingue parlo?|Quale lingue parli?
+dom|r|Vuoi sapere se un compagno ha figli.|Hai figli?|Sei figli?|Avere figli?|Hai figlio?
+dom|r|Vuoi sapere che cosa piace fare a un compagno nel tempo libero.|Che cosa ti piace fare nel tempo libero?|Che cosa piace fare tu nel tempo libero?|Che cosa ti piacere fare nel tempo libero?|Che cosa mi piace fare nel tempo libero?
+dom|r|Vuoi fare una domanda personale a un compagno, con gentilezza.|Scusa, posso farti una domanda?|Scusa, io fare una domanda?|Scusi, posso farti una domanda?|Scusa, posso fare tu una domanda?
+dom|c|Chiedo a un compagno: «Come ___ chiami?»|ti|si|mi|ci|con un compagno (tu): come ti chiami? Con il professore (Lei): come si chiama?
+dom|c|Chiedo alla professoressa: «Come ___ chiama?»|si|ti|mi|ci|con il professore e con le autorità (Lei): come si chiama?
+dom|c|Chiedo a un compagno: «Di dove ___?»|sei|è|essere|sono
+ris|r|Un compagno dice che ha tre figli.|Che bello! Quanti anni hanno?|Che bello! Quanti anni hai?|Che bello! Quanti anni avere?|Che bello! Quanto anni hanno?
+ris|r|Un compagno dice che ha lavorato tutta la notte ed è stanco.|Mi dispiace! Riposati un po’.|Mi dispiace! Riposare un po’.|Che bello! Riposati un po’.|Mi dispiace! Riposo un po’.
+ris|r|Un compagno ti dice «Vengo dall’Ucraina. E tu?»|Io vengo dal Marocco.|Io venire dal Marocco.|Io vengo in Marocco.|Io viene dal Marocco.
+ris|r|Un compagno dice «Mi piace molto cucinare.» Piace anche a te.|Anche a me! Mi piace molto.|Anche io piace!|Anche a me! Mi piacere molto.|Anche a me! Mi piaci molto.
+ris|r|Non hai capito il nome di un compagno.|Scusa, come ti chiami? Puoi ripetere?|Scusa, come chiami? Puoi ripetere?|Scusi, come ti chiami? Puoi ripetere?|Scusa, come ti chiami? Ripetere!
+ris|r|Alla fine della lezione saluti i compagni.|Ciao a tutti, a domani!|Arrivederla a tutti, a domani!|Buongiorno a tutti, a domani!|Ciao a tutti, domani a!`;
+const MENU=[{k:'sc',t:'Che cosa vuoi fare?',o:[['tutte','🎲 Tutte'],...S]}];
+function build(c){return D.split('\n').filter(l=>l.includes('|')).map(l=>l.split('|')).filter(x=>c.sc=='tutte'||x[0]==c.sc).map(x=>{const r=x[1]=='r',a=x[3],full=r?a:x[2].replace('___',a);return{t:S.find(s=>s[0]==x[0])[1]+(r?' · Che cosa dici?':' · Completa'),h:r?'<small>'+x[2]+'</small><br><b>Che cosa dici?</b>':'<small>Completa la frase</small><br><b>'+x[2]+'</b>',o:sh([a,x[4],x[5],x[6]]),a:a,f:full,s:'',n:x[7]||''}})}
+
+menu();
+</script></body></html>

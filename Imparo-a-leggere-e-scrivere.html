@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Imparo a leggere e a scrivere</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Andika",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-wrap:wrap;gap:8px;min-height:62px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 16px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.6rem;font-weight:700}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.8rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);letter-spacing:.06em}
+#prompt{font-size:1.2rem}.L{font-size:5.5rem;line-height:1.1;font-weight:700}.WD{font-size:2.5rem;font-weight:700;letter-spacing:.06em;margin:.15em 0}
+.opt{min-height:80px;font-weight:700}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+</style></head><body><div class="w">
+<section id="menu"><h1>Imparo a leggere e a scrivere</h1>
+<div class="def">Si parte dalle lettere, poi suoni, sillabe, parole e frasi. Ogni esercizio si può fare in <b>STAMPATELLO MAIUSCOLO</b>, in <b>stampatello minuscolo</b> o in tutti e due.</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><button class="chip" id="hear" hidden>🔊 Ascolta la parola</button><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]),pk=(a,n)=>sh([...new Set(a)]).slice(0,n),R=a=>a[Math.floor(Math.random()*a.length)];
+let cfg={},Q=[],i=0,sc=0,er=[];
+function sp(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.8;speechSynthesis.speak(u)}catch(e){}}
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const wl=s=>s.split('\n').map(l=>l.split('|')).map(a=>({s:a[0].split('-'),w:a[0].replace(/-/g,''),e:a[1]}));
+const W2=wl(`CA-SA|🏠
+LU-NA|🌙
+ME-LA|🍎
+PA-NE|🍞
+SO-LE|☀️
+MA-NO|✋
+NA-SO|👃
+RA-NA|🐸
+MA-RE|🌊
+NA-VE|🚢
+TO-RO|🐂
+DA-DO|🎲
+MO-TO|🏍️
+RO-SA|🌹
+SA-LE|🧂
+LU-PO|🐺
+CA-NE|🐕`),W3=wl(`BA-NA-NA|🍌
+PA-TA-TA|🥔
+CA-RO-TA|🥕
+LI-MO-NE|🍋
+MA-TI-TA|✏️
+PE-CO-RA|🐑
+ME-LO-NE|🍈
+PA-NI-NO|🥪
+MO-NE-TA|🪙
+CA-VO-LO|🥬`),WL=W2.concat(W3);
+const AL='ABCDEFGHILMNOPQRSTUVZ'.split(''),VO='AEIOU';
+const CF={A:'OEU',B:'DPR',C:'OEG',D:'BPO',E:'FCB',F:'ETP',G:'CQO',H:'NMB',I:'LTU',L:'ITU',M:'NHU',N:'MHU',O:'CAQ',P:'BDQ',Q:'OGP',R:'PBN',S:'ZCE',T:'FLI',U:'VNO',V:'UZN',Z:'SNV'};
+const M=[['BAMBIN','👦','👧'],['NONN','👴','👵'],['MAESTR','👨‍🏫','👩‍🏫']],EN=['O','A','I','E'];
+const SV=[['LUCA','BEVE','','🥤'],['SARA','CANTA','','🎤'],['DINO','DORME','','😴'],['NINA','LEGGE','','📖'],['MARCO','CORRE','','🏃'],['ROSA','MANGIA','','🍽️'],['ANNA','BALLA','','💃'],['DINO','NUOTA','','🏊'],['SARA','SCRIVE','','✍️']].map(a=>({S:a[0],V:a[1],X:a[2],e:a[3]}));
+const SX=[['LUCA','MANGIA','UNA MELA','🍎'],['SARA','BEVE','UN TÈ','🍵'],['DINO','LEGGE','UN LIBRO','📕'],['NINA','COMPRA','IL PANE','🍞'],['MARCO','CORRE','NEL PARCO','🌳'],['ROSA','CANTA','A CASA','🏠'],['ANNA','ASCOLTA','LA MUSICA','🎵'],['DINO','SUONA','LA CHITARRA','🎸'],['SARA','CUCINA','LA PASTA','🍝'],['LUCA','GUARDA','UN FILM','🎬']].map(a=>({S:a[0],V:a[1],X:a[2],e:a[3]}));
+const LV={'1':['uguale','coppia','vocale'],'2':['iniziale','finale','conta','sinizio'],'3':['pimg','imgp','ordsill','sillmanca'],'4':['morfema','forma'],'5':['sord5','simg5','scompl5','schi5'],'6':['sord6','simg6','scompl6','schi6'],'7':['copiap','copiaf','mancal','mancas']};
+const MENU=[{k:'lv',t:'Quale livello?',o:[['tutti','🎲 Tutti'],['1','1 · Le lettere'],['2','2 · Suoni e sillabe'],['3','3 · Parole di 2 e 3 sillabe'],['4','4 · Le finali -O -A -I -E'],['5','5 · Frasi: chi e che cosa fa'],['6','6 · Frasi con espansione'],['7','7 · Scrivere: copio e completo']]},{k:'c',t:'Con quali lettere?',o:[['U','MAIUSCOLO'],['l','minuscolo'],['b','Aa Tutti e due']]}];
+const C=(s,c)=>c=='U'?s.toUpperCase():s.toLowerCase();
+function cv(w){for(let n=0;n<9;n++){const j=Math.floor(Math.random()*w.length),L=w[j];if(!CF[L])continue;const v=w.slice(0,j)+R(CF[L].split(''))+w.slice(j+1);if(!WL.some(y=>y.w==v))return v}return w.split('').reverse().join('')}
+function mk(t,c){const K=s=>C(s,c),Z=(k,tag,h,o)=>Object.assign({k:k,t:tag,h:h,n:''},o),em=e=>'<span class=em>'+e+'</span>',WD=s=>'<div class="WD">'+K(s)+'</div>',x=R(WL);
+if(t=='uguale'){const L=R(AL);return Z('c','Trova la lettera uguale','<div class="L">'+K(L)+'</div>',{o:sh([L,...CF[L].split('')].map(K)),a:K(L),f:K(L),sz:'2.6rem',n:'attenzione alle lettere simili'})}
+if(t=='coppia'){const L=R(AL),oc=c=='U'?'l':'U';return Z('c','Maiuscola e minuscola','<div class="L">'+C(L,c)+'</div>',{o:sh([L,...CF[L].split('')].map(s=>C(s,oc))),a:C(L,oc),f:C(L,c)+' = '+C(L,oc),sz:'2.6rem'})}
+if(t=='vocale'){const L=R(AL),v=VO.includes(L);return Z('c','Vocale o consonante?','<div class="L">'+K(L)+'</div>',{o:[K('vocale'),K('consonante')],a:K(v?'vocale':'consonante'),f:K(L+' è una '+(v?'vocale':'consonante')),sz:'1.5rem',n:'le vocali sono A E I O U'})}
+if(t=='iniziale'){const f=x.w[0];return Z('c','Con quale lettera comincia?',em(x.e),{o:sh([f,...pk(AL.filter(l=>l!=f),3)].map(K)),a:K(f),f:K(x.w+' comincia con '+f),sz:'2.6rem',say:x.w.toLowerCase()})}
+if(t=='finale'){const f=x.w[x.w.length-1];return Z('c','Con quale vocale finisce?',em(x.e),{o:sh([f,...pk(VO.split('').filter(l=>l!=f),3)].map(K)),a:K(f),f:K(x.w+' finisce con '+f),sz:'2.6rem',say:x.w.toLowerCase()})}
+if(t=='conta')return Z('c','Quante sillabe?',em(x.e)+'<br><small>Batti le mani!</small>',{o:['2','3','4'],a:String(x.s.length),f:K(x.s.join('-'))+': '+x.s.length+' sillabe',sz:'2.6rem',say:x.w.toLowerCase()});
+if(t=='sinizio')return Z('c','Qual è la prima sillaba?',em(x.e)+WD(x.w),{o:sh([x.s[0],...pk(WL.map(y=>y.s[0]).filter(z=>z!=x.s[0]),3)].map(K)),a:K(x.s[0]),f:K(x.s.join('-')),sz:'2rem',say:x.w.toLowerCase()});
+if(t=='pimg'){const p=WL.filter(y=>y.s.length==x.s.length&&y.w!=x.w);return Z('c','Leggi: quale immagine?',WD(x.w),{o:sh([x.e,...pk(p.map(y=>y.e),3)]),a:x.e,f:K(x.w)+' = '+x.e,sz:'2.8rem'})}
+if(t=='imgp'){const p=WL.filter(y=>y.s.length==x.s.length&&y.w!=x.w);return Z('c','Quale parola è?',em(x.e),{o:sh([x.w,...pk(p.map(y=>y.w),2),cv(x.w)].map(K)),a:K(x.w),f:K(x.w),sz:'1.7rem'})}
+if(t=='ordsill')return Z('o','Metti in ordine le sillabe',em(x.e),{w:x.s.map(K),a:K(x.w),j:'',f:K(x.s.join('-'))});
+if(t=='sillmanca'){const j=Math.floor(Math.random()*x.s.length);return Z('c','Quale sillaba manca?',em(x.e)+WD(x.s.map((z,k)=>k==j?'__':z).join('-')),{o:sh([x.s[j],...pk(WL.map(y=>y.s[0]).filter(z=>z!=x.s[j]),3)].map(K)),a:K(x.s[j]),f:K(x.s.join('-')),sz:'2rem'})}
+if(t=='morfema'||t=='forma'){const m=R(M),f=Math.floor(Math.random()*4),e=(f%2?m[2]:m[1]),emo=f>1?e+e:e,ws=EN.map(z=>m[0]+z);
+if(t=='morfema')return Z('c','Quale finale?',em(emo)+WD(m[0]+'_'),{o:sh(EN.map(K)),a:K(EN[f]),f:K(ws[f]),sz:'2.6rem',n:K('O')+' = maschio, uno · '+K('A')+' = femmina, una · '+K('I')+' = maschi, più di uno · '+K('E')+' = femmine, più di uno'});
+return Z('c','Quale parola?',em(emo),{o:sh(ws.map(K)),a:K(ws[f]),f:K(ws[f]),sz:'1.5rem',n:K('O')+' = maschio, uno · '+K('A')+' = femmina, una · '+K('I')+' = maschi, più di uno · '+K('E')+' = femmine, più di uno'})}
+if(/[56]$/.test(t)){const ty=t.slice(0,-1),bk=t.endsWith('5')?SV:SX,y=R(bk),pa=y.X?[y.S,y.V].concat(y.X.split(' ')):[y.S,y.V],full=pa.join(' '),ot=bk.filter(z=>z!==y),KS=s=>c=='U'?s.toUpperCase():s.charAt(0).toUpperCase()+s.slice(1).toLowerCase(),nm=s=>c=='U'?s:s.charAt(0)+s.slice(1).toLowerCase(),sen=z=>(z.X?[z.S,z.V,z.X]:[z.S,z.V]).join(' ');
+if(ty=='sord')return Z('o','Metti in ordine le parole',em(y.e),{w:pa.map((z,j)=>j==0?KS(z):K(z)),a:KS(full),j:' ',f:KS(full)+'.'});
+if(ty=='simg'){const op=[full,...pk(ot.map(sen),3)];return Z('c','Quale frase va con l’immagine?',em(y.e),{o:sh(op.map(KS)),a:KS(full),f:KS(full)+'.',sz:'1.3rem'})}
+if(ty=='scompl'){const ex=!!y.X,a=ex?y.X:y.V;return Z('c','Completa la frase',em(y.e)+'<div class="WD">'+KS(y.S+' '+(ex?y.V+' ___':'___'))+'</div>',{o:sh([a,...pk(ot.map(z=>ex?z.X:z.V).filter(z=>z!=a),3)].map(K)),a:K(a),f:KS(full)+'.',sz:'1.5rem'})}
+const who=Math.random()<.5,a=who?y.S:y.V,F=who?nm:K;return Z('c',who?'Chi?':'Che cosa fa?','<div class="WD" style="font-size:1.8rem">'+KS(full)+'.</div>'+em(y.e),{o:sh([a,...pk(bk.map(z=>who?z.S:z.V).filter(z=>z!=a),3)].map(F)),a:F(a),f:F(a)+(who?' è il soggetto':' è il verbo'),sz:'1.6rem',n:who?'il soggetto è chi fa l’azione':'il verbo dice che cosa fa'})}
+if(t=='copiap')return Z('w','Copia la parola',em(x.e)+WD(x.w),{a:K(x.w),f:K(x.w)});
+if(t=='copiaf'){const y=R(SV.concat(SX)),full=(y.X?[y.S,y.V,y.X]:[y.S,y.V]).join(' '),KS=c=='U'?full.toUpperCase():full.charAt(0).toUpperCase()+full.slice(1).toLowerCase();return Z('w','Copia la frase',em(y.e)+'<div class="WD" style="font-size:1.8rem">'+KS+'.</div>',{a:KS,f:KS+'.'})}
+if(t=='mancal'){const j=Math.floor(Math.random()*x.w.length);return Z('w','Scrivi la lettera che manca',em(x.e)+WD(x.w.slice(0,j)+'_'+x.w.slice(j+1)),{a:K(x.w[j]),f:K(x.w),max:1})}
+if(t=='mancas'){const j=Math.floor(Math.random()*x.s.length);return Z('w','Scrivi la sillaba che manca',em(x.e)+WD(x.s.map((z,k)=>k==j?'___':z).join('-')),{a:K(x.s[j]),f:K(x.s.join('-'))})}}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const ts=cfg.lv=='tutti'?[].concat(...Object.values(LV)):LV[cfg.lv],seen=new Set();Q=[];let n=0;for(let k=0;k<80&&Q.length<10;k++){const c=cfg.c=='b'?(n%2?'l':'U'):cfg.c,q=mk(R(ts),c);if(!q||seen.has(q.t+q.h))continue;seen.add(q.t+q.h);Q.push(q);n++}i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+const h=$('#hear');h.hidden=!q.say;h.onclick=()=>sp(q.say);
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>{const b=bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o);b.style.fontSize=q.sz||'1.4rem'})}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.autocapitalize='none';n.placeholder='Scrivi qui';if(q.max)n.maxLength=q.max;a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=nz(n.value)==nz(q.a);n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join(q.j)==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach(t=>bt(t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano, un passo alla volta.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+menu();
+</script></body></html>

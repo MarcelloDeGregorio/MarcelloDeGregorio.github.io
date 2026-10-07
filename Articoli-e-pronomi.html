@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Articoli e pronomi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.25rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+#prompt{font-size:1.25rem;text-align:left}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+#opts{grid-template-columns:1fr}.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt .opt{min-height:60px;font-size:1rem}.opt.sel{border-color:var(--acc);background:var(--soft)}
+.tabs{display:flex;gap:8px;margin:8px 0 12px}.lz h1{font-size:1.5rem}.lz h2{font-size:1.2rem;margin:1.2em 0 .3em}.lz p,.lz li{font-size:1.05rem}
+table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,.tb td{border:1px solid var(--line);padding:6px 8px;text-align:left}.tb th{background:var(--soft)}
+.ex{background:var(--soft);box-shadow:0 0 0 2px var(--soft);border-radius:4px;padding:0}.box{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+</style></head><body><div class="w"><div class="tabs"><button class="chip on" id="tb1">📖 Spiega</button><button class="chip" id="tb2">🎮 Esercitati</button></div><section id="lez"><div class="lz"><h1>Articoli e pronomi</h1>
+<p>Qui impari le parole piccole ma importanti: gli <b>articoli</b> (il, la, un…) e i <b>pronomi</b> (io, mi, mio…). Leggi, poi tocca <b>Esercitati</b>.</p>
+<h2>1. Il nome: maschile o femminile, uno o più di uno</h2>
+<p>Ogni nome è <b>maschile</b> (il libro) o <b>femminile</b> (la casa). È <b>singolare</b> se è uno (il libro) o <b>plurale</b> se sono più di uno (i libri). L’articolo sta davanti al nome e cambia con lui.</p>
+<h2>2. Articoli determinativi</h2>
+<p>Si usano per una cosa precisa, che conosciamo: <span class="ex">il libro di Marco</span>.</p>
+<table class="tb"><tr><th></th><th>Singolare</th><th>Plurale</th></tr><tr><th>Maschile</th><td>il · lo · l’</td><td>i · gli</td></tr><tr><th>Femminile</th><td>la · l’</td><td>le</td></tr></table>
+<ul><li><b>il, i</b> davanti a consonante: il libro, i libri</li><li><b>lo, gli</b> davanti a s + consonante, z, gn, ps: lo studente, lo zaino, gli studenti, gli zaini</li><li><b>l’</b> davanti a vocale, al singolare: l’albero, l’amica</li><li><b>gli</b> anche davanti a vocale, al maschile plurale: gli alberi, gli amici</li><li><b>la, le</b> per il femminile: la casa, le case, le amiche</li></ul>
+<h2>3. Articoli indeterminativi</h2>
+<p>Si usano per una cosa non precisa o nuova: <span class="ex">ho un libro</span>.</p>
+<table class="tb"><tr><th></th><th>Singolare</th></tr><tr><th>Maschile</th><td>un · uno</td></tr><tr><th>Femminile</th><td>una · un’</td></tr></table>
+<ul><li><b>un</b>: un libro, un amico</li><li><b>uno</b> davanti a s + consonante, z, gn, ps: uno studente, uno zaino</li><li><b>una</b>: una casa</li><li><b>un’</b> (con apostrofo) davanti a vocale femminile: un’amica, un’arancia</li></ul>
+<p>Al plurale si dice <b>dei, degli, delle</b> («alcuni»): dei libri, degli studenti, degli amici, delle case.</p>
+<div class="box"><b>Quale articolo?</b> Cosa precisa: <span class="ex">Il libro è sul tavolo.</span> Cosa non precisa: <span class="ex">Ho un libro.</span></div>
+<h2>4. Pronomi personali soggetto</h2>
+<table class="tb"><tr><th></th><th>Singolare</th><th>Plurale</th></tr><tr><th>1ª persona</th><td>io</td><td>noi</td></tr><tr><th>2ª persona</th><td>tu</td><td>voi</td></tr><tr><th>3ª persona</th><td>lui, lei</td><td>loro</td></tr></table>
+<p><b>Lei</b> (con la maiuscola) è la forma di cortesia: «Lei è la maestra?». Spesso il pronome non si dice: «(Io) sono Anna».</p>
+<h2>5. Pronomi complemento</h2>
+<table class="tb"><tr><th>Chi o che cosa</th><th>Pronome</th><th>Esempio</th></tr><tr><td>me</td><td>mi</td><td>Marco mi chiama.</td></tr><tr><td>te</td><td>ti</td><td>Io ti vedo.</td></tr><tr><td>lui, il pane</td><td>lo</td><td>Lo compro.</td></tr><tr><td>lei, la mela</td><td>la</td><td>La mangio.</td></tr><tr><td>noi</td><td>ci</td><td>Maria ci chiama.</td></tr><tr><td>voi</td><td>vi</td><td>Io vi chiamo.</td></tr><tr><td>loro (m.), i libri</td><td>li</td><td>Li leggo.</td></tr><tr><td>loro (f.), le mele</td><td>le</td><td>Le mangio.</td></tr></table>
+<h2>6. Possessivi: mio, tuo, suo…</h2>
+<p>mio, tuo, suo, nostro, vostro, loro. Di solito hanno l’articolo: <span class="ex">il mio libro</span>, <span class="ex">la mia casa</span>, <span class="ex">i miei libri</span>. Con i nomi di famiglia al singolare non c’è l’articolo: <span class="ex">mia madre</span>, <span class="ex">mio figlio</span>; al plurale sì: <span class="ex">i miei figli</span>. <b>Loro</b> ha sempre l’articolo: <span class="ex">la loro casa</span>.</p>
+<h2>7. Questo e quello</h2>
+<p><b>Questo</b> (questa, questi, queste) è vicino a me: <span class="ex">questo libro</span>. <b>Quello</b> (quella, quelli, quelle) è lontano: <span class="ex">quella casa</span>.</p></div>
+</section><div id="gm" hidden>
+<section id="menu"><h1>Articoli e pronomi</h1>
+<div class="def">Prima leggi la spiegazione, poi esercitati: articoli determinativi e indeterminativi, genere e numero, pronomi personali, pronomi complemento, possessivi e dimostrativi.</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section></div>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const AR=[['de','🔵 Articoli determinativi'],['in','🟢 Articoli indeterminativi'],['gn','♂♀ Genere e numero'],['po','👤 Pronomi personali'],['pc','🔗 Pronomi complemento'],['ps','🏷️ Possessivi e dimostrativi']];
+const KT={q:'Scegli la risposta',v:'Vero o falso?',k:'Quale è giusto?',t:'Scrivi la risposta',o:'Metti in ordine',m:'Abbina'};
+const D=`de|q|___ libro|il|lo|la|l’|Davanti a consonante: il libro
+de|q|___ studente|lo|il|l’|la|Davanti a s + consonante: lo studente
+de|q|___ zaino|lo|il|l’|gli|Davanti a z: lo zaino
+de|q|___ amica|l’|la|lo|le|Davanti a vocale: l’amica
+de|q|___ albero|l’|il|lo|la|Davanti a vocale: l’albero
+de|q|___ case (plurale)|le|la|i|gli|Femminile plurale: le case
+de|q|___ studenti (plurale)|gli|i|lo|le|Plurale di lo: gli
+de|q|___ amici (plurale)|gli|i|le|l’|Maschile plurale davanti a vocale: gli amici
+de|q|___ libri (plurale)|i|gli|il|le|Plurale di il: i
+de|k|Quale è giusto?|lo zaino|il zaino|Davanti a z si usa lo
+de|k|Quale è giusto?|gli studenti|i studenti|Plurale di lo studente: gli studenti
+de|m|Abbina il nome e l’articolo|libro=il;studente=lo;albero=l’;casa=la|
+de|o|Metti in ordine|La;casa;è;grande|
+de|t|Scrivi l’articolo: ___ amico|l’;l'|
+in|q|___ libro|un|uno|una|un’|Davanti a consonante: un libro
+in|q|___ studente|uno|un|una|un’|Davanti a s + consonante: uno studente
+in|q|___ amica|un’|una|uno|un|Femminile davanti a vocale: un’amica (con apostrofo)
+in|q|___ amico|un|un’|uno|una|Maschile: un amico (senza apostrofo)
+in|q|___ casa|una|un’|un|uno|Femminile davanti a consonante: una casa
+in|q|___ zaino|uno|un|una|un’|Davanti a z: uno zaino
+in|q|Plurale di «un libro»: ___ libri|dei|degli|delle|dello|
+in|q|Plurale di «uno studente»: ___ studenti|degli|dei|delle|dell’|
+in|q|Plurale di «una casa»: ___ case|delle|dei|degli|della|
+in|v|«Ho un libro» parla di un libro non preciso.|V|Con l’articolo indeterminativo non indichi una cosa precisa
+in|v|«Il libro è sul tavolo» parla di un libro preciso.|V|Con l’articolo determinativo indichi una cosa precisa
+in|k|Quale è giusto?|un’arancia|una arancia|Femminile davanti a vocale: un’
+in|t|Scrivi l’articolo indeterminativo: ___ amica|un’;un'|Davanti a vocale femminile: un’
+gn|q|Il plurale di «amica» è…|amiche|amichi|amici|amicie|La c prima di e vuole la h: amica → amiche
+gn|q|Il plurale di «amico» è…|amici|amichi|amiche|amico|
+gn|q|Il plurale di «libro» è…|libri|libre|libra|libros|
+gn|q|Il plurale di «fiore» è…|fiori|fiore|fiora|fiorie|
+gn|q|Il plurale di «bambina» è…|bambine|bambini|bambina|bambinae|
+gn|q|Il femminile di «maestro» è…|maestra|maestre|maestri|maestro|
+gn|q|«Gli» è un articolo…|maschile plurale|femminile plurale|maschile singolare|femminile singolare|
+gn|q|«Le» è un articolo…|femminile plurale|maschile plurale|femminile singolare|maschile singolare|
+gn|m|Abbina il singolare e il plurale|ragazzo=ragazzi;ragazza=ragazze;amica=amiche;amico=amici|
+gn|t|Scrivi il plurale di «amica»|amiche|Amica diventa amiche, con la h
+gn|t|Scrivi il plurale di «scuola»|scuole|
+po|q|___ sono Anna.|Io|Tu|Lui|Noi|
+po|q|___ sei un amico.|Tu|Io|Lui|Voi|
+po|q|Maria è a casa. ___ cucina.|Lei|Lui|Loro|Noi|
+po|q|Marco e Anna sono a scuola. ___ studiano.|Loro|Noi|Voi|Lei|
+po|q|Io e Marco siamo amici. ___ siamo amici.|Noi|Voi|Loro|Io|
+po|q|Ragazzi, ___ siete in ritardo!|voi|noi|loro|tu|
+po|q|Al medico dico: «___ è molto gentile.»|Lei|Tu|Lui|Voi|Lei con la maiuscola è la forma di cortesia
+po|q|A un amico dico: «___ sei molto gentile.»|Tu|Lei|Voi|Loro|
+po|k|Quale è giusto?|Io vado a casa.|Io andare a casa.|Il verbo va coniugato: io vado
+po|m|Abbina il pronome e il verbo essere|io=sono;tu=sei;noi=siamo;voi=siete|
+po|t|Scrivi il pronome: ___ siamo studenti.|noi|
+pc|q|Io vedo Maria. → Io ___ vedo.|la|lo|li|le|
+pc|q|Io compro il pane. → Io ___ compro.|lo|la|li|le|
+pc|q|Io mangio le mele. → Io ___ mangio.|le|la|li|lo|
+pc|q|Io leggo i libri. → Io ___ leggo.|li|le|lo|la|
+pc|q|Marco chiama me. → Marco ___ chiama.|mi|ti|lo|ci|
+pc|q|Io chiamo te. → Io ___ chiamo.|ti|mi|lo|vi|
+pc|q|Maria chiama noi. → Maria ___ chiama.|ci|vi|li|mi|
+pc|q|Io chiamo voi. → Io ___ chiamo.|vi|ci|li|ti|
+pc|m|Abbina|il pane=lo;la mela=la;i libri=li;le mele=le|
+pc|t|Vedo Anna. → ___ vedo.|la|
+ps|q|___ casa (di me)|La mia|Mia|Il mio|I miei|Con casa si usa l’articolo: la mia casa
+ps|q|___ libro (di te)|Il tuo|La tua|Tuo|I tuoi|
+ps|q|___ madre (di me)|Mia|La mia|Il mio|Mio|Con i nomi di famiglia al singolare non c’è l’articolo: mia madre
+ps|q|___ figli (di me)|I miei|Miei|Il mio|Mio|Al plurale c’è l’articolo: i miei figli
+ps|q|___ casa (di loro)|La loro|Loro|Il loro|La sua|Loro ha sempre l’articolo
+ps|q|___ casa (di noi)|La nostra|Il nostro|Nostra|La nostri|
+ps|q|___ libro è qui. (vicino a me)|Questo|Quello|Questa|Quella|
+ps|q|___ casa è lontana.|Quella|Questa|Quello|Questo|
+ps|m|Abbina il pronome e il possessivo|io=mio;tu=tuo;noi=nostro;voi=vostro|
+ps|t|Scrivi: ___ madre (di me)|mia|`;
+const B=D.split('\n').map(l=>l.split('|')).map(a=>({r:a[0],k:a[1],x:a[2],a:a.slice(3)}));
+
+const MENU=[{k:'ar',t:'Che cosa vuoi esercitare?',o:[['tutti','🎲 Tutto']].concat(AR)}];
+function mk(b){const a=b.a,lab=AR.find(z=>z[0]==b.r)[1],Z=o=>Object.assign({t:lab+' · '+KT[b.k],h:'<b>'+b.x+'</b>',n:''},o);
+if(b.k=='q')return Z({k:'c',o:sh(a.slice(0,4)),a:a[0],f:a[0],n:a[4]||''});
+if(b.k=='v')return Z({k:'c',o:['✅ Vero','❌ Falso'],a:a[0]=='V'?'✅ Vero':'❌ Falso',f:a[0]=='V'?'vero':'falso',n:a[1]||''});
+if(b.k=='k')return Z({k:'c',o:sh([a[0],a[1]]),a:a[0],f:a[0],n:a[2]||''});
+if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''});
+if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
+const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'').replace(/'/g,'’');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach((t,n)=>bt((n+1)+'. '+t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}
+if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
+q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
+sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+$('#tb1').onclick=()=>{$('#lez').hidden=false;$('#gm').hidden=true;$('#tb1').classList.add('on');$('#tb2').classList.remove('on')};$('#tb2').onclick=()=>{$('#lez').hidden=true;$('#gm').hidden=false;$('#tb2').classList.add('on');$('#tb1').classList.remove('on')};
+menu();
+</script></body></html>

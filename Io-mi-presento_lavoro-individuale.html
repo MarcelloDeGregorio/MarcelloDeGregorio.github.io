@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Io mi presento</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--accfg:#fff;--soft:#e4eefb;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--accfg:#07213d;--soft:#22344d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--accfg:#07213d;--soft:#22344d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:19px/1.5 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:620px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.3rem;margin:0 0 .4em}p{margin:.3em 0}
+.sub{color:var(--mut)}
+section{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:16px;margin:16px 0}
+label,.lb{display:block;font-weight:700;margin:14px 0 4px}
+.hint{font-size:.85rem;color:var(--mut);margin:3px 0 0}
+input,select{width:100%;box-sizing:border-box;font:inherit;font-size:1.1rem;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg)}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:8px 14px;border:2px solid var(--line);background:var(--bg);border-radius:999px}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--accfg)}
+.btn{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:10px}
+.btn.p{background:var(--acc);border-color:var(--acc);color:var(--accfg);font-weight:700}
+.out{background:var(--soft);border-radius:12px;padding:14px;margin-top:16px}
+.out .t{white-space:pre-line;font-size:1.15rem;min-height:2.4em}
+.out .t.ph{color:var(--mut)}.out .t.mask{filter:blur(7px);user-select:none}
+.bar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.num{width:90px;flex:none}[hidden]{display:none!important}
+.ph2{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.ph2 span{background:var(--soft);border-radius:999px;padding:6px 12px}
+</style></head><body><div class="w">
+<h1>Io mi presento</h1>
+<p class="sub">Qui non si gioca: si risponde su se stessi. Compila i campi con i tuoi dati veri e il testo si scrive da solo, in italiano corretto. Poi leggilo a voce alta, nascondilo e prova a dirlo a memoria.</p>
+<p class="hint">Nulla viene salvato né inviato: quando chiudi la pagina, i dati spariscono.</p>
+
+<section><h2>Come parlo di me</h2><div class="chips" id="gen"></div><p class="hint">Serve per le parole che cambiano: arrivato / arrivata, solo / sola.</p></section>
+
+<section><h2>1. Mi presento</h2>
+<label for="nome">Come ti chiami?</label><input id="nome" autocomplete="off" placeholder="Il tuo nome">
+<label for="paese">Da quale paese vieni?</label><select id="paese"></select>
+<input id="paeseAltro" hidden placeholder="Scrivi con l’articolo: il Mali, la Siria…">
+<p class="hint">Con i paesi si dice: vengo dal Marocco, dalla Nigeria, dall’Albania.</p>
+<label for="cittaOr">Di quale città o paese sei? (facoltativo)</label><input id="cittaOr" autocomplete="off" placeholder="Es. Casablanca">
+<p class="hint">Con le città si dice: sono di Casablanca.</p>
+<label for="eta">Quanti anni hai?</label><input id="eta" type="number" min="14" max="99" inputmode="numeric" placeholder="Es. 30">
+<p class="hint">In italiano l’età si dice con «avere»: ho trent’anni (non «sono»).</p>
+<label for="cittaAb">In quale città abiti?</label><input id="cittaAb" autocomplete="off" placeholder="Es. Pisa">
+<p class="hint">Con le città si usa «a»: abito a Pisa. Con i paesi si usa «in»: abito in Italia.</p>
+<div class="lb">Quali lingue parli?</div><div class="chips" id="lingue"></div>
+<div class="out"><div class="t" id="t1"></div><div class="bar"><button class="btn" data-m="t1">🙈 Esercitati</button><button class="btn" data-c="t1">📋 Copia</button></div></div></section>
+
+<section><h2>2. Mi racconto</h2>
+<div class="lb">Quando sei arrivato in Italia?</div><div class="row"><input id="arrN" class="num" type="number" min="1" max="60" inputmode="numeric" placeholder="Es. 2"><select id="arrU"><option value="">— scegli —</option><option value="settimane">settimane fa</option><option value="mesi">mesi fa</option><option value="anni">anni fa</option></select></div>
+<p class="hint">«Due anni fa» = un momento nel passato. «Da due anni» = e sono ancora qui.</p>
+<label for="figli">Hai figli?</label><select id="figli"></select>
+<label for="vivo">Con chi vivi?</label><select id="vivo"></select>
+<label for="lavPrima">Che lavoro facevi nel tuo paese? (facoltativo)</label><input id="lavPrima" autocomplete="off" placeholder="Senza articolo: muratore, cuoca, autista, studente">
+<label for="lavOra">E adesso?</label><select id="lavOra"><option value="">— scegli —</option><option value="lavoro">Lavoro</option><option value="cerco">Cerco lavoro</option><option value="studio">Studio italiano</option></select>
+<input id="lavOraTxt" hidden placeholder="Come che cosa lavori? (senza articolo)" style="margin-top:8px">
+<div class="lb">Che cosa ti piace fare nel tempo libero?</div><div class="chips" id="piace"></div>
+<p class="hint">Si dice sempre «mi piace» + verbo all’infinito: mi piace cucinare e leggere.</p>
+<label for="ieri">Che cosa hai fatto ieri?</label><select id="ieri"></select>
+<div class="out"><div class="t" id="t2"></div><div class="bar"><button class="btn" data-m="t2">🙈 Esercitati</button><button class="btn" data-c="t2">📋 Copia</button></div></div></section>
+
+<section><h2>3. Conosco gli altri</h2>
+<div class="lb">A chi parli?</div><div class="chips" id="reg"></div>
+<p class="hint">Con un compagno si dà del «tu», con il professore e con le autorità si dà del «Lei».</p>
+<div class="lb">Scegli le domande da fare</div><div class="chips" id="qs"></div>
+<div class="out"><div class="t" id="t3"></div><div class="bar"><button class="btn" data-m="t3">🙈 Esercitati</button><button class="btn" data-c="t3">📋 Copia</button></div></div>
+<div class="lb">Per continuare la conversazione</div><div class="ph2" id="frasi"></div></section>
+
+<div class="bar"><button class="btn p" id="all">📋 Copia tutto</button><button class="btn" id="rst">🗑 Ricomincia</button></div>
+<p class="hint" id="msg" aria-live="polite"></p>
+</div><script>
+const $=s=>document.querySelector(s),g=id=>document.getElementById(id);
+const C=[['Albania','dall’Albania'],['Bangladesh','dal Bangladesh'],['Brasile','dal Brasile'],['Cina','dalla Cina'],['Costa d’Avorio','dalla Costa d’Avorio'],['Ecuador','dall’Ecuador'],['Egitto','dall’Egitto'],['Filippine','dalle Filippine'],['Ghana','dal Ghana'],['India','dall’India'],['Marocco','dal Marocco'],['Moldavia','dalla Moldavia'],['Nigeria','dalla Nigeria'],['Pakistan','dal Pakistan'],['Perù','dal Perù'],['Romania','dalla Romania'],['Senegal','dal Senegal'],['Tunisia','dalla Tunisia'],['Ucraina','dall’Ucraina']];
+const LI=['arabo','francese','inglese','spagnolo','portoghese','rumeno','albanese','ucraino','russo','cinese','hindi','urdu','bengalese','punjabi','wolof','tigrino'];
+const PI=['cucinare','leggere','camminare','cantare','disegnare','ascoltare musica','guardare film','giocare a calcio','stare con gli amici','stare con la famiglia'];
+const FI=['Non ho figli','Ho un figlio','Ho una figlia','Ho due figli','Ho tre figli','Ho quattro figli','Ho più di quattro figli'];
+const VI=['Vivo da sol§','Vivo con la mia famiglia','Vivo con alcuni amici'];
+const IE=['Ieri sono andat§ a scuola.','Ieri ho lavorato.','Ieri ho studiato italiano.','Ieri sono rimast§ a casa.','Ieri ho cucinato per la mia famiglia.','Ieri sono uscit§ con gli amici.'];
+const Q=[['Come ti chiami?','Come si chiama?'],['Di dove sei?','Di dov’è?'],['Dove abiti?','Dove abita?'],['Da quanto tempo sei in Italia?','Da quanto tempo è in Italia?'],['Che lavoro fai?','Che lavoro fa?'],['Quali lingue parli?','Quali lingue parla?'],['Hai figli?','Ha figli?'],['Che cosa ti piace fare nel tempo libero?','Che cosa Le piace fare nel tempo libero?'],['Che cosa hai fatto ieri?','Che cosa ha fatto ieri?']];
+const FR=[['Che bello!','Che bello!'],['Davvero?','Davvero?'],['Anche a me!','Anche a me!'],['Mi dispiace.','Mi dispiace.'],['E tu?','E Lei?'],['Piacere mio!','Piacere mio!'],['Puoi ripetere, per favore?','Può ripetere, per favore?']];
+const W=['','un','due','tre','quattro','cinque','sei','sette','otto','nove','dieci','undici','dodici','tredici','quattordici','quindici','sedici','diciassette','diciotto','diciannove','venti'];
+const U={mesi:['un mese','mesi'],anni:['un anno','anni'],settimane:['una settimana','settimane']};
+const num=n=>n>=1&&n<=20?W[n]:String(n),per=(n,u)=>n==1?U[u][0]:num(n)+' '+U[u][1];
+const lst=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' e '+a[a.length-1];
+const v=id=>(g(id).value||'').trim(),sel=id=>[...document.querySelectorAll('#'+id+' .on')].map(b=>b.dataset.v);
+const tc=s=>s.replace(/(^|[\s’'-])(\p{L})/gu,(m,a,b)=>a+b.toUpperCase());
+function chips(id,items,single,def){const c=g(id);items.forEach(([val,lab])=>{const b=document.createElement('button');b.type='button';b.className='chip'+(val===def?' on':'');b.dataset.v=val;b.textContent=lab;b.onclick=()=>{if(single)[...c.children].forEach(x=>x.classList.remove('on'));b.classList.toggle('on',single?true:!b.classList.contains('on'));render()};c.appendChild(b)})}
+function opts(id,items,first){g(id).innerHTML=(first?'<option value="">— scegli —</option>':'')+items.map(([val,lab])=>'<option value="'+val+'">'+lab+'</option>').join('')}
+chips('gen',[['m','Maschile (sono arrivato)'],['f','Femminile (sono arrivata)']],true,'m');
+chips('lingue',LI.map(x=>[x,x]));chips('piace',PI.map(x=>[x,x]));
+chips('reg',[['t','Un compagno (tu)'],['l','Il professore (Lei)']],true,'t');
+chips('qs',Q.map((q,i)=>[String(i),q[0]]));
+opts('paese',C.map((c,i)=>[i,c[0]]).concat([['altro','Altro paese']]),true);
+opts('figli',FI.map(x=>[x,x]),true);opts('vivo',VI.map(x=>[x,x.replace('§','o/a')]),true);opts('ieri',IE.map(x=>[x,x.replace('§','o/a')]),true);
+function render(){const f=sel('gen')[0]!=='f',o=f?'o':'a',s=x=>x.replace(/§/g,o),B1=[],B2=[],B3=[];
+const nome=tc(v('nome'));if(nome)B1.push('Buongiorno, mi chiamo '+nome+'. Piacere!');
+const pi=v('paese');g('paeseAltro').hidden=pi!=='altro';let ori='';
+if(pi==='altro'){const t=v('paeseAltro');if(t)ori='Il mio paese è '+t}else if(pi!=='')ori='Vengo '+C[+pi][1];
+const co=tc(v('cittaOr'));if(co)ori=ori?ori+', sono di '+co:'Sono di '+co;if(ori)B1.push(ori+'.');
+const et=+v('eta');if(et>=14)B1.push('Ho '+et+' anni.');
+const ca=tc(v('cittaAb'));if(ca)B1.push('Abito '+(/^a/i.test(ca)?'ad ':'a ')+ca+'.');
+const li=sel('lingue');if(li.length)B1.push('Parlo '+lst(li)+'.');
+if(B1.length)B1.push('Sto imparando l’italiano.');
+const n=+v('arrN'),u=v('arrU');if(n>0&&u){B2.push('Sono arrivat'+o+' in Italia '+per(n,u)+' fa.');B2.push('Abito in Italia da '+per(n,u)+'.')}
+if(v('figli'))B2.push(v('figli')+'.');if(v('vivo'))B2.push(s(v('vivo'))+'.');
+const lp=v('lavPrima').toLowerCase();if(lp)B2.push('Nel mio paese lavoravo come '+lp+'.');
+const lo=v('lavOra');g('lavOraTxt').hidden=lo!=='lavoro';
+if(lo==='lavoro'){const t=v('lavOraTxt').toLowerCase();if(t)B2.push('Adesso lavoro come '+t+'.')}else if(lo==='cerco')B2.push('Adesso cerco lavoro.');else if(lo==='studio')B2.push('Adesso studio italiano.');
+const pl=sel('piace');if(pl.length)B2.push('Nel tempo libero mi piace '+lst(pl)+'.');
+if(v('ieri'))B2.push(s(v('ieri')));
+const r=sel('reg')[0]==='l'?1:0,qs=sel('qs').map(Number).sort((a,b)=>a-b);
+if(qs.length){B3.push(r?'Buongiorno! Posso farLe qualche domanda per conoscerLa meglio?':'Ciao! Posso farti qualche domanda per conoscerti meglio?');qs.forEach(i=>B3.push(Q[i][r]));B3.push(r?'La ringrazio per le risposte! È stato un piacere conoscerLa.':'Grazie per le risposte! È stato un piacere conoscerti.')}
+document.querySelectorAll('#qs .chip').forEach((b,j)=>b.textContent=Q[j][r]);g('frasi').innerHTML=FR.map(x=>'<span>'+x[r]+'</span>').join('');
+[[B1,'t1'],[B2,'t2'],[B3,'t3']].forEach(([b,id])=>{const e=g(id);e.textContent=b.length?b.join('\n'):'Compila i campi qui sopra: il tuo testo comparirà qui.';e.classList.toggle('ph',!b.length)});
+return[B1,B2,B3].map(b=>b.join('\n')).filter(Boolean).join('\n\n')}
+function copy(t){try{navigator.clipboard.writeText(t).then(()=>say('Testo copiato.'),()=>fb(t))}catch(e){fb(t)}}
+function fb(t){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');say('Testo copiato.')}catch(e){say('Non riesco a copiare: seleziona il testo e copialo a mano.')}a.remove()}
+function say(m){g('msg').textContent=m;setTimeout(()=>g('msg').textContent='',3000)}
+document.addEventListener('input',render);document.addEventListener('change',render);
+document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{const e=g(b.dataset.m);e.classList.toggle('mask');b.textContent=e.classList.contains('mask')?'👁 Mostra':'🙈 Esercitati'});
+document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{const e=g(b.dataset.c);if(!e.classList.contains('ph'))copy(e.textContent)});
+g('all').onclick=()=>{const t=render();if(t)copy(t);else say('Non c’è ancora nessun testo da copiare.')};
+g('rst').onclick=()=>{document.querySelectorAll('input,select').forEach(e=>e.value='');document.querySelectorAll('.chips').forEach(c=>{if(c.id!=='gen'&&c.id!=='reg')[...c.children].forEach(x=>x.classList.remove('on'))});document.querySelectorAll('.t').forEach(e=>e.classList.remove('mask'));document.querySelectorAll('[data-m]').forEach(b=>b.textContent='🙈 Esercitati');render()};
+render();
+</script></body></html>

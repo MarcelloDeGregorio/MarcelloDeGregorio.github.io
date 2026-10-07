@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Cittadini in Italia: le regole di base</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.25rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+#prompt{font-size:1.25rem;text-align:left}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+#opts{grid-template-columns:1fr}.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt .opt{min-height:60px;font-size:1rem}.opt.sel{border-color:var(--acc);background:var(--soft)}
+</style></head><body><div class="w">
+<section id="menu"><h1>Cittadini in Italia: le regole di base</h1>
+<div class="def">Il Paese, la Repubblica, la Costituzione, sanità, scuola, lavoro, diritti e doveri. Quiz, vero o falso, abbinamenti, riordino e risposte scritte. Le norme possono cambiare: per un caso personale rivolgiti al Comune, alla Questura, all’ASL o a un patronato.</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const AR=[['pa','🇮🇹 Il nostro paese'],['is','🏛️ La Repubblica e le istituzioni'],['co','📜 La Costituzione'],['sa','🏥 La sanità'],['ist','🏫 L’istruzione'],['la','💼 Il lavoro'],['dd','⚖️ Diritti e doveri'],['im','🧳 Chi arriva in Italia']];
+const KT={q:'Scegli la risposta',v:'Vero o falso?',k:'Diritto o dovere?',t:'Scrivi la risposta',o:'Metti in ordine',m:'Abbina'};
+const D=`pa|q|Qual è la capitale d’Italia?|Roma|Milano|Napoli|Firenze|
+pa|q|Qual è la lingua ufficiale della Repubblica italiana?|L’italiano|L’italiano e l’inglese|Il latino|Il dialetto di ogni regione|La legge n. 482 del 1999 dice che la lingua ufficiale è l’italiano; la Costituzione (art. 6) tutela anche le minoranze linguistiche
+pa|m|Abbina il mare e la sua posizione|Mar Adriatico=a est;Mar Tirreno=a ovest;Mar Ionio=a sud-est;Mar Ligure=a nord-ovest|L’Italia è una penisola: ha il mare su tre lati
+pa|q|Con quali Paesi ha un confine di terra l’Italia?|Francia, Svizzera, Austria e Slovenia|Spagna, Francia, Svizzera e Germania|Francia, Austria, Croazia e Albania|Svizzera, Germania, Slovenia e Grecia|Dentro l’Italia ci sono anche due piccoli Stati: San Marino e Città del Vaticano
+pa|t|Quante regioni ha l’Italia? Scrivi il numero.|20;venti|Cinque hanno uno statuto speciale: Valle d’Aosta, Trentino-Alto Adige, Friuli Venezia Giulia, Sardegna e Sicilia
+pa|q|Di che colori è la bandiera italiana?|Verde, bianco e rosso|Rosso, bianco e blu|Verde, bianco e giallo|Bianco, rosso e nero|Il tricolore è la bandiera della Repubblica (art. 12 della Costituzione)
+pa|q|Quale festa ricorda la nascita della Repubblica?|Il 2 giugno|Il 25 aprile|Il 1° maggio|Il 4 novembre|Il 2 giugno 1946 gli italiani votarono al referendum e scelsero la Repubblica
+pa|v|Il Canto degli Italiani («Fratelli d’Italia») è l’inno nazionale.|V|È l’inno della Repubblica: provvisorio dal 1946, ufficiale per legge dal 2017
+is|q|Che cosa significa che l’Italia è una Repubblica?|Il capo dello Stato è eletto e non è un re|Il capo dello Stato è un re|Il capo dello Stato è scelto da una famiglia|Non esiste il Parlamento|
+is|q|Chi è il Presidente della Repubblica?|Il capo dello Stato, garante dell’unità nazionale|Il capo del Governo|Il sindaco di Roma|Il giudice più importante|Il capo del Governo è il Presidente del Consiglio dei ministri
+is|q|Quanto dura il mandato del Presidente della Repubblica?|7 anni|4 anni|5 anni|10 anni|Art. 85 della Costituzione
+is|m|Abbina il potere e chi lo esercita|Fa le leggi=Il Parlamento;Governa il Paese=Il Governo;Giudica nei tribunali=La magistratura;Rappresenta la nazione=Il Presidente della Repubblica|I poteri sono distinti: legislativo, esecutivo, giudiziario
+is|q|Da quali due Camere è formato il Parlamento?|Camera dei deputati e Senato della Repubblica|Camera dei deputati e Consiglio dei ministri|Senato e Corte costituzionale|Camera dei Comuni e Senato|I parlamentari sono eletti dai cittadini
+is|q|Chi guida il Governo?|Il Presidente del Consiglio dei ministri|Il Presidente della Repubblica|Il Presidente della Camera|Il sindaco|
+is|q|Chi può votare alle elezioni politiche?|I cittadini italiani maggiorenni|Tutte le persone che vivono in Italia|Solo gli uomini|Chiunque abbia un lavoro|I cittadini dell’Unione europea possono votare alle elezioni comunali
+is|o|Metti in ordine, dal più piccolo al più grande|Comune;Regione;Stato italiano;Unione europea|
+is|q|Chi guida il Comune?|Il sindaco|Il presidente della Regione|Il prefetto|Il ministro|
+co|q|Quando è entrata in vigore la Costituzione?|Il 1° gennaio 1948|Il 2 giugno 1946|Il 17 marzo 1861|Il 25 aprile 1945|La Repubblica è nata nel 1946; il Regno d’Italia nel 1861
+co|t|Quanti sono gli articoli dei Principi fondamentali? Scrivi il numero.|12;dodici|Sono gli articoli da 1 a 12. In tutto la Costituzione ha 139 articoli
+co|q|Che cosa dice l’articolo 1?|L’Italia è una Repubblica democratica, fondata sul lavoro|L’Italia è un regno|L’Italia è fondata sul commercio|Il Governo decide tutto|La sovranità appartiene al popolo
+co|q|Che cosa dice l’articolo 3?|Tutti hanno pari dignità e sono uguali davanti alla legge|I ricchi hanno più diritti|Gli uomini valgono più delle donne|Solo chi è nato in Italia ha diritti|Senza distinzione di sesso, razza, lingua, religione, opinioni politiche e condizioni personali e sociali
+co|m|Abbina l’articolo e il tema|Art. 3=Uguaglianza;Art. 4=Lavoro;Art. 32=Salute;Art. 34=Scuola|
+co|q|Quale articolo dice che l’Italia ripudia la guerra?|Art. 11|Art. 4|Art. 52|Art. 21|
+co|q|Che cosa garantisce l’articolo 19?|La libertà di professare la propria fede religiosa|Il diritto di votare a 16 anni|Il diritto di non pagare le tasse|Il diritto di non andare a scuola|
+co|v|La Costituzione tutela i diritti fondamentali di ogni persona, anche se non è cittadina italiana.|V|Art. 2: la Repubblica riconosce i diritti inviolabili dell’uomo. Alcuni diritti, come il voto, sono riservati ai cittadini
+sa|q|Come si chiama la sanità pubblica italiana?|Servizio Sanitario Nazionale (SSN)|Istituto di previdenza|Servizio postale|Agenzia delle Entrate|È stato istituito nel 1978
+sa|q|Quale articolo della Costituzione tutela la salute?|Art. 32|Art. 4|Art. 34|Art. 53|
+sa|q|Quale numero chiami per un’emergenza grave, per esempio una persona che non respira?|112|911|116117|1522|Il 112 è il numero unico di emergenza: risponde per polizia, carabinieri, vigili del fuoco e soccorso sanitario
+sa|q|È sabato notte, hai la febbre alta e il medico di famiglia è chiuso, ma non è un’emergenza. Che cosa fai?|Chiamo la guardia medica (in molte regioni il 116117)|Aspetto lunedì senza fare niente|Chiamo il 112 per ogni piccolo problema|Chiedo le medicine a un vicino|Il 112 è per le emergenze vere
+sa|q|Chi è il medico di famiglia?|Il medico che scegli all’ASL; le sue visite sono gratuite|Un medico privato che si paga sempre|Il medico del pronto soccorso|Il farmacista|Per i bambini c’è il pediatra
+sa|q|Che cosa serve per usare il Servizio Sanitario?|La tessera sanitaria e l’iscrizione all’ASL|Solo il passaporto|Un’assicurazione privata|Il codice postale|Gli stranieri con permesso di soggiorno regolare possono iscriversi al SSN
+sa|o|Hai la febbre da due giorni. Metti in ordine|Chiamo il medico di famiglia;Il medico mi visita;Il medico fa la ricetta;Vado in farmacia|
+sa|q|Che cos’è il ticket?|Una parte del costo di visite ed esami che si paga in alcuni casi|La tessera sanitaria|Il biglietto dell’autobus|Il documento d’identità|Alcune persone sono esenti, per reddito o per malattia
+ist|q|Fino a che età la scuola è obbligatoria in Italia?|Fino a 16 anni|Fino a 14 anni|Fino a 18 anni|Non è obbligatoria|L’obbligo di istruzione dura 10 anni, da 6 a 16 anni. Poi la formazione continua fino a 18 anni (diritto-dovere)
+ist|o|Metti in ordine i gradi della scuola|Scuola primaria;Scuola secondaria di primo grado;Scuola secondaria di secondo grado;Università|
+ist|m|Abbina la scuola e l’età|Scuola dell’infanzia=3-6 anni;Scuola primaria=6-11 anni;Scuola media=11-14 anni;Scuola superiore=14-19 anni|
+ist|q|Chi ha il dovere di mandare i figli a scuola?|I genitori|Il Comune|Il sindaco|Nessuno|Art. 30 della Costituzione: è dovere e diritto dei genitori istruire ed educare i figli
+ist|v|Per iscrivere un bambino a scuola bisogna essere cittadini italiani.|F|Anche i minori stranieri hanno diritto all’istruzione e si iscrivono come gli italiani
+ist|q|Dove un adulto straniero può imparare l’italiano gratuitamente?|Al CPIA|Solo all’università|Alla posta|In farmacia|Il CPIA è il Centro provinciale per l’istruzione degli adulti: offre anche corsi per la licenza media
+ist|v|La scuola dell’infanzia (materna) è obbligatoria.|F|Non è obbligatoria: accoglie i bambini da 3 a 6 anni
+ist|q|Quale articolo della Costituzione dice che la scuola è aperta a tutti?|Art. 34|Art. 1|Art. 53|Art. 139|
+la|q|Su che cosa è fondata la Repubblica, secondo l’articolo 1?|Sul lavoro|Sul denaro|Sul commercio|Sull’esercito|
+la|q|Quale articolo riconosce il diritto al lavoro?|Art. 4|Art. 32|Art. 54|Art. 12|
+la|q|In generale, qual è l’età minima per lavorare in Italia?|16 anni|14 anni|18 anni|12 anni|Prima bisogna aver finito l’obbligo di istruzione
+la|v|Ogni lavoratore ha diritto a ricevere la busta paga.|V|La busta paga mostra lo stipendio, le tasse e i contributi
+la|q|Che cosa sono i contributi?|Soldi versati per la pensione e altre tutele, come malattia e maternità|Un regalo del datore di lavoro|Una tassa sulla casa|Il costo della tessera sanitaria|
+la|q|Che cos’è il lavoro «in nero»?|Un lavoro senza contratto e senza contributi: è illegale|Un lavoro di notte|Un lavoro molto pagato|Un lavoro in fabbrica|Chi lavora in nero non ha tutele per malattia, infortunio e pensione
+la|q|Sei malato e non puoi lavorare. Che cosa fai?|Avviso subito il datore di lavoro e chiedo il certificato al medico|Non vado e non dico niente|Vado al lavoro anche se sto molto male|Mando un amico al mio posto|Il certificato medico viene inviato online all’INPS
+la|m|Abbina la parola e il suo significato|Contratto=L’accordo scritto sul lavoro;Stipendio=I soldi che ricevi ogni mese;Contributi=Soldi per la pensione;Codice fiscale=Il numero per le tasse|
+la|v|A parità di lavoro, una donna e un uomo hanno diritto alla stessa retribuzione.|V|Art. 37 della Costituzione
+dd|k|Pagare le tasse|Dovere|Art. 53: tutti contribuiscono alle spese pubbliche secondo le proprie possibilità
+dd|k|Professare la propria religione|Diritto|Art. 19
+dd|k|Essere curati dal Servizio Sanitario|Diritto|Art. 32
+dd|k|Rispettare le leggi|Dovere|Art. 54; le leggi valgono per tutte le persone che vivono in Italia
+dd|k|Mandare i figli a scuola|Dovere|Art. 30 e legge sull’obbligo di istruzione
+dd|k|Esprimere liberamente le proprie idee|Diritto|Art. 21
+dd|k|Rispettare gli altri e aiutare chi ha bisogno|Dovere|Art. 2: doveri di solidarietà
+dd|k|Essere uguali davanti alla legge|Diritto|Art. 3
+dd|k|Ricevere uno stipendio giusto|Diritto|Art. 36
+im|q|Quando devi chiedere il rinnovo del permesso di soggiorno?|Prima che scada|Dopo che è scaduto|Mai: il permesso dura per sempre|Solo se ho tempo|La richiesta va fatta prima della scadenza: controlla sul sito della Questura quanti giorni prima
+im|q|Se cambi casa, che cosa devi fare?|Comunicare il cambio di residenza al Comune|Niente|Avvisare la farmacia|Scrivere al Presidente della Repubblica|Di solito entro 20 giorni dal trasferimento
+im|v|Chi vive in Italia deve rispettare le leggi italiane, anche se è straniero.|V|La legge vale per tutti
+im|q|Che cosa è un reato in Italia?|Fare violenza a una persona, anche in famiglia|Parlare la propria lingua a casa|Pregare nel proprio luogo di culto|Cucinare i cibi del proprio Paese|Si può parlare la propria lingua, pregare e mangiare come si vuole: ma bisogna rispettare la dignità degli altri
+im|q|Che cosa aiuta di più a vivere bene in Italia?|Imparare l’italiano e conoscere le regole|Dimenticare la propria cultura|Vivere senza regole|Non parlare con nessuno|Non devi dimenticare la tua cultura: devi rispettare la Costituzione e le leggi
+im|q|La polizia ti chiede i documenti. Che cosa fai?|Mostro il documento o il permesso di soggiorno|Scappo|Do un nome falso|Dico che non ho niente|È un dovere esibire i documenti quando le autorità lo chiedono
+im|v|Chi riceve uno stipendio deve pagare le tasse.|V|Art. 53: le tasse servono per scuola, sanità, strade e servizi pubblici
+im|q|Dopo quanti anni di residenza legale uno straniero extra-UE può chiedere la cittadinanza italiana?|10 anni|1 anno|3 anni|20 anni|Servono anche altri requisiti, per esempio il reddito e la conoscenza dell’italiano. Per i cittadini UE bastano 4 anni`;
+const B=D.split('\n').map(l=>l.split('|')).map(a=>({r:a[0],k:a[1],x:a[2],a:a.slice(3)}));
+const MENU=[{k:'ar',t:'Di che cosa parliamo?',o:[['tutti','🎲 Tutto']].concat(AR)}];
+function mk(b){const a=b.a,lab=AR.find(z=>z[0]==b.r)[1],Z=o=>Object.assign({t:lab+' · '+KT[b.k],h:'<b>'+b.x+'</b>',n:''},o);
+if(b.k=='q')return Z({k:'c',o:sh(a.slice(0,4)),a:a[0],f:a[0],n:a[4]||''});
+if(b.k=='v')return Z({k:'c',o:['✅ Vero','❌ Falso'],a:a[0]=='V'?'✅ Vero':'❌ Falso',f:a[0]=='V'?'vero':'falso',n:a[1]||''});
+if(b.k=='k')return Z({k:'c',o:['Diritto','Dovere'],a:a[0],f:a[0],n:a[1]||''});
+if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''});
+if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
+const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach((t,n)=>bt((n+1)+'. '+t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}
+if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
+q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
+sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+menu();
+</script></body></html>

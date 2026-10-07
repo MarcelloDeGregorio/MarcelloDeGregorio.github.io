@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>I nomi e le loro classificazioni</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.25rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+#prompt{font-size:1.25rem;text-align:left}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+#opts{grid-template-columns:1fr}.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt .opt{min-height:60px;font-size:1rem}.opt.sel{border-color:var(--acc);background:var(--soft)}
+.tabs{display:flex;gap:8px;margin:8px 0 12px}.lz h1{font-size:1.5rem}.lz h2{font-size:1.2rem;margin:1.2em 0 .3em}.lz p,.lz li{font-size:1.05rem}
+table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,.tb td{border:1px solid var(--line);padding:6px 8px;text-align:left}.tb th{background:var(--soft)}
+.ex{background:var(--soft);box-shadow:0 0 0 2px var(--soft);border-radius:4px;padding:0}.box{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+</style></head><body><div class="w"><div class="tabs"><button class="chip on" id="tb1">📖 Spiega</button><button class="chip" id="tb2">🎮 Esercitati</button></div><section id="lez"><div class="lz"><h1>Il nome e le sue classificazioni</h1>
+<p>Il <b>nome</b> è la parola che dà il nome a persone, animali, cose, luoghi e idee: <span class="ex">Anna</span>, <span class="ex">gatto</span>, <span class="ex">tavolo</span>, <span class="ex">Roma</span>, <span class="ex">felicità</span>.</p>
+<h2>1. Comuni e propri</h2>
+<ul><li><b>Comune</b>: nome generale, minuscolo: città, ragazzo, fiume.</li><li><b>Proprio</b>: nome di una persona o di un luogo preciso, con la maiuscola: Marco, Roma, Italia, Po.</li></ul>
+<h2>2. Concreti e astratti</h2>
+<ul><li><b>Concreto</b>: si può vedere o toccare: tavolo, pane, mano.</li><li><b>Astratto</b>: è un’idea, un sentimento, una qualità: felicità, amicizia, coraggio, libertà.</li></ul>
+<h2>3. Individuali e collettivi</h2>
+<ul><li><b>Individuale</b>: indica un solo essere o una sola cosa: scolaro, albero, pecora.</li><li><b>Collettivo</b>: è singolare ma indica un gruppo: classe, folla, gregge, popolo, famiglia.</li></ul>
+<h2>4. Il genere: maschile e femminile</h2>
+<ul><li>Cambiano la finale: bambin<b>o</b> / bambin<b>a</b>, maestr<b>o</b> / maestr<b>a</b>.</li><li>Hanno parole diverse: uomo / donna, padre / madre, fratello / sorella.</li><li>Hanno un solo genere: il tavolo (m.), la sedia (f.), il problema (m.), la mano (f.).</li><li>Alcuni nomi in -e sono maschili (il fiore, il cane), altri femminili (la notte, la madre): si imparano con l’articolo.</li><li>Alcuni nomi sono uguali al maschile e al femminile: il cantante / la cantante, il collega / la collega.</li></ul>
+<h2>5. Il numero: singolare e plurale</h2>
+<table class="tb"><tr><th>Finale</th><th>Plurale</th><th>Esempio</th></tr><tr><td>-o</td><td>-i</td><td>libro → libri</td></tr><tr><td>-a</td><td>-e</td><td>casa → case</td></tr><tr><td>-e</td><td>-i</td><td>fiore → fiori, notte → notti</td></tr></table>
+<ul><li><b>-ca, -ga → -che, -ghe</b> (si aggiunge la h): amica → amiche, riga → righe.</li><li><b>-co, -go</b>: di solito -chi, -ghi (gioco → giochi, lago → laghi), ma amico → amici. Si imparano uno per uno.</li><li><b>-cia, -gia</b>: arancia → arance, pioggia → piogge, camicia → camicie.</li><li><b>Irregolari</b>: uomo → uomini, mano → mani, uovo → uova.</li><li><b>Invariabili</b> (uguali al plurale): città, caffè, film, bar, sport.</li></ul>
+<div class="box">Per riconoscere il genere e il numero guarda l’articolo: <span class="ex">il libro</span> (m. sing.), <span class="ex">le case</span> (f. plur.).</div></div>
+</section><div id="gm" hidden>
+<section id="menu"><h1>I nomi e le loro classificazioni</h1>
+<div class="def">Prima leggi la spiegazione, poi esercitati: nomi comuni e propri, concreti e astratti, individuali e collettivi, genere e numero.</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section></div>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const AR=[['cp','🔠 Comuni e propri'],['ca','💭 Concreti e astratti'],['ic','👥 Individuali e collettivi'],['ge','♂♀ Il genere'],['nu','🔢 Il numero (plurale)']];
+const KT={q:'Scegli la risposta',v:'Vero o falso?',k:'Che tipo di nome è?',t:'Scrivi la risposta',o:'Metti in ordine',m:'Abbina'};
+const D=`cp|k|Roma|Proprio|Comune|Si scrive con la maiuscola
+cp|k|città|Comune|Proprio|
+cp|k|Marco|Proprio|Comune|
+cp|k|ragazzo|Comune|Proprio|
+cp|k|Italia|Proprio|Comune|
+cp|k|fiume|Comune|Proprio|
+cp|k|Po|Proprio|Comune|È il nome di un fiume preciso
+cp|q|Quale di questi nomi si scrive con la maiuscola?|Napoli|città|gatto|tavolo|Napoli è un nome proprio
+cp|v|I nomi propri si scrivono con la maiuscola.|V|Marco, Roma, Italia
+ca|k|tavolo|Concreto|Astratto|Si può toccare
+ca|k|felicità|Astratto|Concreto|È un sentimento
+ca|k|pane|Concreto|Astratto|
+ca|k|coraggio|Astratto|Concreto|È una qualità
+ca|k|amicizia|Astratto|Concreto|
+ca|k|mano|Concreto|Astratto|
+ca|k|libertà|Astratto|Concreto|
+ca|q|Quale di questi nomi è astratto?|speranza|sedia|gatto|scuola|La speranza non si può toccare
+ic|k|classe|Collettivo|Individuale|È singolare ma indica un gruppo di alunni
+ic|k|scolaro|Individuale|Collettivo|
+ic|k|folla|Collettivo|Individuale|
+ic|k|albero|Individuale|Collettivo|
+ic|k|gregge|Collettivo|Individuale|È un gruppo di pecore
+ic|k|famiglia|Collettivo|Individuale|
+ic|k|pecora|Individuale|Collettivo|
+ic|q|Un nome collettivo è singolare ma indica…|un gruppo|una sola cosa|un’idea|un luogo|
+ge|k|notte|Femminile|Maschile|Alcuni nomi in -e sono femminili: la notte
+ge|k|fiore|Maschile|Femminile|Il fiore
+ge|k|sedia|Femminile|Maschile|
+ge|k|cane|Maschile|Femminile|Il cane
+ge|k|mano|Femminile|Maschile|La mano è femminile anche se finisce in -o
+ge|k|problema|Maschile|Femminile|Il problema è maschile anche se finisce in -a
+ge|q|Quale nome ha la stessa forma al maschile e al femminile?|cantante|bambino|maestro|amico|Il cantante / la cantante
+ge|m|Abbina il maschile e il femminile|padre=madre;fratello=sorella;uomo=donna;maestro=maestra|
+nu|q|Il plurale di «libro» è…|libri|libre|libra|libros|
+nu|q|Il plurale di «casa» è…|case|casi|cass|casae|«Casi» è il plurale di «caso»
+nu|q|Il plurale di «fiore» è…|fiori|fiore|fiora|fiorie|
+nu|q|Il plurale di «notte» è…|notti|notte|notta|notto|
+nu|q|Il plurale di «amica» è…|amiche|amichi|amici|amicie|-ca → -che
+nu|q|Il plurale di «amico» è…|amici|amichi|amiche|amico|Amico è un’eccezione: amici
+nu|q|Il plurale di «lago» è…|laghi|lagi|laghe|lago|-go → -ghi di solito
+nu|q|Il plurale di «gioco» è…|giochi|gioci|giochè|gioco|
+nu|q|Il plurale di «arancia» è…|arance|arancie|arancia|arancii|Dopo consonante: arancia → arance
+nu|q|Il plurale di «camicia» è…|camicie|camice|camicia|camicii|Dopo vocale: camicia → camicie
+nu|q|Il plurale di «uomo» è…|uomini|uomi|uomo|uomoi|È irregolare
+nu|q|Il plurale di «uovo» è…|uova|uovi|uove|uovo|È irregolare: le uova
+nu|q|Il plurale di «città» è…|città|citti|cittè|cittài|È invariabile
+nu|m|Abbina il singolare e il plurale|uomo=uomini;mano=mani;uovo=uova;città=città|
+nu|t|Scrivi il plurale di «amica»|amiche|-ca → -che
+nu|t|Scrivi il plurale di «lago»|laghi|
+nu|t|Scrivi il plurale di «film»|film|È invariabile`;
+const B=D.split('\n').map(l=>l.split('|')).map(a=>({r:a[0],k:a[1],x:a[2],a:a.slice(3)}));
+
+const MENU=[{k:'ar',t:'Che cosa vuoi esercitare?',o:[['tutti','🎲 Tutto']].concat(AR)}];
+function mk(b){const a=b.a,lab=AR.find(z=>z[0]==b.r)[1],Z=o=>Object.assign({t:lab+' · '+KT[b.k],h:'<b>'+b.x+'</b>',n:''},o);
+if(b.k=='q')return Z({k:'c',o:sh(a.slice(0,4)),a:a[0],f:a[0],n:a[4]||''});
+if(b.k=='v')return Z({k:'c',o:['✅ Vero','❌ Falso'],a:a[0]=='V'?'✅ Vero':'❌ Falso',f:a[0]=='V'?'vero':'falso',n:a[1]||''});
+if(b.k=='k')return Z({k:'c',o:sh([a[0],a[1]]),a:a[0],f:a[0],n:a[2]||''});
+if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''});
+if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
+const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'').replace(/'/g,'’');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach((t,n)=>bt((n+1)+'. '+t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}
+if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
+q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
+sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+$('#tb1').onclick=()=>{$('#lez').hidden=false;$('#gm').hidden=true;$('#tb1').classList.add('on');$('#tb2').classList.remove('on')};$('#tb2').onclick=()=>{$('#lez').hidden=true;$('#gm').hidden=false;$('#tb2').classList.add('on');$('#tb1').classList.remove('on')};
+menu();
+</script></body></html>
