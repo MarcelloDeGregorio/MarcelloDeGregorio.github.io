@@ -4,62 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>C. Marcello De Gregorio</title>
+    <title>Didattica per adulti · C. Marcello De Gregorio</title>
 
     <style>
         body {
             font-family: Georgia, "Times New Roman", serif;
             max-width: 900px;
             margin: 0 auto;
-            padding: 60px 30px;
+            padding: 50px 30px;
             color: #222;
             background: #f8f7f4;
             line-height: 1.7;
         }
 
         header {
-            text-align: center;
-            padding-bottom: 45px;
+            margin-bottom: 50px;
         }
 
         h1 {
-            font-size: 44px;
+            font-size: 40px;
             font-weight: normal;
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
         }
 
-        .sottotitolo {
-            font-family: Arial, Helvetica, sans-serif;
+        .introduzione {
             font-size: 18px;
-            color: #666;
-            letter-spacing: 0.5px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 40px;
-        }
-
-        nav a {
-            font-family: Arial, Helvetica, sans-serif;
-            text-decoration: none;
-            color: #333;
-            border: 1px solid #999;
-            padding: 10px 18px;
-            border-radius: 4px;
-            background: #fff;
-        }
-
-        nav a:hover {
-            background: #eee;
-        }
-
-        section {
-            margin-top: 60px;
-            padding-top: 10px;
+            color: #555;
+            max-width: 750px;
         }
 
         h2 {
@@ -67,14 +38,54 @@
             font-weight: normal;
             border-bottom: 1px solid #bbb;
             padding-bottom: 8px;
+            margin-top: 45px;
         }
 
-        p {
-            font-size: 17px;
+        .esercizio {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 22px 25px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .esercizio h3 {
+            margin-top: 0;
+            font-size: 21px;
+            font-weight: normal;
+        }
+
+        .esercizio p {
+            font-size: 16px;
+        }
+
+        .avvia {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 9px 18px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        .avvia:hover {
+            background: #555;
+        }
+
+        .torna {
+            display: inline-block;
+            margin-top: 50px;
+            color: #555;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
         }
 
         footer {
-            margin-top: 80px;
+            margin-top: 70px;
             padding-top: 20px;
             border-top: 1px solid #ccc;
             text-align: center;
@@ -89,72 +100,43 @@
 
     <header>
 
-        <h1>C. Marcello De Gregorio</h1>
+        <h1>Didattica per adulti</h1>
 
-        <div class="sottotitolo">
-            Studioso di filosofia politica · Docente · Scrittore
-        </div>
-
-        <nav>
-            <a href="#filosofia">Filosofia e ricerca</a>
-            <a href="#pubblicazioni">Pubblicazioni</a>
-            <a href="#didattica">Didattica per adulti</a>
-            <a href="#contatti">Contatti</a>
-        </nav>
+        <p class="introduzione">
+            Esercitazioni e applicazioni interattive per l'apprendimento
+            della lingua italiana, pensate in particolare per studenti
+            adulti di recente integrazione.
+        </p>
 
     </header>
 
 
-    <section id="filosofia">
+    <main>
 
-        <h2>Filosofia e ricerca</h2>
+        <h2>Esercitazioni</h2>
 
-        <p>
-            Ricerca e studi nell'ambito della filosofia politica,
-            con particolare attenzione ai processi di soggettivazione
-            e alla teoria critica contemporanea.
-        </p>
+        <div class="esercizio">
 
-    </section>
+            <h3>Frase minima ed espansioni</h3>
 
+            <p>
+                Esercizio interattivo per riconoscere la struttura
+                della frase minima e le sue principali espansioni.
+            </p>
 
-    <section id="pubblicazioni">
+            <a class="avvia" href="#">
+                Avvia esercizio
+            </a>
 
-        <h2>Pubblicazioni</h2>
-
-        <p>
-            Libri, saggi e altre pubblicazioni.
-        </p>
-
-    </section>
+        </div>
 
 
-    <section id="didattica">
-
-        <h2>Didattica per adulti</h2>
-
-        <p>
-            Esercitazioni e applicazioni interattive per
-            l'apprendimento della lingua italiana.
-        </p>
-
-        <p>
-            Le attività didattiche saranno disponibili
-            direttamente online.
-        </p>
-
-    </section>
+    </main>
 
 
-    <section id="contatti">
-
-        <h2>Contatti</h2>
-
-        <p>
-            Informazioni e contatti.
-        </p>
-
-    </section>
+    <a class="torna" href="index.html">
+        ← Torna alla pagina principale
+    </a>
 
 
     <footer>
