@@ -1,86 +1,388 @@
-<article class="monografia">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <h3>Dall'immagine alla vita</h3>
+    <title>Pubblicazioni · C. Marcello De Gregorio</title>
 
-    <div class="sottotitolo">
-        Introduzione alla cinefilosofia di Gilles Deleuze
-    </div>
+    <style>
 
-    <div class="dati-editoriali">
-        Aracne, 2012
-    </div>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 30px;
+            color: #222;
+            background: #f8f7f4;
+            line-height: 1.7;
+        }
 
-    <div class="disponibilita">
-        Disponibile anche su
-        <a href="https://amzn.eu/d/02FMQgOj" target="_blank">Amazon</a>,
-        in formato cartaceo e e-book.
-    </div>
+        header {
+            text-align: center;
+            padding-bottom: 25px;
+        }
 
-</article>
+        h1 {
+            font-size: 40px;
+            font-weight: normal;
+            margin: 0 0 10px 0;
+        }
 
-
-<article class="monografia">
-
-    <h3>
-        Stato e mauvais sujet tra riproduzione e linee di fuga
-    </h3>
-
-    <div class="sottotitolo">
-        Ideologia e processi di soggettivazione in Althusser,
-        Deleuze e Guattari. Vol. I: Interpellazioni e surdeterminazioni
-    </div>
-
-    <div class="dati-editoriali">
-        Mimesis, 2020
-    </div>
-
-    <div class="disponibilita">
-        Disponibile anche su
-        <a href="https://www.amazon.it/riproduzione-Ideologia-soggettivazione-Interpellazioni-surdeterminazioni/dp/8857570606" target="_blank">Amazon</a>,
-        in formato cartaceo e e-book.
-    </div>
-
-</article>
+        .introduzione {
+            font-size: 18px;
+            color: #666;
+            margin: 0;
+        }
 
 
-<article class="monografia">
+        /* MENU PRINCIPALE */
 
-    <h3>Dal segno alla macchina</h3>
+        .menu-pagine {
+            text-align: center;
+            margin: 20px 0 45px 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
 
-    <div class="sottotitolo">
-        Strutturalismo, post-strutturalismo e macchinismo
-        spiegati per tutti e messi a confronto
-    </div>
+        .menu-pagine a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 7px;
+        }
 
-    <div class="dati-editoriali">
-        PhiloBooks Edizioni, 2026
-    </div>
+        .menu-pagine a:hover {
+            color: #222;
+            text-decoration: underline;
+        }
 
-    <div class="disponibilita">
-        Disponibile anche su
-        <a href="https://amzn.eu/d/0d3JVhMD" target="_blank">Amazon</a>,
-        in formato cartaceo e e-book.
-    </div>
-
-</article>
+        .menu-pagine .pagina-attiva {
+            color: #222;
+            text-decoration: underline;
+            font-weight: bold;
+        }
 
 
-<article class="monografia">
+        /* SEZIONE MONOGRAFIE */
 
-    <h3>Lessico contemporaneo del marxismo</h3>
+        h2 {
+            font-size: 28px;
+            font-weight: normal;
+            border-bottom: 1px solid #bbb;
+            padding-bottom: 8px;
+            margin-top: 45px;
+            margin-bottom: 35px;
+        }
 
-    <div class="sottotitolo">
-        Da Marx al capitalismo cognitivo. Un glossario per il XXI secolo
-    </div>
 
-    <div class="dati-editoriali">
-        PhiloBooks Edizioni, 2026 · II edizione, 2026
-    </div>
+        /* SINGOLA MONOGRAFIA */
 
-    <div class="disponibilita">
-        Disponibile anche su
-        <a href="https://amzn.eu/d/0e4Zjpvl" target="_blank">Amazon</a>,
-        in formato cartaceo e e-book.
-    </div>
+        .monografia {
+            display: flex;
+            gap: 30px;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 25px;
+            margin-bottom: 65px;
+            border-radius: 4px;
+        }
 
-</article>
+
+        /* SPAZIO PER LA COPERTINA */
+
+        .copertina {
+            width: 150px;
+            min-width: 150px;
+            height: 220px;
+            border: 1px solid #ddd;
+            background: #f3f2ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #999;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+
+        .contenuto-monografia {
+            flex: 1;
+        }
+
+        .monografia h3 {
+            margin: 0 0 12px 0;
+            font-size: 22px;
+            font-weight: normal;
+            line-height: 1.4;
+        }
+
+        .sottotitolo {
+            font-style: italic;
+            font-size: 17px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .dati-editoriali {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .disponibilita {
+            margin-top: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        .disponibilita a {
+            color: #555;
+        }
+
+        .disponibilita a:hover {
+            color: #222;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 80px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            color: #777;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+
+        /* VISUALIZZAZIONE SU SCHERMI PICCOLI */
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .monografia {
+                display: block;
+                padding: 20px;
+                margin-bottom: 50px;
+            }
+
+            .copertina {
+                width: 150px;
+                margin: 0 auto 25px auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <h1>Pubblicazioni</h1>
+
+        <p class="introduzione">
+            Libri, saggi e altri contributi di C. Marcello De Gregorio.
+        </p>
+
+    </header>
+
+
+    <!-- MENU DI NAVIGAZIONE -->
+
+    <nav class="menu-pagine">
+
+        <a href="index.html">Home</a>
+
+        <a href="index.html#filosofia">
+            Filosofia e ricerca
+        </a>
+
+        <a href="pubblicazioni.html" class="pagina-attiva">
+            Pubblicazioni
+        </a>
+
+        <a href="didattica.html">
+            Didattica per adulti
+        </a>
+
+        <a href="index.html#contatti">
+            Contatti
+        </a>
+
+    </nav>
+
+
+    <main>
+
+
+        <h2>Monografie</h2>
+
+
+        <!-- LIBRO 1 -->
+
+        <article class="monografia">
+
+            <div class="copertina">
+                Copertina
+            </div>
+
+            <div class="contenuto-monografia">
+
+                <h3>
+                    Dall'immagine alla vita
+                </h3>
+
+                <div class="sottotitolo">
+                    Introduzione alla cinefilosofia di Gilles Deleuze
+                </div>
+
+                <div class="dati-editoriali">
+                    Aracne, 2012
+                </div>
+
+                <div class="disponibilita">
+                    Disponibile anche su
+                    <a href="https://amzn.eu/d/02FMQgOj" target="_blank">
+                        Amazon
+                    </a>,
+                    in formato cartaceo e e-book.
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- LIBRO 2 -->
+
+        <article class="monografia">
+
+            <div class="copertina">
+                Copertina
+            </div>
+
+            <div class="contenuto-monografia">
+
+                <h3>
+                    Stato e mauvais sujet tra riproduzione e linee di fuga
+                </h3>
+
+                <div class="sottotitolo">
+                    Ideologia e processi di soggettivazione in Althusser,
+                    Deleuze e Guattari. Vol. I: Interpellazioni e surdeterminazioni
+                </div>
+
+                <div class="dati-editoriali">
+                    Mimesis, 2020
+                </div>
+
+                <div class="disponibilita">
+                    Disponibile anche su
+                    <a href="https://www.amazon.it/riproduzione-Ideologia-soggettivazione-Interpellazioni-surdeterminazioni/dp/8857570606" target="_blank">
+                        Amazon
+                    </a>,
+                    in formato cartaceo e e-book.
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- LIBRO 3 -->
+
+        <article class="monografia">
+
+            <div class="copertina">
+                Copertina
+            </div>
+
+            <div class="contenuto-monografia">
+
+                <h3>
+                    Dal segno alla macchina
+                </h3>
+
+                <div class="sottotitolo">
+                    Strutturalismo, post-strutturalismo e macchinismo
+                    spiegati per tutti e messi a confronto
+                </div>
+
+                <div class="dati-editoriali">
+                    PhiloBooks Edizioni, 2026
+                </div>
+
+                <div class="disponibilita">
+                    Disponibile anche su
+                    <a href="https://amzn.eu/d/0d3JVhMD" target="_blank">
+                        Amazon
+                    </a>,
+                    in formato cartaceo e e-book.
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- LIBRO 4 -->
+
+        <article class="monografia">
+
+            <div class="copertina">
+                Copertina
+            </div>
+
+            <div class="contenuto-monografia">
+
+                <h3>
+                    Lessico contemporaneo del marxismo
+                </h3>
+
+                <div class="sottotitolo">
+                    Da Marx al capitalismo cognitivo.
+                    Un glossario per il XXI secolo
+                </div>
+
+                <div class="dati-editoriali">
+                    PhiloBooks Edizioni, 2026 · II edizione, 2026
+                </div>
+
+                <div class="disponibilita">
+                    Disponibile anche su
+                    <a href="https://amzn.eu/d/0e4Zjpvl" target="_blank">
+                        Amazon
+                    </a>,
+                    in formato cartaceo e e-book.
+                </div>
+
+            </div>
+
+        </article>
+
+
+    </main>
+
+
+    <footer>
+        © C. Marcello De Gregorio
+    </footer>
+
+
+</body>
+</html>
