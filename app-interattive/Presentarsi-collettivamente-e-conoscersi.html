@@ -30,7 +30,10 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
 .fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
 #end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
-#opts{grid-template-columns:1fr}#prompt{font-size:1.25rem}#prompt small{font-size:1.05rem}</style></head><body><div class="w">
+#opts{grid-template-columns:1fr}#prompt{font-size:1.25rem}#prompt small{font-size:1.05rem}.btn.alt{border:2px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
+:root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
+</style></head><body><div class="w">
 <section id="menu"><h1>Presentarsi e conoscersi</h1><div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
 <section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
 <div id="tag"></div><div id="prompt"></div><div id="opts"></div><div class="fb" id="fb" aria-live="polite"></div>

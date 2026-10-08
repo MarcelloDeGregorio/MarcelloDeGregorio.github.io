@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Gli articoli</title>
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Studiare, credere, partire</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
 :root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -30,8 +30,11 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
 .fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
 #end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.btn.alt{border:2px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
+:root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
 </style></head><body><div class="w">
-<section id="menu"><h1>Gli articoli</h1><div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="menu"><h1>Studiare, credere, partire</h1><div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
 <section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
 <div id="tag"></div><div id="prompt"></div><div id="opts"></div><div class="fb" id="fb" aria-live="polite"></div>
 <button class="btn" id="next" hidden>Avanti</button></section>
@@ -52,19 +55,21 @@ function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').te
 $('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
 $('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;
 
-const N=[['libro','libri','m','📖'],['zaino','zaini','m','🎒'],['studente','studenti','m','🧑‍🎓'],['specchio','specchi','m','🪞'],['albero','alberi','m','🌳'],['amico','amici','m','🧑'],['gatto','gatti','m','🐱'],['treno','treni','m','🚆'],['telefono','telefoni','m','📱'],['orologio','orologi','m','⌚'],['ombrello','ombrelli','m','☂️'],['pesce','pesci','m','🐟'],
-['casa','case','f','🏠'],['scuola','scuole','f','🏫'],['mela','mele','f','🍎'],['amica','amiche','f','👩'],['arancia','arance','f','🍊'],['ora','ore','f','🕐'],['sedia','sedie','f','🪑'],['penna','penne','f','🖊️'],['automobile','automobili','f','🚗'],['isola','isole','f','🏝️'],['zebra','zebre','f','🦓'],['chiave','chiavi','f','🔑'],['scarpa','scarpe','f','👟']];
-const vow=w=>/^[aeiou]/i.test(w),sp=w=>/^(z|s[^aeiou]|gn|ps|x|y)/i.test(w);
-function art(w,g,pl,ind){if(ind)return g=='f'?(vow(w)?"un'":'una'):(sp(w)?'uno':'un');if(g=='f')return pl?'le':(vow(w)?"l'":'la');return pl?((vow(w)||sp(w))?'gli':'i'):(vow(w)?"l'":sp(w)?'lo':'il')}
-function why(w,g,pl,ind){if(ind)return g=='f'?(vow(w)?'femminile davanti a vocale: un’ (con apostrofo)':'femminile: una'):(sp(w)?'maschile davanti a z, s+consonante, gn, ps: uno':'maschile: un');
-if(g=='f')return pl?'femminile plurale: le':vow(w)?'femminile davanti a vocale: l’':'femminile singolare: la';
-return pl?((vow(w)||sp(w))?'maschile plurale davanti a vocale, z, s+consonante, gn, ps: gli':'maschile plurale davanti a consonante: i'):(vow(w)?'davanti a vocale: l’':sp(w)?'davanti a z, s+consonante, gn, ps: lo':'davanti a consonante: il')}
-const MENU=[{k:'mode',t:'Quali articoli?',o:[['det','il · lo · la · i · gli · le'],['ind','un · uno · una · un’'],['tutti','Tutti']]}];
-function build(c){const r=[],m=c.mode;
-N.forEach(([s,p,g,e])=>{[[0,0],[1,0],[0,1]].forEach(([pl,ind])=>{if(ind&&pl)return;if(m=='det'&&ind)return;if(m=='ind'&&!ind)return;
-const w=pl?p:s,a=art(w,g,pl,ind),o=ind?sh(["un","uno","una","un'"]):sh([a,...sh(['il','lo',"l'",'la','i','gli','le'].filter(x=>x!=a)).slice(0,3)]);
-const full=a+(a.endsWith("'")?'':' ')+w;
-r.push({t:ind?'Articolo indeterminativo':'Articolo determinativo',h:'<span class=em>'+(pl?e+e:e)+'</span><br><small>'+(pl?'più di uno':'uno')+'</small><br>___ <b>'+w+'</b>',o:o,a:a,f:full,s:full,n:why(w,g,pl,ind)})})});return r}
+const P=['io','tu','lui','lei','noi','voi','loro'];
+const F={studiare:{presente:['studio','studi','studia','studia','studiamo','studiate','studiano'],passato:['ho studiato','hai studiato','ha studiato','ha studiato','abbiamo studiato','avete studiato','hanno studiato'],imperfetto:['studiavo','studiavi','studiava','studiava','studiavamo','studiavate','studiavano'],futuro:['studierò','studierai','studierà','studierà','studieremo','studierete','studieranno']},
+credere:{presente:['credo','credi','crede','crede','crediamo','credete','credono'],passato:['ho creduto','hai creduto','ha creduto','ha creduto','abbiamo creduto','avete creduto','hanno creduto'],imperfetto:['credevo','credevi','credeva','credeva','credevamo','credevate','credevano'],futuro:['crederò','crederai','crederà','crederà','crederemo','crederete','crederanno']},
+partire:{presente:['parto','parti','parte','parte','partiamo','partite','partono'],passato:['sono partito/a','sei partito/a','è partito','è partita','siamo partiti/e','siete partiti/e','sono partiti/e'],imperfetto:['partivo','partivi','partiva','partiva','partivamo','partivate','partivano'],futuro:['partirò','partirai','partirà','partirà','partiremo','partirete','partiranno']}};
+const NT={studiare:{passato:'con avere: studiato',futuro:'futuro: studiare → studier- (la a diventa e)'},credere:{passato:'con avere: creduto',futuro:'futuro: credere → creder- (resta la e)'},partire:{passato:'con essere: partito/a concorda con il soggetto',futuro:'futuro: partire → partir-'}};
+const T={presente:['Presente','Adesso'],passato:['Passato prossimo','Ieri'],imperfetto:['Imperfetto','Una volta'],futuro:['Futuro semplice','Domani']};
+const MENU=[{k:'verb',t:'Quale verbo?',o:[['studiare','STUDIARE'],['credere','CREDERE'],['partire','PARTIRE'],['tutti','Tutti e tre']]},{k:'tense',t:'Quale tempo?',o:[['presente','Presente'],['passato','Passato prossimo'],['imperfetto','Imperfetto'],['futuro','Futuro semplice'],['tutti','Tutti i tempi']]}];
+const AUX={avere:['ho','hai','ha','ha','abbiamo','avete','hanno'],essere:['sono','sei','è','è','siamo','siete','sono']};
+const PP={essere:'stato',avere:'avuto',studiare:'studiato',credere:'creduto',partire:'partito'};
+function build(c){const vs=c.verb=='tutti'?Object.keys(F):[c.verb],ts=c.tense=='tutti'?Object.keys(T):[c.tense],r=[];
+vs.forEach(v=>ts.forEach(t=>P.forEach((p,k)=>{const a=F[v][t][k],cd=[v];
+if(t=='passato')cd.push(((v=='essere'||v=='partire')?AUX.avere[k]:AUX.essere[k])+' '+PP[v]);else cd.push(F[v][sh(Object.keys(T).filter(y=>y!=t))[0]][k]);
+sh([...new Set(F[v][t])]).forEach(x=>cd.push(x));
+const d=[...new Set(cd)].filter(x=>x!=a).slice(0,3);
+r.push({t:v.toUpperCase()+' · '+T[t][0],h:'<small>'+T[t][1]+'</small><br><b>'+p+'</b> ___',o:sh([a,...d]),a:a,f:p+' '+a,s:'',n:(typeof NT!='undefined'&&NT[v]&&NT[v][t])||''})})));return r}
 
 menu();
 </script></body></html>

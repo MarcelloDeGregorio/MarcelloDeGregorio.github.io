@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Dialoghi in scena: chiedo, accetto, ci accordiamo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.25rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+#prompt{font-size:1.25rem;text-align:left}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+#opts{grid-template-columns:1fr}.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt .opt{min-height:60px;font-size:1rem}.opt.sel{border-color:var(--acc);background:var(--soft)}
+.tabs{display:flex;gap:8px;margin:8px 0 12px;flex-wrap:wrap}.ctl{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.ctl .btn{margin-top:0}
+.scene{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:8px 0;font-size:1.15rem}
+.rM{color:var(--acc)}.rF{color:var(--fg)}.bub{border-radius:14px;padding:10px 14px;margin:8px 0;font-size:1.35rem;max-width:88%}
+.bub.M{background:var(--soft);border-left:8px solid var(--acc)}.bub.F{background:var(--card);border:2px solid var(--line);border-right:8px solid var(--fg);margin-left:auto}
+.dl.blur .bub{filter:blur(8px)}.hint{cursor:pointer}.cl{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+.tk{display:inline-block;margin:4px 6px 0 0;padding:4px 10px;border:2px solid var(--line);border-radius:999px;font-size:1rem}.tk.ok{border-color:var(--ok);background:var(--okbg)}
+.cards,.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{border:2px solid var(--line);border-radius:14px;padding:12px;background:var(--card);font-size:1.2rem}
+.hide{visibility:hidden}.big{font-size:2rem;font-weight:700;margin:14px 0;text-align:center}textarea{width:100%;box-sizing:border-box;font:inherit;font-size:1.1rem;padding:8px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--fg)}
+table.tb{border-collapse:collapse;width:100%;margin:8px 0}.tb th,.tb td{border:1px solid var(--line);padding:8px;text-align:left;font-size:1.15rem}.tb th{background:var(--soft)}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.sh{display:flex;align-items:center;gap:10px;font-size:1.3rem}.ei{font-size:2rem;line-height:1}.sr{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:8px;font-size:1.1rem}.reg{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:1px 10px;font-size:.95rem;color:var(--mut)}
+.gd{margin:2px 0 10px}#gdb{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}@media (max-width:760px){#gdb{grid-template-columns:1fr 1fr}}
+.gs{border:2px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.95rem;line-height:1.35;background:var(--card);cursor:pointer}.gs b{display:block;font-size:1rem;margin-bottom:2px}.gs.on{border-color:var(--acc);background:var(--soft)}
+.btn.alt{border:2px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
+:root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
+</style></head><body><div class="w"><h1>Dialoghi in scena</h1><div class="gd"><button class="chip" id="gdt">📋 Guida per il docente ▴</button><div id="gdb"><div class="gs" data-s="1"><b>1 · Si capisce</b>Leggi la scena. Premi «Avanti»: una battuta alla volta. Chiedi: chi sono? che cosa vogliono?</div><div class="gs" data-s="2"><b>2 · Si ripete</b>La classe ripete a coro. Poi «Memoria» e «Nascondi il testo». Poi «Esercitati».</div><div class="gs" data-s="3"><b>3 · Si recita</b>Sorteggia la coppia («Coppie»). I due recitano: copione, suggerimenti o carte di ruolo.</div><div class="gs" data-s="4"><b>4 · Si ascolta e si controlla</b>Gli altri scrivono che cosa, quando, dove. Poi «Mostra le risposte» e guarda l’accordo.</div></div></div><div class="chips" id="scs"></div><div class="tabs"><button class="chip on" id="tb1">🎭 Dialogo</button><button class="chip" id="tb2">🎮 Esercitati</button><button class="chip" id="tb3">🎬 Recita</button><button class="chip" id="tb4">🎲 Coppie</button></div><section id="p1"></section><section id="p3" hidden></section><section id="p4" hidden></section><div id="gm" hidden>
+<section id="menu"><h1>Cittadini in Italia: le regole di base</h1>
+<div class="def">Scegli la situazione, poi usa le schede: <b>Dialogo</b> (le battute compaiono a una a una, con le frecce), <b>Esercitati</b>, <b>Recita</b> (copione, suggerimenti, carte di ruolo) e <b>Coppie</b> (sorteggio degli studenti).</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section></div>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const AR=[['st','📚 Studiare insieme'],['bm','👶 Mi tieni il bambino?'],['sp','🛒 Andiamo a fare la spesa'],['an','🏛️ Accompagnami all’anagrafe'],['mo','🛴 Mi presti il monopattino?']];
+const KT={q:'Scegli la risposta',v:'Vero o falso?',t:'Scrivi la risposta',o:'Metti in ordine il dialogo',m:'Abbina'};
+const D=`st|q|Vuoi ___ con me?|studiare|studio|studi|studia|Dopo «vuoi» si usa l’infinito: studiare
+st|q|Domani, ___ tre.|alle|a|ale|per|«alle tre» si dice per le ore
+st|q|Sara risponde: «Sì, ___!»|volentieri|volontiere|volentera|volentiere|
+st|q|Marco telefona. Che cosa dice all’inizio?|Pronto, Sara? Sono Marco.|Pronto, io essere Marco.|Ciao, tu sei Marco.|Buongiorno, io Marco sono.|Al telefono si dice «Pronto» e poi chi sei
+st|v|Marco e Sara studiano a casa di Sara.|F|Studiano a casa di Marco
+st|v|Studiano domani alle tre.|V|
+st|o|Metti in ordine il dialogo|Pronto, Sara? Sono Marco.;Ciao, Marco! Come stai?;Sara, vuoi studiare con me?;Sì, volentieri! Quando?|
+st|t|Scrivi: Ciao, a ___!|domani|
+st|m|Abbina|Quando?=Domani, alle tre;Dove?=A casa mia;Che cosa?=Studiare insieme;Chi telefona?=Marco|
+bm|q|Con la vicina dico:|Mi può aiutare?|Mi puoi aiutare?|Mi aiuti tu?|Aiutare me?|Con una signora si dà del Lei: «Mi può aiutare?»
+bm|q|Marco dice: «Domani ___ lavorare.»|devo|dovere|devi|deve|Con «io» si dice «devo»
+bm|q|Per ringraziare la signora dico:|La ringrazio molto!|Ti ringrazio molto!|Io ringraziare molto!|Grazie a te molto!|Con il Lei: «La ringrazio»
+bm|q|«Può tenere il bambino dalle due ___ quattro?»|alle|a|per|con|«dalle due alle quattro»
+bm|v|Marco e la signora Anna si danno del tu.|F|Si danno del Lei: «Come sta?»
+bm|v|La signora Anna accetta di tenere il bambino.|V|
+bm|o|Metti in ordine il dialogo|Buongiorno, signora Anna.;Buongiorno, Marco. Come sta?;Signora, mi può aiutare?;Certo. Che cosa succede?|
+bm|t|Scrivi: La ___ molto! (ringraziare, Lei)|ringrazio|La ringrazio molto
+bm|m|Abbina|Ciao=con un amico;Buongiorno=con una signora;Come stai?=tu;Come sta?=Lei|
+sp|q|Sara dice: «Oggi ___ al supermercato.»|vado|andare|vai|va|Con «io» si dice «vado»
+sp|q|Per invitare un amico dico:|Vieni con me?|Venire con me?|Vengo con te?|Viene con me?|Con un amico si dà del tu: «Vieni?»
+sp|q|«A che ora ___?» (noi)|andiamo|andare|andate|vanno|
+sp|q|«Dove ci ___?» (noi)|vediamo|vedere|vedete|vedono|
+sp|v|Marco deve comprare il pane e il latte.|V|
+sp|v|Si vedono davanti a casa di Marco.|F|Si vedono davanti al supermercato
+sp|o|Metti in ordine il dialogo|Ciao, Marco! Sei a casa?;Sì, sono a casa. Dimmi!;Oggi vado al supermercato. Vieni con me?;Volentieri! Devo comprare il pane e il latte.|
+sp|t|Scrivi: Io ___ la frutta. (comprare)|compro|
+sp|m|Abbina|Marco=il pane e il latte;Sara=la frutta e la pasta;Quando=alle quattro;Dove=davanti al supermercato|
+an|q|Sara dice: «Vado ___ ufficio anagrafe.»|all’|al|alla|a l’|all’ufficio
+an|q|Per chiedere aiuto a un amico dico:|Puoi venire con me?|Puoi venire con io?|Puoi veniamo con me?|Posso venire con te?|
+an|q|«Quando ___ andare?» (tu)|devi|devo|dovere|deve|
+an|q|Sara dice: «Giovedì mattina, ___ nove.»|alle|a|per|ore|
+an|v|Sara ha un problema con il documento.|V|
+an|v|L’appuntamento è sabato.|F|È giovedì mattina, alle nove
+an|o|Metti in ordine il dialogo|Ciao, Marco! Come stai?;Bene, grazie! Dove vai?;Vado all’ufficio anagrafe. Ho un problema con il documento.;Ah. Vuoi aiuto?|
+an|t|Scrivi: Grazie ___, sei gentile!|mille|
+an|m|Abbina|Dove?=All’ufficio anagrafe;Quando?=Giovedì alle nove;Perché?=Ha un problema con il documento;Dove si vedono?=Davanti all’ufficio|
+mo|q|Sara dice: «Mi ___ il monopattino?»|presti|prestare|prestare tu|prendi|«Mi presti…?» chiede un favore a un amico
+mo|q|«Ho una ___ in centro.»|commissione|commissare|comissione|commisione|
+mo|q|Marco dice: «Ti ___ il monopattino alle due.»|porto|portare|porti|porta|Con «io» si dice «porto»
+mo|q|Sara dice: «Lo ___ alle tre.»|riporto|riportare|riporti|riporta|
+mo|v|Sara ha bisogno del monopattino per tutto il giorno.|F|Per un’ora, nel pomeriggio
+mo|v|Marco accetta.|V|
+mo|o|Metti in ordine il dialogo|Ciao, Marco! Hai un momento?;Sì, dimmi.;Ho una commissione in centro. Mi presti il monopattino?;Certo! Ma è lontano?|
+mo|t|Scrivi: Grazie! Lo ___ alle tre. (riportare, io)|riporto|
+mo|m|Abbina|Che cosa?=Il monopattino;Quando?=Oggi pomeriggio;Quanto tempo?=Un’ora;A che ora?=Alle due|`;
+const B=D.split('\n').map(l=>l.split('|')).map(a=>({r:a[0],k:a[1],x:a[2],a:a.slice(3)}));
+const MENU=[{k:'ar',t:'Quale situazione?',o:[['tutti','🎲 Tutto']].concat(AR)}];
+function mk(b){const a=b.a,lab=AR.find(z=>z[0]==b.r)[1],Z=o=>Object.assign({t:lab+' · '+KT[b.k],h:'<b>'+b.x+'</b>',n:''},o);
+if(b.k=='q')return Z({k:'c',o:sh(a.slice(0,4)),a:a[0],f:a[0],n:a[4]||''});
+if(b.k=='v')return Z({k:'c',o:['✅ Vero','❌ Falso'],a:a[0]=='V'?'✅ Vero':'❌ Falso',f:a[0]=='V'?'vero':'falso',n:a[1]||''});
+if(b.k=='k')return Z({k:'c',o:['Diritto','Dovere'],a:a[0],f:a[0],n:a[1]||''});
+if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''});
+if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
+const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'').replace(/'/g,'’');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach((t,n)=>bt((n+1)+'. '+t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}
+if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
+q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
+sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+const TK={sal:'Salutare',stare:'Come stai? / Come sta?',rich:'Fare la richiesta',mot:'Dire il motivo',acc:'Accettare',orario:'Giorno e ora',luogo:'Il posto',graz:'Ringraziare',chiu:'Salutare per finire',ris:'Rispondere con attenzione',cosa:'Che cosa compri'};
+const L=s=>s.trim().split('\n').map(l=>l.split('|'));
+const DL={
+st:{t:'📚 Studiare insieme',ic:'📞',m:'Marco',f:'Sara',reg:'tu',scene:'Telefonata tra compagni di scuola. Marco telefona a Sara.',lines:L(`M|sal|Pronto, {f}? Sono {m}.|Saluta e dì chi sei
+F|sal|Ciao, {m}! Come stai?|Saluta e chiedi come sta
+M|stare|Bene, grazie. E tu?|Rispondi e chiedi
+F|stare|Anch’io bene, grazie.|Rispondi
+M|rich|{f}, vuoi studiare con me?|Fai la richiesta
+F|acc|Sì, volentieri! Quando?|Accetta e chiedi quando
+M|orario|Domani, alle tre. Va bene?|Dì il giorno e l’ora
+F|acc|Sì, va bene. Dove?|Accetta e chiedi dove
+M|luogo|A casa mia.|Dì il posto
+F|graz|Perfetto. Grazie! Ciao, a domani!|Ringrazia e saluta
+M|chiu|Ciao, a domani!|Saluta`),cards:['Sei libero solo domani.','Sei libera solo dopo le quattro.'],listen:[['Che cosa?','Studiare insieme'],['Quando?','Domani, alle tre'],['Dove?','A casa di Marco']]},
+bm:{t:'👶 Mi tieni il bambino?',ic:'🏠',m:'Marco',f:'Anna',reg:'Lei',scene:'Sulle scale del palazzo. Marco incontra la vicina, la signora Anna. Si danno del Lei.',lines:L(`M|sal|Buongiorno, signora {f}.|Saluta
+F|sal|Buongiorno, {m}. Come sta?|Saluta e chiedi come sta
+M|stare|Bene, grazie. E Lei?|Rispondi e chiedi
+F|stare|Bene, grazie.|Rispondi
+M|rich|Signora, mi può aiutare?|Chiedi aiuto con gentilezza
+F|ris|Certo. Che cosa succede?|Chiedi che cosa succede
+M|mot|Domani devo lavorare e mia moglie non c’è.|Spiega il motivo
+F|ris|Capisco.|Mostra comprensione
+M|rich|Può tenere il bambino dalle due alle quattro?|Fai la richiesta
+F|acc|Sì, volentieri. Lo porti da me alle due.|Accetta e dì l’ora
+M|graz|La ringrazio molto!|Ringrazia
+F|chiu|Prego, di niente. Arrivederci!|Rispondi e saluta`),cards:['Devi lavorare dalle due alle sei.','Puoi tenere il bambino solo dalle tre.'],listen:[['Che cosa?','Tenere il bambino'],['Quando?','Domani, dalle due alle quattro'],['Dove?','A casa della signora Anna']]},
+sp:{t:'🛒 Andiamo a fare la spesa',ic:'📞',m:'Marco',f:'Sara',reg:'tu',scene:'Telefonata tra amici. Sara telefona a Marco.',lines:L(`F|sal|Ciao, {m}! Sei a casa?|Saluta e chiedi
+M|sal|Sì, sono a casa. Dimmi!|Rispondi
+F|rich|Oggi vado al supermercato. Vieni con me?|Fai la richiesta
+M|acc|Volentieri! Devo comprare il pane e il latte.|Accetta e dì che cosa compri
+F|cosa|Io compro la frutta e la pasta.|Dì che cosa compri
+M|orario|A che ora andiamo?|Chiedi l’ora
+F|orario|Alle quattro. Va bene?|Dì l’ora
+M|luogo|Va bene. Dove ci vediamo?|Accetta e chiedi dove
+F|luogo|Davanti al supermercato.|Dì il posto
+M|chiu|D’accordo. A dopo!|Saluta`),cards:['Hai poco tempo: solo un’ora.','Devi comprare molte cose.'],listen:[['Che cosa?','Fare la spesa'],['Quando?','Oggi, alle quattro'],['Dove?','Davanti al supermercato']]},
+an:{t:'🏛️ Accompagnami all’anagrafe',ic:'🚶',m:'Marco',f:'Sara',reg:'tu',scene:'Incontro per strada. Sara e Marco sono amici.',lines:L(`F|sal|Ciao, {m}! Come stai?|Saluta
+M|stare|Bene, grazie! Dove vai?|Rispondi e chiedi dove va
+F|luogo|Vado all’ufficio anagrafe. Ho un problema con il documento.|Dì dove vai e perché
+M|ris|Ah. Vuoi aiuto?|Offri aiuto
+F|rich|Sì, puoi venire con me?|Fai la richiesta
+M|acc|Certo! Quando devi andare?|Accetta e chiedi quando
+F|orario|Giovedì mattina, alle nove.|Dì il giorno e l’ora
+M|orario|Va bene. Ci vediamo davanti all’ufficio?|Accetta e proponi il posto
+F|graz|Sì. Grazie mille, sei gentile!|Ringrazia
+M|chiu|Di niente! A giovedì!|Saluta`),cards:['Sei libero giovedì pomeriggio.','L’ufficio è aperto giovedì mattina.'],listen:[['Che cosa?','Andare all’ufficio anagrafe'],['Quando?','Giovedì mattina, alle nove'],['Dove?','Davanti all’ufficio']]},
+mo:{t:'🛴 Mi presti il monopattino?',ic:'🛴',m:'Marco',f:'Sara',reg:'tu',scene:'Due vicini di casa. Sara chiede un favore a Marco.',lines:L(`F|sal|Ciao, {m}! Hai un momento?|Saluta e chiedi
+M|sal|Sì, dimmi.|Rispondi
+F|rich|Ho una commissione in centro. Mi presti il monopattino?|Fai la richiesta
+M|ris|Certo! Ma è lontano?|Chiedi
+F|mot|Sì, è lontano e ho poco tempo.|Spiega il motivo
+M|orario|Capisco. Quando lo vuoi?|Chiedi quando
+F|orario|Oggi pomeriggio, per un’ora.|Dì quando e quanto tempo
+M|acc|Va bene. Ti porto il monopattino alle due.|Accetta e dì l’ora
+F|graz|Grazie! Lo riporto alle tre.|Ringrazia
+M|chiu|Perfetto. Attenzione alla strada!|Saluta e dai un consiglio`),cards:['Il monopattino ti serve domani mattina.','Hai la commissione domani alle dieci.'],listen:[['Che cosa?','Prestare il monopattino'],['Quando?','Oggi pomeriggio, per un’ora'],['Dove?','In centro']]}};
+let SC='st',stp=0,msk=false,hid=false,lv='c',pairs={},used={m:new Set(),f:new Set()};
+const cur=()=>DL[SC],nm=t=>{const p=pairs[SC]||{};return t.replace(/\{m\}/g,p.m||cur().m).replace(/\{f\}/g,p.f||cur().f)};
+const nmM=()=>(pairs[SC]||{}).m||cur().m,nmF=()=>(pairs[SC]||{}).f||cur().f;
+const maskT=t=>{const w=t.split(' ');return w[0]+' '+w.slice(1).map(x=>'_'.repeat(Math.min(Math.max(x.replace(/[^\wàèéìòù]/gi,'').length,2),7))).join(' ')};
+const H=(id,h)=>{document.getElementById(id).innerHTML=h};
+function who(w){return w=='M'?'<b class="rM">♂ '+nmM()+'</b>':'<b class="rF">♀ '+nmF()+'</b>'}
+function head(){const d=cur();return '<div class="scene"><div class="sh"><span class="ei">'+d.ic+'</span><b>'+d.t+'</b></div><div>'+nm(d.scene)+'</div><div class="sr"><span class="rM">♂ '+nmM()+'</span><span class="rF">♀ '+nmF()+'</span><span class="reg">Si danno del '+d.reg+'</span></div></div>'}
+function p1(){const d=cur(),ls=d.lines,tasks=[...new Set(ls.map(l=>l[1]))],got=new Set(ls.slice(0,stp).map(l=>l[1]));
+let h=head()+'<div class="ctl"><button class="btn alt" id="b1">◀ Indietro</button><button class="btn" id="b2">Avanti ▶</button><button class="btn alt" id="b3">Mostra tutto</button><button class="btn alt" id="b4">Ricomincia</button><button class="btn alt" id="b5">'+(hid?'👁 Mostra il testo':'🙈 Nascondi il testo')+'</button><button class="btn alt" id="b6">'+(msk?'🧠 Memoria: sì':'🧠 Memoria: no')+'</button></div>';
+h+='<div class="dl'+(hid?' blur':'')+'">'+ls.slice(0,stp).map(l=>'<div class="bub '+l[0]+'">'+who(l[0])+': '+(msk?maskT(nm(l[2])):nm(l[2]))+'</div>').join('')+'</div>';
+h+='<div class="cl"><b>Accordo raggiunto: '+got.size+' / '+tasks.length+'</b><div class="bar"><i style="width:'+(got.size/tasks.length*100)+'%"></i></div>'+tasks.map(t=>'<span class="tk'+(got.has(t)?' ok':'')+'">'+(got.has(t)?'✅ ':'⬜ ')+TK[t]+'</span>').join(' ')+'</div>';
+H('p1',h);const n=ls.length;
+g('b1').onclick=()=>{stp=Math.max(0,stp-1);p1()};g('b2').onclick=()=>{stp=Math.min(n,stp+1);p1()};g('b3').onclick=()=>{stp=n;p1()};g('b4').onclick=()=>{stp=0;p1()};g('b5').onclick=()=>{hid=!hid;p1()};g('b6').onclick=()=>{msk=!msk;p1()}}
+function p3(){const d=cur();let h=head()+'<div class="chips" id="lvc"></div><div id="lvb"></div>';H('p3',h);
+const opts=[['c','1 · Copione completo'],['s','2 · Suggerimenti'],['r','3 · Carte di ruolo']],c=g('lvc');
+opts.forEach(([v,t])=>{const b=document.createElement('button');b.className='chip'+(lv==v?' on':'');b.textContent=t;b.onclick=()=>{lv=v;p3()};c.appendChild(b)});
+let b='';
+if(lv=='c')b=d.lines.map(l=>'<div class="bub '+l[0]+'">'+who(l[0])+': '+nm(l[2])+'</div>').join('');
+if(lv=='s')b='<p>Improvvisate senza copione. Per ogni turno guardate il suggerimento; per controllare, toccate la riga.</p>'+d.lines.map((l,i)=>'<div class="bub '+l[0]+' hint" data-i="'+i+'">'+who(l[0])+': <i>'+l[3]+'</i></div>').join('');
+if(lv=='r')b='<p>Ognuno ha una carta. Parlate e <b>trovate un accordo</b>.</p><div class="cards"><div class="card rM"><b>♂ '+nmM()+'</b><div class="hide" id="c0">'+d.cards[0]+'</div><button class="btn alt" data-c="c0">Mostra / nascondi</button></div><div class="card rF"><b>♀ '+nmF()+'</b><div class="hide" id="c1">'+d.cards[1]+'</div><button class="btn alt" data-c="c1">Mostra / nascondi</button></div></div>';
+b+='<div class="cl"><b>Per chi ascolta</b>: scrivete le risposte, poi controllate.<table class="tb">'+d.listen.map(x=>'<tr><th>'+x[0]+'</th><td>__________</td><td class="hide" data-a="1">'+x[1]+'</td></tr>').join('')+'</table><button class="btn alt" id="sol">Mostra le risposte</button></div>';
+g('lvb').innerHTML=b;
+document.querySelectorAll('.hint').forEach(e=>e.onclick=()=>{const l=d.lines[+e.dataset.i];e.innerHTML=who(l[0])+': '+nm(l[2])});
+document.querySelectorAll('[data-c]').forEach(e=>e.onclick=()=>g(e.dataset.c).classList.toggle('hide'));
+g('sol').onclick=()=>document.querySelectorAll('[data-a]').forEach(e=>e.classList.toggle('hide'))}
+function p4(){const pr=pairs[SC];let h=head()+'<p>Scrivi i nomi, uno per riga o separati da virgola. Il sorteggio non ripete chi ha già recitato.</p><div class="cols"><div><b>♀ Donne</b><textarea id="nf" rows="5">'+(window._nf||'')+'</textarea></div><div><b>♂ Uomini</b><textarea id="nm" rows="5">'+(window._nm||'')+'</textarea></div></div><div class="ctl"><button class="btn" id="dr">🎲 Sorteggia la coppia</button><button class="btn alt" id="rs">Azzera i sorteggi</button></div><div class="big" id="res2">'+(pr?'♀ '+pr.f+'  e  ♂ '+pr.m:'')+'</div><div id="msg2"></div><div><b>Coppie estratte</b><ul>'+Object.keys(pairs).map(k=>'<li>'+DL[k].t+': '+pairs[k].f+' e '+pairs[k].m+'</li>').join('')+'</ul></div>';H('p4',h);
+const rd=id=>{window['_'+id]=g(id).value;return g(id).value.split(/[\n,;]+/).map(s=>s.trim()).filter(Boolean)};
+g('dr').onclick=()=>{const F=rd('nf'),M=rd('nm'),pf=F.filter(x=>!used.f.has(x)),pm=M.filter(x=>!used.m.has(x));
+if(!pf.length||!pm.length){g('msg2').textContent='Non ci sono nomi disponibili: aggiungi nomi o azzera i sorteggi.';return}
+const f=pf[Math.floor(Math.random()*pf.length)],m=pm[Math.floor(Math.random()*pm.length)];used.f.add(f);used.m.add(m);pairs[SC]={f:f,m:m};stp=0;p4()};
+g('rs').onclick=()=>{used={m:new Set(),f:new Set()};pairs={};p4()}}
+function g(id){return document.getElementById(id)}
+const panels={1:p1,3:p3,4:p4};let TAB=1;
+function tab(n){TAB=n;gdr(n);['p1','gm','p3','p4'].forEach((id,i)=>g(id).hidden=(i+1)!=n);[1,2,3,4].forEach(i=>g('tb'+i).classList.toggle('on',i==n));if(n==2){cfg.ar=SC;go()}else panels[n]()}
+function scs(){const c=g('scs');c.innerHTML='';Object.keys(DL).forEach(k=>{const b=document.createElement('button');b.className='chip'+(k==SC?' on':'');b.textContent=DL[k].t;b.onclick=()=>{SC=k;stp=0;scs();tab(TAB)};c.appendChild(b)})}
+[1,2,3,4].forEach(i=>g('tb'+i).onclick=()=>tab(i));
+document.addEventListener('keydown',e=>{if(TAB==1&&!/TEXTAREA|INPUT/.test(document.activeElement.tagName)){if(e.key=='ArrowRight'){stp=Math.min(cur().lines.length,stp+1);p1()}if(e.key=='ArrowLeft'){stp=Math.max(0,stp-1);p1()}}});
+const GM={1:[1,2],2:[2],3:[3,4],4:[3]};
+function gdr(n){document.querySelectorAll('.gs').forEach(e=>e.classList.toggle('on',GM[n].includes(+e.dataset.s)))}
+document.querySelectorAll('.gs').forEach(e=>e.onclick=()=>{const s=+e.dataset.s;tab(s==1?1:s==2?2:3);if(s==4){const x=document.querySelector('#lvb .cl');if(x)x.scrollIntoView({behavior:'smooth'})}});
+g('gdt').onclick=()=>{const b=g('gdb');b.hidden=!b.hidden;g('gdt').textContent=b.hidden?'📋 Guida per il docente ▾':'📋 Guida per il docente ▴'};
+scs();tab(1);
+
+menu();
+</script></body></html>

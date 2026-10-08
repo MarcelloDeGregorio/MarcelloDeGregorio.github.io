@@ -39,6 +39,9 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .tabs{display:flex;gap:8px;margin:8px 0 12px}.lz h1{font-size:1.5rem}.lz h2{font-size:1.2rem;margin:1.2em 0 .3em}.lz p,.lz li{font-size:1.05rem}
 table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,.tb td{border:1px solid var(--line);padding:6px 8px;text-align:left}.tb th{background:var(--soft)}
 .ex{background:var(--soft);box-shadow:0 0 0 2px var(--soft);border-radius:4px;padding:0}.box{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+.btn.alt{border:2px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
+:root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
 </style></head><body><div class="w"><div class="tabs"><button class="chip on" id="tb1">📖 Spiega</button><button class="chip" id="tb2">🎮 Esercitati</button></div><section id="lez"><div class="lz"><h1>Il nome e le sue classificazioni</h1>
 <p>Il <b>nome</b> è la parola che dà il nome a persone, animali, cose, luoghi e idee: <span class="ex">Anna</span>, <span class="ex">gatto</span>, <span class="ex">tavolo</span>, <span class="ex">Roma</span>, <span class="ex">felicità</span>.</p>
 <h2>1. Comuni e propri</h2>
