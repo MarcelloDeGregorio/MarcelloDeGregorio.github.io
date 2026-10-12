@@ -1,10 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html lang="it">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>C. Marcello De Gregorio</title>
+    <meta name="description" content="Sito personale di C. Marcello De Gregorio. Filosofia politica, epistemologia, scienze umane e scritture."/>
 
     <style>
         body {
@@ -60,6 +63,7 @@
         section {
             margin-top: 60px;
             padding-top: 10px;
+            scroll-margin-top: 24px;
         }
 
         h2 {
@@ -73,6 +77,22 @@
             font-size: 17px;
         }
 
+        #biografia p {
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .collegamento {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+        }
+
+        .collegamento a {
+            color: #333;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         footer {
             margin-top: 80px;
             padding-top: 20px;
@@ -82,83 +102,221 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 13px;
         }
+
+
+        .fascia-immagini {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            width: 100%;
+            margin: 0 0 36px;
+        }
+
+        .fascia-immagini img {
+            display: block;
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .sottotitolo {
+                font-size: 15px;
+                line-height: 1.8;
+            }
+
+            nav {
+                gap: 8px;
+                margin-top: 30px;
+            }
+
+            nav a {
+                padding: 9px 12px;
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 25px;
+            }
+
+            .fascia-immagini {
+                gap: 4px;
+                margin-bottom: 28px;
+            }
+
+            .fascia-immagini img {
+                height: 100px;
+            }
+
+            #biografia p {
+                text-align: left;
+                hyphens: auto;
+            }
+        }
     </style>
 </head>
 
 <body>
-
     <header>
-
         <h1>C. Marcello De Gregorio</h1>
 
         <div class="sottotitolo">
             Filosofia politica · Epistemologia · Scienze umane · Docenza · Scritture
         </div>
 
-        <nav>
-            <a href="#biografia e piste di ricerca">Biografia e piste di ricerca</a>
+        <nav aria-label="Navigazione principale">
+            <a href="index.html">Home</a>
+            <a href="#biografia">Biografia e ricerca</a>
             <a href="pubblicazioni.html">Pubblicazioni</a>
-            <a href="didattica.html">Didattica per adulti</a>
+            <a href="risorse.html">Risorse</a>
             <a href="#contatti">Contatti</a>
         </nav>
-
     </header>
 
+    <div class="fascia-immagini" aria-label="Immagini dedicate alla ricerca, al cinema e all'educazione">
+        <img src="immagini/libro%20aperto%20con%20annotazioni.webp"
+             alt="Libro aperto con annotazioni">
+        <img src="immagini/corridoio%20con%20giochi%20di%20ombre.jpg"
+             alt="Corridoio con giochi di ombre">
+        <img src="immagini/aula%20scolastica%20antica.jpg"
+             alt="Aula scolastica antica">
+    </div>
 
-    <section id="Bio e ricerche">
+    <main>
 
-        <h2>Biografia e piste di ricerca</h2>
+        <section id="biografia">
+            <h2>Biografia e piste di ricerca</h2>
 
-        <p>
-            Ricerca e studi nell'ambito della filosofia politica,
-            con particolare attenzione ai processi di soggettivazione
-            e alla teoria critica contemporanea.
-        </p>
+            <p>
+                Il percorso intellettuale di C. Marcello De Gregorio nasce
+                dall'intreccio fra esperienza personale, formazione filosofica
+                e ricerca critica. Avendo iniziato a lavorare in giovane età
+                e frequentato le scuole serali per necessità familiari, ha
+                conosciuto precocemente il rapporto fra istruzione, lavoro e
+                condizioni materiali dell'esistenza. Un'esperienza che
+                costituisce parte della sua traiettoria biografica e che si
+                accompagna a un interesse costante per i processi attraverso
+                cui gli individui si formano, si trasformano e prendono
+                posizione nella società.
+            </p>
 
-    </section>
+            <p>
+                Dopo la laurea in Filosofia presso l'Università degli Studi
+                di Milano, conseguita con 110 e lode, ha superato due selezioni
+                per l'accesso a programmi di dottorato di ricerca in Francia,
+                sulla base dei rispettivi progetti scientifici. Ha scelto di
+                proseguire il proprio percorso a Tolosa, dove la ricerca è
+                stata sviluppata in codirezione con l'Università degli Studi
+                di Salerno. L'articolazione del lavoro fra i due contesti
+                accademici gli ha consentito di conseguire due titoli di
+                dottorato, entrambi valutati con il giudizio di eccellente:
+                in <i>Philosophie politique</i> e in Scienze del linguaggio, della
+                società, della politica e dell'educazione.
+            </p>
 
+            <p>
+                I suoi interessi di ricerca si sviluppano lungo un arco
+                teorico ampio, nel quale la filosofia incontra l'analisi
+                critica delle forme culturali, delle istituzioni e dei
+                rapporti sociali. Comprendono lo studio del cinema secondo
+                una prospettiva filosofica e critica; i processi di
+                soggettivazione e assoggettamento; l'analisi dell'ideologia;
+                lo strutturalismo e il post-strutturalismo francese; il
+                marxismo e post-marxismo; le dinamiche del potere, del
+                controllo e dei dispositivi attraverso cui si organizzano
+                le condotte individuali e collettive.
+            </p>
 
-    <section id="pubblicazioni">
+            <p>
+                Un ulteriore ambito di riflessione riguarda il comune, il
+                capitalismo cognitivo e le trasformazioni dei rapporti fra
+                sapere, produzione e società. A questi temi si affianca
+                l'interesse per il diritto liberale e per il libertarismo,
+                considerati anche in relazione alle possibilità di
+                cooperazione sociale orizzontale, alle forme di
+                autorganizzazione e alle pratiche che cercano di sottrarsi
+                alle gerarchie tradizionali.
+            </p>
 
-        <h2>Pubblicazioni</h2>
+            <p>
+                Trova spazio tra i suoi interessi anche la riflessione
+                filosofico-morale sulle relazioni umane e dell'umano con
+                l'intero vivente; sull'amicizia; sulla memoria individuale
+                e su quella collettiva.
+            </p>
 
-        <p>
-            Libri, saggi e altre pubblicazioni.
-        </p>
+            <p>
+                La pedagogia critica costituisce un ulteriore asse del suo
+                interesse teorico e professionale. In questo ambito, la
+                riflessione si dirige sulle trasformazioni della scuola
+                contemporanea, sulla progressiva affermazione di modelli
+                organizzativi di matrice aziendale e sulle conseguenze che
+                tali processi producono sulla funzione educativa
+                dell'istituzione scolastica. Particolare attenzione è
+                rivolta all'indebolimento dell'autorevolezza della scuola
+                e della figura-docente, in un contesto nel quale
+                responsabilità educativa da parte di ogni luogo, trasmissione dei saperi e
+                riconoscimento del ruolo dell'insegnante appaiono sempre
+                più esposti a tensioni e contraddizioni. La critica
+                pedagogica diventa così un'indagine sulle condizioni
+                istituzionali e sociali che rendono possibile
+                l'insegnamento e sull'esigenza di restituire alla scuola
+                una funzione culturale ed educativa non subordinata a
+                criteri meramente aziendalistici o di eccessivo debolismo. Convinto che la scuola autorevole, e non quella dagli eccessi permissivi e comprensivi, sia il vero strumento per l'elevazione sociale delle classi meno abbienti.</p>
 
-    </section>
+            <p>
+                Il filo conduttore di questi studi è sempre l'attenzione ai modi
+                in cui si costituiscono i soggetti, si consolidano le forme
+                del dominio e si aprono, al tempo stesso, spazi di autonomia, di cultura e di azione comune. La ricerca filosofica e pedagogica si
+                configura così come un'indagine sulle condizioni storiche
+                e sociali del presente, sui dispositivi che lo attraversano
+                e sulle possibilità di pensarlo criticamente, senza
+                autocensure né ipocrisie.
+            </p>
 
+            <p>
+                Accanto all'attività di ricerca e saggistica, De
+                Gregorio coltiva da decenni l'impegno educativo, inteso
+                non soltanto come trasmissione di saperi e conoscenze, ma ancor più come possibilità di accesso agli strumenti culturali
+                necessari per comprendere la realtà e orientarsi al suo
+                interno con sicurezza e consapevolezza. </p>
+<p>Infine, tra le sue passioni vi è anche quella della scrittura narrativa, a cui amerebbe invero dedicare più tempo.
+            </p>
 
-    <section id="didattica">
+        </section>
 
-        <h2>Didattica per adulti</h2>
+        <section id="pubblicazioni">
+            <h2>Pubblicazioni</h2>
 
-        <p>
-            Esercitazioni con applicazioni interattive e schede didattiche per
-            l'apprendimento della lingua italiana.
-        </p>
+            <p>
+                Monografie, articoli e saggi.
+            </p>
 
-        <p>
-            Le attività didattiche sono disponibili direttamente online.
-        </p>
+            <p class="collegamento">
+                <a href="pubblicazioni.html">Consulta le pubblicazioni →</a>
+            </p>
+        </section>
 
-    </section>
+        <section id="contatti">
+            <h2>Contatti</h2>
 
+            <p>
+                Informazioni e contatti.
+            </p>
+        </section>
 
-    <section id="contatti">
-
-        <h2>Contatti</h2>
-
-        <p>
-            Informazioni e contatti.
-        </p>
-
-    </section>
-
+    </main>
 
     <footer>
         © C. Marcello De Gregorio
     </footer>
-
 </body>
 </html>
