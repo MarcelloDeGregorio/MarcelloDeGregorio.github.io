@@ -1,15 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="it">
+<html lang="it">
 <head>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pubblicazioni · C. Marcello De Gregorio</title>
 
     <style>
-
         body {
             font-family: Georgia, "Times New Roman", serif;
             max-width: 900px;
@@ -20,10 +17,10 @@
             line-height: 1.7;
         }
 
-       header {
-    text-align: left;
-    padding-bottom: 25px;
-}
+        header {
+            text-align: left;
+            padding-bottom: 25px;
+        }
 
         h1 {
             font-size: 40px;
@@ -36,7 +33,6 @@
             color: #666;
             margin: 0;
         }
-
 
         /* MENU PRINCIPALE */
 
@@ -64,7 +60,6 @@
             font-weight: bold;
         }
 
-
         /* SEZIONE MONOGRAFIE */
 
         h2 {
@@ -75,7 +70,6 @@
             margin-top: 45px;
             margin-bottom: 35px;
         }
-
 
         /* SINGOLA MONOGRAFIA */
 
@@ -89,8 +83,7 @@
             border-radius: 4px;
         }
 
-
-        /* SPAZIO PER LA COPERTINA */
+        /* COPERTINA */
 
         .copertina {
             width: 150px;
@@ -107,11 +100,12 @@
             font-size: 12px;
         }
 
-.copertina img {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-}
+        .copertina img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
         .contenuto-monografia {
             flex: 1;
         }
@@ -150,22 +144,51 @@
             color: #222;
         }
 
-.torna-home {
-    margin-top: 15px;
-    text-align: left;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-}
+        .torna-home {
+            margin-top: 15px;
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
 
-.torna-home a {
-    color: #666;
-    text-decoration: none;
-}
+        .torna-home a {
+            color: #666;
+            text-decoration: none;
+        }
 
-.torna-home a:hover {
-    color: #222;
-    text-decoration: underline;
-}
+        .torna-home a:hover {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        /* ARTICOLI E SAGGI BREVI */
+
+        .elenco-articoli {
+            margin: 30px 0 0 0;
+            padding-left: 22px;
+        }
+
+        .elenco-articoli li {
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        .elenco-articoli a {
+            color: #222;
+            text-decoration: none;
+        }
+
+        .elenco-articoli a:hover {
+            color: #555;
+            text-decoration: underline;
+        }
+
+        h2 .nota-titolo {
+            font-size: 18px;
+            color: #666;
+            font-weight: normal;
+        }
+
         /* FOOTER */
 
         footer {
@@ -178,11 +201,9 @@
             font-size: 13px;
         }
 
-
         /* VISUALIZZAZIONE SU SCHERMI PICCOLI */
 
         @media (max-width: 650px) {
-
             body {
                 padding: 35px 20px;
             }
@@ -200,106 +221,51 @@
             .copertina {
                 width: 150px;
                 margin: 0 auto 25px auto;
-/* ARTICOLI E SAGGI BREVI */
-
-.elenco-articoli {
-    margin: 30px 0 0 0;
-    padding-left: 22px;
-}
-
-.elenco-articoli li {
-    margin-bottom: 14px;
-    line-height: 1.6;
-}
-
-.elenco-articoli a {
-    color: #222;
-    text-decoration: none;
-}
-
-.elenco-articoli a:hover {
-    color: #555;
-    text-decoration: underline;
-}
-
-@media (max-width: 650px) {
-    .elenco-articoli {
-        padding-left: 18px;
-    }
-
-    .elenco-articoli li {
-        margin-bottom: 12px;
-    
-
-
             }
 
+            .elenco-articoli {
+                padding-left: 18px;
+            }
+
+            .elenco-articoli li {
+                margin-bottom: 12px;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
     <header>
-
         <h1>Pubblicazioni</h1>
 
         <p class="introduzione">
             Libri, saggi, selezione di articoli.
         </p>
-
     </header>
 
-
-    <!-- MENU DI NAVIGAZIONE -->
-
-    
-<nav class="menu-pagine" aria-label="Navigazione principale">
-
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="index.html#biografia">
-        Biografia e ricerca
-    </a>
-
-    <a href="pubblicazioni.html" class="pagina-attiva">
-        Pubblicazioni
-    </a>
-
-    <a href="risorse.html">
-        Risorse
-    </a>
-
-    <a href="index.html#contatti">
-        Contatti
-    </a>
-
-</nav>
-
+    <nav class="menu-pagine" aria-label="Navigazione principale">
+        <a href="index.html">Home</a>
+        <a href="index.html#biografia">Biografia e ricerca</a>
+        <a href="pubblicazioni.html" class="pagina-attiva">Pubblicazioni</a>
+        <a href="risorse.html">Risorse</a>
+        <a href="index.html#contatti">Contatti</a>
+    </nav>
 
     <main>
-
-
         <h2>Monografie</h2>
-
 
         <!-- LIBRO 1 -->
 
         <article class="monografia">
-
             <div class="copertina">
-    <img src="copertine/dall-immagine-alla-vita.png" alt="Cover of Dall immagine alla vita, a dark, modern book jacket with the title in large red lettering, an abstract portrait, and a serious academic mood"/>
-</div>
+                <img
+                    src="copertine/dall-immagine-alla-vita.png"
+                    alt="Copertina di Dall'immagine alla vita, con titolo in evidenza su fondo scuro"
+                >
+            </div>
 
             <div class="contenuto-monografia">
-
-                <h3>
-                    Dall'immagine alla vita
-                </h3>
+                <h3>Dall'immagine alla vita</h3>
 
                 <div class="sottotitolo">
                     Introduzione alla cinefilosofia di Gilles Deleuze
@@ -311,30 +277,24 @@
 
                 <div class="disponibilita">
                     Disponibile anche su
-                    <a href="https://amzn.eu/d/02FMQgOj" target="_blank">
-                        Amazon
-                    </a>,
+                    <a href="https://amzn.eu/d/02FMQgOj" target="_blank" rel="noopener noreferrer">Amazon</a>,
                     in formato cartaceo ed e-book.
                 </div>
-
             </div>
-
         </article>
-
 
         <!-- LIBRO 2 -->
 
         <article class="monografia">
-
             <div class="copertina">
-    <img src="copertine/stato-e-mauvais-sujet.png" alt="Cover of Stato e mauvais sujet tra riproduzione e linee di fuga, a stark editorial cover with bold black and white typography, a moody abstract background, and a serious intellectual tone"/>
-</div>
+                <img
+                    src="copertine/stato-e-mauvais-sujet.png"
+                    alt="Copertina di Stato e mauvais sujet tra riproduzione e linee di fuga"
+                >
+            </div>
 
             <div class="contenuto-monografia">
-
-                <h3>
-                    Stato e mauvais sujet tra riproduzione e linee di fuga
-                </h3>
+                <h3>Stato e mauvais sujet tra riproduzione e linee di fuga</h3>
 
                 <div class="sottotitolo">
                     Ideologia e processi di soggettivazione in Althusser,
@@ -347,31 +307,28 @@
 
                 <div class="disponibilita">
                     Disponibile anche su
-                    <a href="https://www.amazon.it/riproduzione-Ideologia-soggettivazione-Interpellazioni-surdeterminazioni/dp/8857570606" target="_blank">
-                        Amazon
-                    </a>,
+                    <a
+                        href="https://www.amazon.it/riproduzione-Ideologia-soggettivazione-Interpellazioni-surdeterminazioni/dp/8857570606"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >Amazon</a>,
                     in formato cartaceo ed e-book.
                 </div>
-
             </div>
-
         </article>
-
 
         <!-- LIBRO 3 -->
 
         <article class="monografia">
-
             <div class="copertina">
-        <img src="copertine/dal-segno-alla-macchina.png" alt="Cover of Dal segno alla macchina, a compact book jacket with large red title lettering on a dark background, clean academic styling, and a focused, reflective mood"/>
-
-    </div>
+                <img
+                    src="copertine/dal-segno-alla-macchina.png"
+                    alt="Copertina di Dal segno alla macchina"
+                >
+            </div>
 
             <div class="contenuto-monografia">
-
-                <h3>
-                    Dal segno alla macchina
-                </h3>
+                <h3>Dal segno alla macchina</h3>
 
                 <div class="sottotitolo">
                     Strutturalismo, post-strutturalismo e macchinismo
@@ -384,31 +341,24 @@
 
                 <div class="disponibilita">
                     Disponibile anche su
-                    <a href="https://amzn.eu/d/0d3JVhMD" target="_blank">
-                        Amazon
-                    </a>,
+                    <a href="https://amzn.eu/d/0d3JVhMD" target="_blank" rel="noopener noreferrer">Amazon</a>,
                     in formato cartaceo ed e-book.
                 </div>
-
             </div>
-
         </article>
-
 
         <!-- LIBRO 4 -->
 
-        <article xmlns="http://www.w3.org/1999/xhtml" class="monografia">
-
+        <article class="monografia">
             <div class="copertina">
-        <img src="copertine/lessico-contemporaneo-del-marxismo.png" alt="Cover of Lessico contemporaneo del marxismo, a dark cover with large red title text, a collage of portraits of Marx and other thinkers, a dramatic black backdrop, and a serious historical and philosophical tone"/>
-
-    </div>
+                <img
+                    src="copertine/lessico-contemporaneo-del-marxismo.png"
+                    alt="Copertina di Lessico contemporaneo del marxismo"
+                >
+            </div>
 
             <div class="contenuto-monografia">
-
-                <h3>
-                    Lessico contemporaneo del marxismo
-                </h3>
+                <h3>Lessico contemporaneo del marxismo</h3>
 
                 <div class="sottotitolo">
                     Da Marx al capitalismo cognitivo.
@@ -421,53 +371,59 @@
 
                 <div class="disponibilita">
                     Disponibile anche su
-                    <a href="https://amzn.eu/d/0e4Zjpvl" target="_blank">
-                        Amazon
-                    </a>,
+                    <a href="https://amzn.eu/d/0e4Zjpvl" target="_blank" rel="noopener noreferrer">Amazon</a>,
                     in formato cartaceo ed e-book.
                 </div>
-
             </div>
-
         </article>
 
+        <h2>
+            Articoli e saggi brevi
+            <span class="nota-titolo">(selezione in ampliamento)</span>
+        </h2>
 
+        <ul class="elenco-articoli">
+            <li>
+                <a
+                    href="https://doi.org/10.5281/zenodo.23297249"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Dal “delirio su razze” alla loro cura: appunti su pratica schizoanalitica e migranti
+                </a>
+                — chaosmosi.wordpress.com, 2019.
+            </li>
+
+            <li>
+                <a
+                    href="https://doi.org/10.5281/zenodo.23279568"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Ancora nel cuore delle tenebre: <em>Apocalypse Now Final Cut</em> e la crisi della razionalità occidentale
+                </a>
+                — Preprint, 2025.
+            </li>
+
+            <li>
+                <a
+                    href="https://doi.org/10.5281/zenodo.23282566"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Il rapporto tra memoria e soggettività: l’esempio di <em>Blade Runner</em>
+                </a>
+                — Book chapter, 2012.
+            </li>
+        </ul>
+
+        <div class="torna-home">
+            <a href="index.html">← Torna alla pagina principale</a>
+        </div>
     </main>
-                <h2>Articoli e saggi brevi</h2>
 
-<ul class="elenco-articoli">
-
-    <li>
-        <a href="https://doi.org/10.5281/zenodo.23297249" target="_blank" rel="noopener noreferrer">
-            Dal “delirio su razze” alla loro cura: appunti su pratica schizoanalitica e migranti
-        </a>
-        — chaosmosi.wordpress.com, 2019.
-    </li>
-
-    <li>
-        <a href="https://doi.org/10.5281/zenodo.23279568" target="_blank" rel="noopener noreferrer">
-            Ancora nel cuore delle tenebre: <em>Apocalypse Now Final Cut</em> e la crisi della razionalità occidentale
-        </a>
-        — Preprint, 2025.
-    </li>
-
-    <li>
-        <a href="https://doi.org/10.5281/zenodo.23282566" target="_blank" rel="noopener noreferrer">
-            Il rapporto tra memoria e soggettività: l’esempio di <em>Blade Runner</em>
-        </a>
-        — Book chapter, 2012.
-    </li>
-
-</ul>
-
-
-<div class="torna-home">
-    <a href="index.html">← Torna alla pagina principale</a>
-</div>
-
-
-<footer>
-    © C. Marcello De Gregorio
-</footer>
+    <footer>
+        © C. Marcello De Gregorio
+    </footer>
 </body>
 </html>
