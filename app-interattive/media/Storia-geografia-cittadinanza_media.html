@@ -1,0 +1,263 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>CPIA Storia, geografia, cittadinanza</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--soft:#e3edf9;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--soft:#24344d;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--soft:#24344d;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.25rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+#prompt{font-size:1.25rem;text-align:left}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+#opts{grid-template-columns:1fr}.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt .opt{min-height:60px;font-size:1rem}.opt.sel{border-color:var(--acc);background:var(--soft)}
+.tabs{display:flex;gap:8px;margin:8px 0 12px}.lz h1{font-size:1.5rem}.lz h2{font-size:1.2rem;margin:1.2em 0 .3em}.lz p,.lz li{font-size:1.05rem}
+table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,.tb td{border:1px solid var(--line);padding:6px 8px;text-align:left}.tb th{background:var(--soft)}
+.ex{background:var(--soft);box-shadow:0 0 0 2px var(--soft);border-radius:4px;padding:0}.box{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+.btn.alt{border:2px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
+:root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
+</style></head><body><div class="w"><div class="tabs"><button class="chip on" id="tb1">📖 Spiega</button><button class="chip" id="tb2">🎮 Esercitati</button></div><section id="lez"><div class="lz"><h1>Storia, geografia e cittadinanza</h1>
+<p>Sintesi dei contenuti principali dell’asse storico-sociale nel primo periodo (scuola media): dalla preistoria all’Italia repubblicana, la geografia dell’Italia, l’Europa e il mondo, la Costituzione e le istituzioni. Leggi, poi svolgi gli esercizi.</p>
+<h2>1. Dalla preistoria al Medioevo</h2>
+<ul><li><b>Preistoria</b>: il tempo prima della scrittura. Nel <b>Paleolitico</b> gli uomini sono cacciatori e raccoglitori e si spostano (nomadi). Nel <b>Neolitico</b> nascono l’agricoltura e l’allevamento: gli uomini diventano sedentari e vivono in villaggi.</li><li><b>La storia</b> comincia con la <b>scrittura</b> (circa 3000 anni prima di Cristo).</li><li><b>Civiltà dei fiumi</b>: Mesopotamia (Tigri ed Eufrate), Egitto (Nilo), India (Indo), Cina (Fiume Giallo).</li><li><b>Antica Grecia</b>: città-stato indipendenti (polis). Atene inventa la democrazia; Sparta educa i cittadini alla vita militare.</li><li><b>Antica Roma</b>: fondata, secondo la tradizione, nel 753 a.C. È una monarchia, poi dal 509 a.C. una <b>Repubblica</b>, poi dal 27 a.C. un <b>Impero</b> con Augusto, il primo imperatore. L’Impero romano d’Occidente cade nel <b>476 d.C.</b></li><li><b>Medioevo</b>: dal 476 al 1492 (date convenzionali). Nelle campagne c’è il feudalesimo: un signore governa il feudo e i contadini lavorano la terra. Dopo l’anno 1000 crescono le città e nascono i <b>Comuni</b>, che si governano da soli.</li></ul>
+<h2>2. Età moderna e Ottocento</h2>
+<table class="tb"><tr><th>Anno</th><th>Fatto</th></tr><tr><td>1492</td><td>Cristoforo Colombo raggiunge l’America</td></tr><tr><td>XV-XVI secolo</td><td>Rinascimento: rinascono arte, cultura e scienza (Leonardo da Vinci, Michelangelo)</td></tr><tr><td>1789</td><td>Rivoluzione francese: libertà, uguaglianza, fraternità</td></tr><tr><td>fine Settecento</td><td>Rivoluzione industriale in Inghilterra: macchine a vapore e fabbriche</td></tr><tr><td>1860</td><td>Spedizione dei Mille di Giuseppe Garibaldi</td></tr><tr><td>1861</td><td>Proclamazione del Regno d’Italia: primo re è Vittorio Emanuele II</td></tr><tr><td>1871</td><td>Roma diventa capitale d’Italia (prima Torino, poi Firenze)</td></tr></table>
+<p>Il <b>Risorgimento</b> è il periodo in cui gli italiani lottano per costruire uno Stato unito.</p>
+<h2>3. Il Novecento e l’Italia repubblicana</h2>
+<table class="tb"><tr><th>Anno</th><th>Fatto</th></tr><tr><td>1914-1918</td><td>Prima guerra mondiale (l’Italia entra in guerra nel 1915)</td></tr><tr><td>1922</td><td>Benito Mussolini va al governo: inizia il fascismo</td></tr><tr><td>1939-1945</td><td>Seconda guerra mondiale; la <b>Shoah</b> è lo sterminio degli ebrei</td></tr><tr><td>25 aprile 1945</td><td>Liberazione dell’Italia dal nazifascismo</td></tr><tr><td>1945</td><td>Nasce l’ONU</td></tr><tr><td>2 giugno 1946</td><td>Referendum: gli italiani scelgono la Repubblica; votano anche le donne</td></tr><tr><td>1948</td><td>La Costituzione entra in vigore (1° gennaio); Dichiarazione universale dei diritti umani (10 dicembre)</td></tr><tr><td>1957</td><td>Trattati di Roma: nasce la Comunità economica europea</td></tr><tr><td>1989</td><td>Cade il Muro di Berlino</td></tr><tr><td>2002</td><td>L’euro entra in circolazione</td></tr></table>
+<p>Date da ricordare: il <b>27 gennaio</b> è il Giorno della Memoria; il <b>25 aprile</b> è la Festa della Liberazione; il <b>2 giugno</b> è la Festa della Repubblica.</p>
+<h2>4. La geografia dell’Italia</h2>
+<ul><li>L’Italia è una <b>penisola</b> nel mare Mediterraneo. I mari sono: Ligure, Tirreno (a ovest), Ionio (a sud-est) e Adriatico (a est). Le isole più grandi sono Sicilia e Sardegna.</li><li><b>Confini</b>: Francia, Svizzera, Austria e Slovenia. Dentro l’Italia ci sono due piccoli Stati: San Marino e Città del Vaticano.</li><li><b>Rilievi</b>: le Alpi al nord e gli Appennini lungo la penisola. La grande pianura del nord è la <b>Pianura Padana</b>, attraversata dal <b>Po</b>, il fiume più lungo d’Italia.</li><li><b>Laghi</b>: il più grande è il Garda; poi Maggiore e Como. <b>Vulcani</b>: Etna, Vesuvio, Stromboli.</li><li>Il <b>clima</b> prevalente è mediterraneo: estati calde e secche, inverni miti.</li><li>Le <b>regioni</b> sono 20; cinque hanno uno statuto speciale: Valle d’Aosta, Trentino-Alto Adige, Friuli-Venezia Giulia, Sardegna e Sicilia. La capitale è <b>Roma</b>.</li></ul>
+<table class="tb"><tr><th>Regione</th><th>Capoluogo</th><th>Regione</th><th>Capoluogo</th></tr><tr><td>Piemonte</td><td>Torino</td><td>Marche</td><td>Ancona</td></tr><tr><td>Valle d’Aosta</td><td>Aosta</td><td>Lazio</td><td>Roma</td></tr><tr><td>Lombardia</td><td>Milano</td><td>Abruzzo</td><td>L’Aquila</td></tr><tr><td>Veneto</td><td>Venezia</td><td>Molise</td><td>Campobasso</td></tr><tr><td>Trentino-Alto Adige</td><td>Trento</td><td>Campania</td><td>Napoli</td></tr><tr><td>Friuli-Venezia Giulia</td><td>Trieste</td><td>Puglia</td><td>Bari</td></tr><tr><td>Liguria</td><td>Genova</td><td>Basilicata</td><td>Potenza</td></tr><tr><td>Emilia-Romagna</td><td>Bologna</td><td>Calabria</td><td>Catanzaro</td></tr><tr><td>Toscana</td><td>Firenze</td><td>Sicilia</td><td>Palermo</td></tr><tr><td>Umbria</td><td>Perugia</td><td>Sardegna</td><td>Cagliari</td></tr></table>
+<h2>5. Europa e mondo</h2>
+<ul><li><b>Continenti</b>: Europa, Asia, Africa, America, Oceania (e l’Antartide). L’Asia è il più grande. <b>Oceani</b>: Atlantico, Pacifico, Indiano.</li><li>L’<b>Unione europea</b> (UE) ha oggi 27 Stati. Ha un Parlamento eletto direttamente dai cittadini. Il Parlamento e la Commissione europea lavorano soprattutto a Bruxelles. L’Italia è tra i sei Stati fondatori (1957), con Belgio, Francia, Germania, Lussemburgo e Paesi Bassi.</li><li>La moneta comune è l’<b>euro</b>. Lo <b>spazio Schengen</b> è l’area in cui, tra gli Stati aderenti, non ci sono controlli di frontiera alle frontiere interne.</li><li>L’<b>ONU</b> (Organizzazione delle Nazioni Unite, 1945) riunisce quasi tutti gli Stati del mondo per la pace e la cooperazione.</li><li>Capitali: Francia – Parigi; Germania – Berlino; Spagna – Madrid; Portogallo – Lisbona.</li></ul>
+<h2>6. La Costituzione e le istituzioni</h2>
+<p>La <b>Costituzione</b> è la legge fondamentale della Repubblica. È in vigore dal 1° gennaio 1948 e ha 139 articoli. I <b>principi fondamentali</b> sono gli articoli 1-12.</p>
+<ul><li><b>Art. 1</b>: l’Italia è una Repubblica democratica, fondata sul lavoro; la sovranità appartiene al popolo.</li><li><b>Art. 3</b>: tutti hanno pari dignità sociale e sono eguali davanti alla legge.</li><li><b>Art. 10</b>: lo straniero a cui nel suo Paese è impedito l’esercizio delle libertà democratiche ha diritto d’asilo in Italia.</li><li><b>Art. 11</b>: l’Italia ripudia la guerra come strumento di offesa.</li><li><b>Art. 21</b>: tutti hanno diritto di manifestare liberamente il proprio pensiero. <b>Art. 32</b>: la Repubblica tutela la salute. <b>Art. 34</b>: la scuola è aperta a tutti.</li><li><b>Art. 53</b>: tutti devono contribuire alle spese pubbliche in base alla propria capacità contributiva (le tasse).</li></ul>
+<table class="tb"><tr><th>Potere</th><th>Che cosa fa</th><th>Chi lo esercita</th></tr><tr><td>legislativo</td><td>fa le leggi</td><td>Parlamento: Camera dei deputati (400) e Senato (200 eletti)</td></tr><tr><td>esecutivo</td><td>governa e fa eseguire le leggi</td><td>Governo: Presidente del Consiglio e ministri (devono avere la fiducia del Parlamento)</td></tr><tr><td>giudiziario</td><td>applica le leggi nei processi</td><td>magistratura (i giudici)</td></tr></table>
+<ul><li>Il <b>Presidente della Repubblica</b> è il capo dello Stato. È eletto dal Parlamento in seduta comune insieme ai delegati delle Regioni, resta in carica 7 anni e nomina il Presidente del Consiglio. Oggi è Sergio Mattarella.</li><li>La <b>Corte costituzionale</b> controlla che le leggi rispettino la Costituzione.</li><li><b>Enti locali</b>: Comune (guidato dal sindaco), Provincia, Regione (guidata dal presidente della Regione) e Stato.</li><li>I cittadini italiani votano a 18 anni. Votare è un diritto e un dovere civico; pagare le tasse è un dovere.</li><li><b>Cittadinanza italiana</b>: un cittadino straniero non appartenente all’UE può chiederla, di norma, dopo 10 anni di residenza legale in Italia (5 anni per i rifugiati).</li></ul></div>
+</section><div id="gm" hidden>
+<section id="menu"><h1>Storia, geografia e cittadinanza</h1>
+<div class="def">Prima leggi la spiegazione, poi esercitati: dalla preistoria al Medioevo, età moderna e Ottocento, il Novecento, la geografia d’Italia, Europa e mondo, la Costituzione e le istituzioni.</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section></div>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const AR=[["an", "🏺 Preistoria, Grecia, Roma e Medioevo"], ["mo", "⚓ Età moderna e Ottocento"], ["no", "🕊️ Il Novecento"], ["ge", "🗺️ Geografia d’Italia"], ["eu", "🌍 Europa e mondo"], ["co", "📜 Costituzione e cittadinanza"]];
+const KT={q:'Scegli la risposta',v:'Vero o falso?',k:'Quale è giusto?',t:'Scrivi la risposta',o:'Metti in ordine',m:'Abbina'};
+const D=`an|q|La storia comincia con…|l’invenzione della scrittura|la scoperta del fuoco|la nascita dell’agricoltura|la caduta di Roma|Il periodo prima della scrittura è la preistoria
+an|q|Nel Paleolitico gli uomini erano…|cacciatori e raccoglitori nomadi|agricoltori nei villaggi|artigiani nelle città|soldati di un impero|Si spostavano per cercare cibo
+an|q|Con l’agricoltura (Neolitico) gli uomini diventano…|sedentari|nomadi|cacciatori|navigatori|Restano nello stesso luogo e costruiscono villaggi
+an|q|Il Nilo è il fiume della civiltà…|egizia|mesopotamica|indiana|cinese|
+an|q|Tra il Tigri e l’Eufrate nasce la civiltà…|mesopotamica|egizia|greca|romana|
+an|q|Atene è famosa per…|la democrazia|l’impero|l’educazione militare|le piramidi|L’educazione militare era tipica di Sparta
+an|q|Secondo la tradizione Roma è stata fondata nel…|753 a.C.|476 d.C.|509 a.C.|27 a.C.|509 a.C. è l’inizio della Repubblica
+an|q|Il primo imperatore di Roma è stato…|Augusto|Giulio Cesare|Nerone|Costantino|Augusto è imperatore dal 27 a.C.
+an|q|L’Impero romano d’Occidente cade nel…|476 d.C.|27 a.C.|1492|800 d.C.|Segna convenzionalmente l’inizio del Medioevo
+an|q|Convenzionalmente il Medioevo dura…|dal 476 al 1492|dal 753 a.C. al 476|dal 1492 al 1789|dal 1789 al 1861|
+an|q|Nel Medioevo il feudatario era…|un signore che governava un feudo|un mercante delle città|un contadino libero|un monaco|I contadini lavoravano la terra del signore
+an|q|I Comuni medievali sono…|città che si governano da sole|grandi imperi|monasteri|eserciti|
+an|t|In che anno cade l’Impero romano d’Occidente? (scrivi solo il numero)|476|
+an|t|Come si chiama il periodo prima della scrittura?|preistoria;la preistoria|
+an|t|Come si chiama il primo imperatore romano?|Augusto;Ottaviano Augusto;Cesare Ottaviano Augusto|
+an|v|Roma è stata prima una Repubblica e poi un Impero.|V|La Repubblica dura dal 509 a.C. al 27 a.C.
+an|v|Nell’antica Grecia c’era un unico Stato.|F|C’erano molte città-stato indipendenti (polis)
+an|v|La civiltà cinese nasce lungo il Fiume Giallo.|V|
+an|o|Metti in ordine cronologico|Preistoria;Antica Grecia;Impero romano;Medioevo|
+an|m|Abbina la civiltà e il fiume|Egizi=Nilo;Mesopotamia=Tigri ed Eufrate;India=Indo;Cina=Fiume Giallo|
+mo|q|Nel 1492 Cristoforo Colombo…|raggiunge l’America|scopre l’India|fa cadere Roma|inizia la Rivoluzione francese|
+mo|q|Il Rinascimento è un periodo di grande sviluppo di…|arte, cultura e scienza|guerre di religione|commercio di schiavi|vita nei feudi|
+mo|q|Leonardo da Vinci è un artista del…|Rinascimento|Medioevo|Ottocento|Novecento|
+mo|q|La Rivoluzione francese inizia nel…|1789|1492|1861|1914|
+mo|q|Il motto della Rivoluzione francese è «libertà, uguaglianza e…»|fraternità|giustizia|pace|ricchezza|
+mo|q|La Rivoluzione industriale comincia in…|Inghilterra|Italia|Cina|Spagna|
+mo|q|Con la Rivoluzione industriale le fabbriche usano…|macchine a vapore|solo il lavoro a mano|l’energia nucleare|i computer|
+mo|q|Il Regno d’Italia è proclamato nel…|1861|1848|1946|1915|
+mo|q|Il primo re d’Italia è…|Vittorio Emanuele II|Umberto I|Vittorio Emanuele III|Carlo Alberto|
+mo|q|Dal 1871 la capitale d’Italia è…|Roma|Torino|Firenze|Napoli|Prima c’erano state Torino e Firenze
+mo|q|La spedizione dei Mille di Garibaldi è del…|1860|1861|1848|1870|
+mo|q|Il Risorgimento è il periodo in cui…|gli italiani lottano per costruire uno Stato unito|l’Italia è divisa in Comuni|cade l’Impero romano|nasce la Repubblica|
+mo|t|In che anno è proclamato il Regno d’Italia? (scrivi solo il numero)|1861|
+mo|t|In che anno comincia la Rivoluzione francese? (scrivi solo il numero)|1789|
+mo|v|Roma diventa capitale d’Italia nel 1871.|V|
+mo|v|Cristoforo Colombo parte dalla Spagna.|V|
+mo|v|La Rivoluzione industriale comincia in Italia.|F|Comincia in Inghilterra
+mo|o|Metti in ordine cronologico|Scoperta dell’America;Rivoluzione francese;Unità d’Italia|
+mo|m|Abbina l’anno e il fatto|1492=scoperta dell’America;1789=Rivoluzione francese;1861=Regno d’Italia;1871=Roma capitale|
+no|q|La prima guerra mondiale è stata combattuta…|dal 1914 al 1918|dal 1939 al 1945|dal 1861 al 1870|dal 1922 al 1943|
+no|q|L’Italia entra nella prima guerra mondiale nel…|1915|1914|1918|1922|
+no|q|Il fascismo va al governo in Italia nel…|1922|1861|1946|1914|
+no|q|Il capo del fascismo è stato…|Benito Mussolini|Vittorio Emanuele III|Giuseppe Garibaldi|Alcide De Gasperi|
+no|q|La seconda guerra mondiale è stata combattuta…|dal 1939 al 1945|dal 1914 al 1918|dal 1922 al 1946|dal 1948 al 1957|
+no|q|Il 25 aprile in Italia si ricorda…|la Liberazione|l’Unità d’Italia|la nascita della Repubblica|la fine della prima guerra mondiale|Liberazione dal nazifascismo, 1945
+no|q|Il 2 giugno si festeggia…|la Repubblica|la Liberazione|la Costituzione|l’Unità d’Italia|Nel 1946 gli italiani scelgono la Repubblica
+no|q|Con il referendum del 1946 gli italiani scelgono tra…|monarchia e repubblica|Nord e Sud|destra e sinistra|Roma e Milano|
+no|q|Nel 1946 votano per la prima volta a livello nazionale anche…|le donne|i ragazzi di 16 anni|gli stranieri|i soldati|
+no|q|La Costituzione italiana entra in vigore il…|1° gennaio 1948|2 giugno 1946|25 aprile 1945|1° gennaio 2002|
+no|q|La Shoah è…|lo sterminio degli ebrei durante la seconda guerra mondiale|una battaglia|un trattato di pace|un movimento artistico|
+no|q|Il 27 gennaio si celebra…|il Giorno della Memoria|la Festa della Repubblica|la Festa dei lavoratori|la Festa della Liberazione|Ricorda le vittime della Shoah
+no|q|Con i Trattati di Roma del 1957 nasce…|la Comunità economica europea|l’ONU|la NATO|l’euro|È l’inizio dell’Unione europea
+no|q|L’euro entra in circolazione nel…|2002|1992|1957|2010|
+no|q|L’ONU nasce nel…|1945|1914|1957|1989|
+no|q|La Dichiarazione universale dei diritti umani è del…|1948|1789|1945|2002|
+no|t|In che anno nasce la Repubblica italiana? (scrivi solo il numero)|1946|
+no|t|In che anno entra in vigore la Costituzione? (scrivi solo il numero)|1948|
+no|t|In che anno cade il Muro di Berlino? (scrivi solo il numero)|1989|
+no|v|Il 25 aprile si ricorda la Liberazione dal nazifascismo.|V|
+no|v|La Repubblica italiana è nata nel 1861.|F|Nel 1861 nasce il Regno d’Italia; la Repubblica nasce nel 1946
+no|v|Nel 1946 le donne italiane votano per la prima volta a livello nazionale.|V|
+no|o|Metti in ordine cronologico|Prima guerra mondiale;Fascismo;Seconda guerra mondiale;Repubblica italiana|
+no|m|Abbina l’anno e il fatto|1915=l’Italia entra nella prima guerra mondiale;1922=Mussolini va al governo;1946=referendum Repubblica o monarchia;1948=la Costituzione entra in vigore|
+ge|q|Quante sono le regioni italiane?|20|15|18|21|
+ge|q|Qual è il capoluogo della Toscana?|Firenze|Pisa|Siena|Livorno|
+ge|q|Qual è il capoluogo della Lombardia?|Milano|Bergamo|Brescia|Como|
+ge|q|Qual è il capoluogo della Sicilia?|Palermo|Catania|Messina|Siracusa|
+ge|q|Qual è il capoluogo della Campania?|Napoli|Salerno|Caserta|Avellino|
+ge|q|Qual è il capoluogo della Puglia?|Bari|Lecce|Taranto|Foggia|
+ge|q|Qual è il capoluogo dell’Emilia-Romagna?|Bologna|Modena|Parma|Ravenna|
+ge|q|Qual è il capoluogo della Liguria?|Genova|La Spezia|Savona|Imperia|
+ge|q|Qual è il capoluogo della Sardegna?|Cagliari|Sassari|Nuoro|Oristano|
+ge|q|Qual è il capoluogo del Veneto?|Venezia|Verona|Padova|Treviso|
+ge|q|Qual è il capoluogo della Calabria?|Catanzaro|Reggio Calabria|Cosenza|Crotone|Reggio Calabria è la città più popolosa, ma il capoluogo è Catanzaro
+ge|q|Qual è il fiume più lungo d’Italia?|il Po|il Tevere|l’Arno|l’Adige|
+ge|q|Qual è il lago più grande d’Italia?|il Garda|il Maggiore|il Como|il Trasimeno|
+ge|q|Le Alpi si trovano a…|nord|sud|est|ovest|
+ge|q|Gli Appennini attraversano l’Italia…|da nord a sud, lungo la penisola|da est a ovest|solo in Sardegna|solo al sud|
+ge|q|Quali sono le due isole più grandi d’Italia?|Sicilia e Sardegna|Elba e Capri|Ischia e Lampedusa|Sicilia e Malta|
+ge|q|Quale vulcano si trova in Sicilia?|l’Etna|il Vesuvio|il Monte Bianco|il Gran Sasso|
+ge|q|Il Vesuvio si trova vicino a…|Napoli|Roma|Palermo|Torino|
+ge|q|Il mar Tirreno si trova…|a ovest della penisola|a est della penisola|a nord dell’Italia|a sud della Sicilia|
+ge|q|Quale Stato confina con l’Italia?|la Svizzera|la Spagna|la Germania|l’Ungheria|Gli Stati confinanti sono Francia, Svizzera, Austria e Slovenia
+ge|q|Quali due Stati sono completamente dentro l’Italia?|San Marino e Città del Vaticano|Malta e Monaco|Andorra e Malta|Slovenia e Austria|
+ge|q|Il clima prevalente in Italia è…|mediterraneo|polare|tropicale|desertico|
+ge|t|Qual è la capitale d’Italia?|Roma|
+ge|t|Qual è il capoluogo del Piemonte?|Torino|
+ge|t|Quante sono le regioni a statuto speciale? (scrivi solo il numero)|5|Valle d’Aosta, Trentino-Alto Adige, Friuli-Venezia Giulia, Sardegna, Sicilia
+ge|v|Il Po scorre nella Pianura Padana.|V|
+ge|v|La Sardegna è una regione a statuto speciale.|V|
+ge|v|La Svezia confina con l’Italia.|F|
+ge|o|Metti queste regioni da nord a sud|Valle d’Aosta;Toscana;Campania;Calabria|
+ge|m|Abbina la regione e il capoluogo|Lombardia=Milano;Piemonte=Torino;Veneto=Venezia;Lazio=Roma|
+ge|m|Abbina la regione e il capoluogo|Sicilia=Palermo;Sardegna=Cagliari;Puglia=Bari;Campania=Napoli|
+ge|m|Abbina la regione e il capoluogo|Liguria=Genova;Toscana=Firenze;Emilia-Romagna=Bologna;Calabria=Catanzaro|
+eu|q|Quanti Stati fanno parte dell’Unione europea?|27|25|28|30|Dopo l’uscita del Regno Unito nel 2020
+eu|q|In quale città lavorano soprattutto la Commissione e il Parlamento europeo?|Bruxelles|Parigi|Roma|Berlino|Il Parlamento europeo ha anche una sede a Strasburgo
+eu|q|La moneta usata in Italia è…|l’euro|la lira|la sterlina|il dollaro|La lira è stata usata fino al 2002
+eu|q|Lo spazio Schengen è un’area in cui…|tra gli Stati aderenti non ci sono controlli alle frontiere interne|non si pagano le tasse|tutti parlano la stessa lingua|non serve nessun documento di soggiorno|
+eu|q|L’ONU è…|un’organizzazione di Stati per la pace e la cooperazione|un esercito europeo|una banca internazionale|il Parlamento europeo|
+eu|q|Il Parlamento europeo è eletto…|dai cittadini dell’Unione europea|dai ministri|dall’ONU|dalla Banca centrale|
+eu|q|Quale di questi NON è un continente?|il Mediterraneo|l’Africa|l’Oceania|l’America|Il Mediterraneo è un mare
+eu|q|Qual è il continente più grande?|l’Asia|l’Africa|l’Europa|l’America|
+eu|q|Quale oceano separa l’Europa dall’America?|l’Atlantico|il Pacifico|l’Indiano|l’Artico|
+eu|q|Il Sahara si trova in…|Africa|Asia|Australia|America|
+eu|q|Il Nilo scorre in…|Africa|Asia|Europa|America|
+eu|q|Qual è la capitale della Francia?|Parigi|Lione|Marsiglia|Bruxelles|
+eu|q|Qual è la capitale della Germania?|Berlino|Monaco|Francoforte|Amburgo|
+eu|q|Qual è la capitale della Spagna?|Madrid|Barcellona|Siviglia|Valencia|
+eu|t|Qual è la capitale della Spagna?|Madrid|
+eu|t|Qual è la capitale del Portogallo?|Lisbona|
+eu|t|In che anno firmano i Trattati di Roma? (scrivi solo il numero)|1957|
+eu|v|L’Italia è uno dei sei Stati fondatori della Comunità economica europea.|V|Con Belgio, Francia, Germania, Lussemburgo e Paesi Bassi
+eu|v|L’Unione europea ha una sola lingua ufficiale.|F|Le lingue ufficiali sono molte
+eu|v|La Svizzera fa parte dell’Unione europea.|F|
+eu|m|Abbina lo Stato e la capitale|Francia=Parigi;Germania=Berlino;Spagna=Madrid;Portogallo=Lisbona|
+co|q|Quanti articoli ha la Costituzione italiana?|139|100|150|12|Gli articoli 1-12 sono i principi fondamentali
+co|q|I principi fondamentali della Costituzione sono gli articoli…|da 1 a 12|da 1 a 50|da 13 a 54|da 55 a 100|
+co|q|L’Italia è una Repubblica democratica fondata sul…|lavoro|commercio|denaro|territorio|Articolo 1
+co|q|Secondo l’articolo 1, la sovranità appartiene…|al popolo|al Presidente della Repubblica|al Parlamento|al Governo|
+co|q|Secondo l’articolo 3, tutti i cittadini sono…|eguali davanti alla legge|più ricchi dopo i 18 anni|uguali solo a scuola|uguali solo se nati in Italia|Pari dignità sociale e uguaglianza
+co|q|L’articolo 21 garantisce la libertà di…|manifestare il proprio pensiero|guidare senza patente|non pagare le tasse|non andare a scuola|
+co|q|L’articolo 34 dice che la scuola è…|aperta a tutti|solo per i cittadini|a pagamento|solo per i giovani|
+co|q|L’articolo 32 dice che la Repubblica tutela…|la salute|la ricchezza|le automobili|le abitazioni|
+co|q|L’articolo 11 dice che l’Italia ripudia…|la guerra come strumento di offesa|il commercio|l’Europa|l’ONU|
+co|q|Secondo l’articolo 10, lo straniero a cui nel suo Paese sono negate le libertà democratiche ha diritto di…|asilo|cittadinanza immediata|voto|lavoro garantito|
+co|q|Chi fa le leggi?|il Parlamento|il Governo|i giudici|il sindaco|È il potere legislativo
+co|q|Chi governa e fa eseguire le leggi?|il Governo|il Parlamento|la magistratura|la Corte costituzionale|È il potere esecutivo
+co|q|Chi applica le leggi nei processi?|i giudici|il Governo|il Parlamento|il Presidente della Repubblica|È il potere giudiziario
+co|q|Il Parlamento italiano è composto da…|Camera dei deputati e Senato|Presidente e ministri|Consiglio comunale e giunta|Corte costituzionale e Governo|
+co|q|Quanti deputati ha la Camera dopo la riforma?|400|630|200|315|Prima della riforma erano 630
+co|q|Chi nomina il Presidente del Consiglio?|il Presidente della Repubblica|il popolo|il sindaco|il Papa|
+co|q|Per quanti anni resta in carica il Presidente della Repubblica?|7|5|4|10|
+co|q|Chi è oggi il Presidente della Repubblica?|Sergio Mattarella|Giorgio Napolitano|Carlo Azeglio Ciampi|Sandro Pertini|
+co|q|La Corte costituzionale controlla che le leggi siano…|conformi alla Costituzione|approvate dai cittadini|uguali in tutta Europa|scritte dal Governo|
+co|q|Il capo del Comune si chiama…|sindaco|prefetto|questore|presidente|
+co|q|Il capo della Regione si chiama…|presidente della Regione|sindaco|prefetto|ministro|
+co|q|I cittadini italiani votano a…|18 anni|16 anni|21 anni|25 anni|
+co|q|Pagare le tasse è un…|dovere|diritto|favore|reato|Articolo 53
+co|q|La libertà di religione è un…|diritto|dovere|obbligo|reato|
+co|q|Un cittadino non UE può chiedere la cittadinanza per residenza, di norma, dopo…|10 anni|2 anni|5 anni|20 anni|Per i rifugiati bastano 5 anni
+co|t|Quanti articoli ha la Costituzione italiana? (scrivi solo il numero)|139|
+co|t|Il potere che fa le leggi si chiama potere…|legislativo|
+co|t|Come si chiama il capo del Comune?|sindaco;il sindaco|
+co|t|Chi è il capo dello Stato italiano? (scrivi la carica)|Presidente della Repubblica;il Presidente della Repubblica|
+co|v|Il Presidente della Repubblica fa le leggi.|F|Le leggi le fa il Parlamento
+co|v|In Italia tutti sono uguali davanti alla legge.|V|Articolo 3
+co|v|I giudici fanno parte del potere esecutivo.|F|Fanno parte del potere giudiziario
+co|v|Il Governo ha bisogno della fiducia del Parlamento.|V|
+co|v|La Camera e il Senato hanno lo stesso numero di membri.|F|La Camera ne ha 400, il Senato 200 eletti
+co|o|Metti gli enti dal più piccolo al più grande|Comune;Provincia;Regione;Stato|
+co|m|Abbina il potere e chi lo esercita|legislativo=Parlamento;esecutivo=Governo;giudiziario=magistratura|
+co|m|Abbina la carica e il compito|sindaco=guida il Comune;presidente della Regione=guida la Regione;Presidente della Repubblica=capo dello Stato;Presidente del Consiglio=guida il Governo|`;
+const B=D.split('\n').map(l=>l.split('|')).map(a=>({r:a[0],k:a[1],x:a[2],a:a.slice(3)}));
+
+const MENU=[{k:'ar',t:'Che cosa vuoi esercitare?',o:[['tutti','🎲 Tutto']].concat(AR)}];
+function mk(b){const a=b.a,lab=AR.find(z=>z[0]==b.r)[1],Z=o=>Object.assign({t:lab+' · '+KT[b.k],h:'<b>'+b.x+'</b>',n:''},o);
+if(b.k=='q')return Z({k:'c',o:sh(a.slice(0,4)),a:a[0],f:a[0],n:a[4]||''});
+if(b.k=='v')return Z({k:'c',o:['✅ Vero','❌ Falso'],a:a[0]=='V'?'✅ Vero':'❌ Falso',f:a[0]=='V'?'vero':'falso',n:a[1]||''});
+if(b.k=='k')return Z({k:'c',o:sh([a[0],a[1]]),a:a[0],f:a[0],n:a[2]||''});
+if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''});
+if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
+const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'').replace(/'/g,'’');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach((t,n)=>bt((n+1)+'. '+t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}
+if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
+q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
+sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+$('#tb1').onclick=()=>{$('#lez').hidden=false;$('#gm').hidden=true;$('#tb1').classList.add('on');$('#tb2').classList.remove('on')};$('#tb2').onclick=()=>{$('#lez').hidden=true;$('#gm').hidden=false;$('#tb2').classList.add('on');$('#tb1').classList.remove('on')};
+menu();
+</script></body></html>
+</body></html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scuola media · Didattica per adulti · C. Marcello De Gregorio</title>
+
+    <style>
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 30px;
+            color: #222;
+            background: #f8f7f4;
+            line-height: 1.7;
+        }
+
+        header {
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: normal;
+            margin: 0 0 15px 0;
+        }
+
+        .introduzione {
+            font-size: 18px;
+            color: #555;
+            max-width: 750px;
+        }
+
+        /* MENU PRINCIPALE */
+
+        .menu-pagine {
+            text-align: center;
+            margin: 20px 0 40px 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        .menu-pagine a {
+            color: #555;
+            text-decoration: none;
+            margin: 0 7px;
+        }
+
+        .menu-pagine a:hover {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        .menu-pagine .pagina-attiva {
+            color: #222;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* TITOLI DELLE SEZIONI */
+
+        h2 {
+            font-size: 28px;
+            font-weight: normal;
+            border-bottom: 1px solid #bbb;
+            padding-bottom: 8px;
+            margin-top: 45px;
+        }
+
+        /* APPLICAZIONI INTERATTIVE */
+
+        .esercizio {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px 25px;
+            margin: 18px 0;
+            border-radius: 4px;
+        }
+
+        .esercizio h3 {
+            margin: 0 0 8px 0;
+            font-size: 21px;
+            font-weight: normal;
+        }
+
+        .avvia {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 9px 18px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        .avvia:hover {
+            background: #555;
+        }
+
+        /* SCHEDE DIDATTICHE */
+
+        .schede {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 22px;
+            margin-top: 25px;
+        }
+
+        .scheda {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .anteprima {
+            height: 260px;
+            background: #eee;
+        }
+
+        .anteprima iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .scheda-contenuto {
+            padding: 18px 20px 20px 20px;
+        }
+
+        .scheda h3 {
+            margin: 0 0 10px 0;
+            font-size: 19px;
+            font-weight: normal;
+            line-height: 1.4;
+        }
+
+        .scheda .avvia {
+            margin-top: 4px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 70px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            text-align: center;
+            color: #777;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
+        .navigazione-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 25px;
+            margin-bottom: 18px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .navigazione-footer a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .navigazione-footer a:hover {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin: 0;
+        }
+
+        /* VISUALIZZAZIONE SU SCHERMI PICCOLI */
+
+        @media (max-width: 650px) {
+            body {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .menu-pagine {
+                line-height: 2.5;
+                margin-bottom: 35px;
+            }
+
+            .schede {
+                grid-template-columns: 1fr;
+            }
+
+            .navigazione-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Scuola media</h1>
+
+        <p class="introduzione">
+            Applicazioni interattive e schede didattiche per il percorso
+            di scuola media per adulti: italiano, matematica,
+            scienze e tecnologia, storia, geografia e cittadinanza.
+        </p>
+    </header>
+
+    <nav class="menu-pagine" aria-label="Navigazione principale">
+        <a href="index.html">Home</a>
+        <a href="index.html#biografia">Biografia e ricerca</a>
+        <a href="pubblicazioni.html">Pubblicazioni</a>
+        <a href="risorse.html" class="pagina-attiva">Risorse</a>
+        <a href="index.html#contatti">Contatti</a>
+    </nav>
+
+    <main>
+
+        <section aria-labelledby="titolo-applicazioni">
+            <h2 id="titolo-applicazioni">Applicazioni interattive</h2>
+
+            <div class="esercizio">
+                <h3>Italiano</h3>
+                <a
+                    class="avvia"
+                    href="app-interattive/media/italiano_media.html"
+                >Avvia applicazione</a>
+            </div>
+
+            <div class="esercizio">
+                <h3>Matematica</h3>
+                <a
+                    class="avvia"
+                    href="app-interattive/media/matematica_media.html"
+                >Avvia applicazione</a>
+            </div>
+
+            <div class="esercizio">
+                <h3>Scienze e tecnologia</h3>
+                <a
+                    class="avvia"
+                    href="app-interattive/media/scienze-tecnologia_media.html"
+                >Avvia applicazione</a>
+            </div>
+
+            <div class="esercizio">
+                <h3>Storia, geografia e cittadinanza</h3>
+                <a
+                    class="avvia"
+                    href="app-interattive/media/storia-geografia-cittadinanza_media.html"
+                >Avvia applicazione</a>
+            </div>
+        </section>
+
+        <section aria-labelledby="titolo-schede">
+            <h2 id="titolo-schede">Schede didattiche</h2>
+
+            <div class="schede">
+
+                <div class="scheda">
+                    <div class="anteprima">
+                        <iframe
+                            src="schede-didattiche/media/scheda-italiano_media.pdf#page=1"
+                            title="Anteprima della scheda di italiano"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+
+                    <div class="scheda-contenuto">
+                        <h3>Italiano</h3>
+                        <a
+                            class="avvia"
+                            href="schede-didattiche/media/scheda-italiano_media.pdf"
+                        >Apri scheda PDF</a>
+                    </div>
+                </div>
+
+                <div class="scheda">
+                    <div class="anteprima">
+                        <iframe
+                            src="schede-didattiche/media/scheda-matematica_media.pdf#page=1"
+                            title="Anteprima della scheda di matematica"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+
+                    <div class="scheda-contenuto">
+                        <h3>Matematica</h3>
+                        <a
+                            class="avvia"
+                            href="schede-didattiche/media/scheda-matematica_media.pdf"
+                        >Apri scheda PDF</a>
+                    </div>
+                </div>
+
+                <div class="scheda">
+                    <div class="anteprima">
+                        <iframe
+                            src="schede-didattiche/media/scheda-scienze-tecnologia_media.pdf#page=1"
+                            title="Anteprima della scheda di scienze e tecnologia"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+
+                    <div class="scheda-contenuto">
+                        <h3>Scienze e tecnologia</h3>
+                        <a
+                            class="avvia"
+                            href="schede-didattiche/media/scheda-scienze-tecnologia_media.pdf"
+                        >Apri scheda PDF</a>
+                    </div>
+                </div>
+
+                <div class="scheda">
+                    <div class="anteprima">
+                        <iframe
+                            src="schede-didattiche/media/scheda-storia-geografia-cittadinanza_media.pdf#page=1"
+                            title="Anteprima della scheda di storia, geografia e cittadinanza"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+
+                    <div class="scheda-contenuto">
+                        <h3>Storia, geografia e cittadinanza</h3>
+                        <a
+                            class="avvia"
+                            href="schede-didattiche/media/scheda-storia-geografia-cittadinanza_media.pdf"
+                        >Apri scheda PDF</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <nav
+            class="navigazione-footer"
+            aria-label="Navigazione di fondo pagina"
+        >
+            <a href="didattica.html">← Torna alla didattica per adulti</a>
+            <a href="index.html">← Torna alla pagina principale</a>
+        </nav>
+
+        <p class="copyright">© C. Marcello De Gregorio</p>
+    </footer>
+
+</body>
+</html>

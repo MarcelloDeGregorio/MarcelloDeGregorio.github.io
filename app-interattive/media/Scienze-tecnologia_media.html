@@ -1,0 +1,219 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>CPIA Scienze e tecnologia</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--soft:#e3edf9;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--soft:#24344d;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}}
+:root[data-theme="dark"]{--bg:#101722;--soft:#24344d;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em;color:var(--mut);font-weight:700}
+[hidden]{display:none!important}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip,.btn,.opt{font:inherit;color:var(--fg);cursor:pointer}
+.chip{padding:10px 16px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.chip.on{border-color:var(--acc);background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#07213d}}
+:root[data-theme="dark"] .chip.on{color:#07213d}
+.btn{padding:14px 22px;border:0;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;margin-top:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#07213d}}
+:root[data-theme="dark"] .btn{color:#07213d}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:4px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:20px 10px;font-size:1.7rem;line-height:1.5;margin:8px 0 14px}
+#prompt small{font-size:1rem;color:var(--mut)}.em{font-size:3rem}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{min-height:68px;font-size:1.2rem;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px}
+.opt:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.fb{min-height:3.2em;margin-top:12px;font-size:1.05rem}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+#end ul{padding-left:1.2em}#res{font-size:2.4rem;font-weight:700;margin:.2em 0}
+.tray{display:flex;flex-direction:column;gap:8px;min-height:58px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0}
+.wd{padding:10px 14px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.05rem;text-align:left}
+.wd:disabled{opacity:.7}
+#ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.25rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg)}
+#prompt{font-size:1.25rem;text-align:left}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+#opts{grid-template-columns:1fr}.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mt .opt{min-height:60px;font-size:1rem}.opt.sel{border-color:var(--acc);background:var(--soft)}
+.tabs{display:flex;gap:8px;margin:8px 0 12px}.lz h1{font-size:1.5rem}.lz h2{font-size:1.2rem;margin:1.2em 0 .3em}.lz p,.lz li{font-size:1.05rem}
+table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,.tb td{border:1px solid var(--line);padding:6px 8px;text-align:left}.tb th{background:var(--soft)}
+.ex{background:var(--soft);box-shadow:0 0 0 2px var(--soft);border-radius:4px;padding:0}.box{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+.btn.alt{border:2px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
+:root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
+</style></head><body><div class="w"><div class="tabs"><button class="chip on" id="tb1">📖 Spiega</button><button class="chip" id="tb2">🎮 Esercitati</button></div><section id="lez"><div class="lz"><h1>Scienze e tecnologia</h1>
+<p>Sintesi dei contenuti principali dell’asse scientifico-tecnologico nel primo periodo (scuola media): la materia, il corpo umano e la salute, gli esseri viventi, ambiente ed energia, la Terra e l’universo, tecnologia e sicurezza. Leggi, poi svolgi gli esercizi.</p>
+<h2>1. La materia e le sue trasformazioni</h2>
+<ul><li>La materia si presenta in tre <b>stati</b>: <b>solido</b> (forma propria), <b>liquido</b> (prende la forma del recipiente) e <b>gassoso</b> (occupa tutto lo spazio).</li><li><b>Passaggi di stato</b>: fusione (solido → liquido), solidificazione (liquido → solido), evaporazione (liquido → gas), condensazione (gas → liquido), sublimazione (solido → gas).</li><li>L’acqua pura, al livello del mare, <b>congela a 0 °C</b> e <b>bolle a 100 °C</b>.</li><li><b>Miscugli</b>: omogenei (le parti non si distinguono: acqua e sale) o eterogenei (le parti si distinguono: acqua e sabbia, acqua e olio). Si separano con la <b>filtrazione</b> (acqua e sabbia), la <b>decantazione</b> (acqua e olio) e l’<b>evaporazione</b> (acqua e sale).</li><li>L’<b>aria</b> è un miscuglio di gas: circa 78% di azoto e 21% di ossigeno.</li></ul>
+<h2>2. Il corpo umano e la salute</h2>
+<table class="tb"><tr><th>Apparato</th><th>Funzione</th><th>Organi</th></tr><tr><td>scheletrico</td><td>sostiene il corpo (206 ossa nell’adulto)</td><td>ossa, articolazioni</td></tr><tr><td>muscolare</td><td>permette il movimento</td><td>muscoli</td></tr><tr><td>digerente</td><td>trasforma il cibo in nutrienti</td><td>stomaco, intestino</td></tr><tr><td>respiratorio</td><td>porta ossigeno e toglie anidride carbonica</td><td>polmoni</td></tr><tr><td>circolatorio</td><td>trasporta il sangue</td><td>cuore, vasi sanguigni</td></tr><tr><td>nervoso</td><td>controlla il corpo e fa pensare</td><td>cervello, nervi</td></tr><tr><td>escretore</td><td>elimina i rifiuti</td><td>reni</td></tr></table>
+<p>Il <b>sangue</b> contiene globuli rossi (trasportano l’ossigeno), globuli bianchi (difendono dalle infezioni) e piastrine (fanno coagulare il sangue).</p>
+<ul><li><b>Alimentazione</b>: i carboidrati (pane, pasta, riso) danno energia; le proteine (carne, pesce, uova, legumi) costruiscono i tessuti; i grassi sono una riserva di energia; vitamine e sali minerali (frutta e verdura) regolano il corpo; l’acqua è essenziale.</li><li><b>Prevenzione</b>: lavarsi le mani, dormire, muoversi, non fumare. I <b>vaccini</b> proteggono da molte malattie. Gli <b>antibiotici</b> curano le infezioni da batteri, non quelle da virus (per esempio l’influenza).</li></ul>
+<h2>3. Gli esseri viventi</h2>
+<ul><li>L’unità base di ogni vivente è la <b>cellula</b>.</li><li>Le <b>piante</b> fanno la <b>fotosintesi</b>: con la luce del sole assorbono acqua e anidride carbonica e producono zuccheri, liberando ossigeno.</li><li><b>Vertebrati</b> (hanno la colonna vertebrale): mammiferi, uccelli, rettili, anfibi, pesci. <b>Invertebrati</b>: per esempio insetti (6 zampe), ragni (8 zampe) e molluschi.</li><li><b>Catena alimentare</b>: i <b>produttori</b> (le piante) sono mangiati dai <b>consumatori</b> (erbivori, carnivori, onnivori); i <b>decompositori</b> (funghi e batteri) trasformano i resti in sostanze utili al suolo.</li></ul>
+<h2>4. Ambiente ed energia</h2>
+<ul><li>Un <b>ecosistema</b> è l’insieme degli esseri viventi e dell’ambiente in cui vivono.</li><li><b>Fonti non rinnovabili</b>: petrolio, carbone, gas naturale. Si esauriscono e, bruciando, producono anidride carbonica, che aumenta l’<b>effetto serra</b> e il riscaldamento globale.</li><li><b>Fonti rinnovabili</b>: sole, vento, acqua, calore della Terra (geotermia), biomasse.</li><li><b>Raccolta differenziata</b>: separare carta, plastica, vetro, metalli e organico permette di riciclare i materiali e produrre meno rifiuti. Per risparmiare energia: lampadine a basso consumo, elettrodomestici efficienti, spegnere ciò che non serve.</li></ul>
+<h2>5. La Terra e l’universo</h2>
+<ul><li>Il <b>Sole</b> è una stella. I pianeti del sistema solare sono otto: Mercurio, Venere, Terra, Marte, Giove, Saturno, Urano, Nettuno. Giove è il più grande; Mercurio è il più vicino al Sole.</li><li>La <b>rotazione</b> della Terra su se stessa dura 24 ore e produce il giorno e la notte. La <b>rivoluzione</b> intorno al Sole dura circa 365 giorni e 6 ore (per questo ogni 4 anni c’è l’anno bisestile di 366 giorni). Le <b>stagioni</b> dipendono dall’inclinazione dell’asse terrestre.</li><li>La <b>Luna</b> è il satellite naturale della Terra. Le sue fasi si ripetono ogni 29-30 giorni circa (il mese).</li></ul>
+<h2>6. Energia elettrica, macchine e tecnologia</h2>
+<ul><li>La corrente passa nei <b>conduttori</b> (metalli come il rame) e non passa negli <b>isolanti</b> (plastica, gomma, legno asciutto). In Italia la tensione domestica è di 230 volt. Il consumo si misura in <b>kWh</b> (kilowattora), come nella bolletta.</li><li><b>Sicurezza</b>: non toccare apparecchi elettrici con le mani bagnate; il salvavita (interruttore differenziale) interrompe la corrente in caso di guasto.</li><li><b>Macchine semplici</b>: leva, piano inclinato, ruota, carrucola. Servono a fare meno fatica.</li><li><b>Materiali</b>: legno, metallo, vetro, ceramica, plastica (che deriva dal petrolio).</li><li><b>Informatica</b>: l’<i>hardware</i> è la parte fisica del computer; il <i>software</i> sono i programmi. Una <b>password</b> sicura è lunga, mescola lettere, numeri e simboli e non si dà a nessuno.</li></ul>
+<h2>7. Sicurezza sul lavoro ed emergenze</h2>
+<ul><li>I <b>dispositivi di protezione individuale</b> (DPI) sono: casco, guanti, occhiali, mascherina, scarpe antinfortunistiche.</li><li><b>Cartelli</b>: rosso = divieto o antincendio; giallo = avvertimento di pericolo; azzurro = obbligo; verde = salvataggio e uscita di emergenza.</li><li><b>Numeri di emergenza</b>: 112 è il numero unico europeo; 118 ambulanza; 115 vigili del fuoco; 113 polizia.</li><li><b>Scottatura</b>: raffreddare subito con acqua corrente fredda e non usare burro o olio.</li></ul></div>
+</section><div id="gm" hidden>
+<section id="menu"><h1>Scienze e tecnologia</h1>
+<div class="def">Prima leggi la spiegazione, poi esercitati: materia e trasformazioni, corpo umano e salute, esseri viventi, ambiente ed energia, Terra e universo, tecnologia e sicurezza.</div>
+<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
+<section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section></div>
+</div><script>
+const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+let cfg={},Q=[],i=0,sc=0,er=[];
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+
+const AR=[["mt", "🧪 Materia e trasformazioni"], ["co", "🫀 Corpo umano e salute"], ["vi", "🌱 Esseri viventi"], ["am", "♻️ Ambiente ed energia"], ["te", "🪐 Terra e universo"], ["tc", "🔌 Tecnologia e sicurezza"]];
+const KT={q:'Scegli la risposta',v:'Vero o falso?',k:'Quale è giusto?',t:'Scrivi la risposta',o:'Metti in ordine',m:'Abbina'};
+const D=`mt|q|Quale stato della materia ha forma propria?|solido|liquido|gassoso|vapore|Il solido mantiene la sua forma
+mt|q|Il passaggio da solido a liquido si chiama…|fusione|solidificazione|evaporazione|condensazione|Il ghiaccio fonde
+mt|q|Il passaggio da liquido a gas si chiama…|evaporazione|fusione|condensazione|solidificazione|
+mt|q|Il passaggio da gas a liquido si chiama…|condensazione|evaporazione|fusione|sublimazione|Il vapore sul vetro diventa goccioline
+mt|q|L’acqua pura bolle, al livello del mare, a…|100 °C|0 °C|50 °C|212 °C|
+mt|q|L’acqua pura congela a…|0 °C|10 °C|−10 °C|32 °C|
+mt|q|Acqua e sale formano un miscuglio…|omogeneo|eterogeneo|solido|gassoso|Il sale si scioglie e non si vede più
+mt|q|Acqua e sabbia formano un miscuglio…|eterogeneo|omogeneo|gassoso|puro|Si distinguono le due parti
+mt|q|Come si separano l’acqua e la sabbia?|con la filtrazione|con l’evaporazione|con un magnete|con il congelamento|
+mt|q|Come si può separare il sale dall’acqua?|con l’evaporazione|con la filtrazione|con la decantazione|con un magnete|L’acqua evapora e il sale resta
+mt|q|Quale gas è più presente nell’aria?|l’azoto|l’ossigeno|l’anidride carbonica|l’idrogeno|Circa 78% di azoto e 21% di ossigeno
+mt|t|A quale temperatura in gradi Celsius bolle l’acqua? (scrivi solo il numero)|100|
+mt|t|Come si chiama il passaggio da liquido a solido?|solidificazione|
+mt|v|L’aria è un miscuglio di gas.|V|
+mt|v|L’olio e l’acqua formano un miscuglio omogeneo.|F|Si distinguono le due parti: è eterogeneo
+mt|v|I liquidi prendono la forma del recipiente.|V|
+mt|o|Metti in ordine i passaggi dell’acqua: ghiaccio → liquida → vapore|solido (ghiaccio);liquido (acqua);gas (vapore)|
+mt|m|Abbina il passaggio e il cambiamento|fusione=da solido a liquido;evaporazione=da liquido a gas;condensazione=da gas a liquido;solidificazione=da liquido a solido|
+co|q|Quale organo pompa il sangue?|il cuore|i polmoni|lo stomaco|il cervello|
+co|q|Quale organo porta l’ossigeno al sangue?|i polmoni|il cuore|i reni|l’intestino|
+co|q|In quale organo avviene l’assorbimento dei nutrienti?|nell’intestino|nei polmoni|nel cuore|nei reni|
+co|q|Quale apparato sostiene il corpo?|scheletrico|digerente|respiratorio|nervoso|
+co|q|Quante ossa ha il corpo di un adulto?|206|106|306|60|
+co|q|I globuli rossi servono a…|trasportare l’ossigeno|difendere dalle infezioni|coagulare il sangue|digerire il cibo|
+co|q|I globuli bianchi servono a…|difendere dalle infezioni|trasportare l’ossigeno|coagulare il sangue|produrre energia|
+co|q|Quale organo controlla il corpo e il pensiero?|il cervello|il cuore|il fegato|lo stomaco|Fa parte del sistema nervoso
+co|q|Quali alimenti sono ricchi di proteine?|carne, pesce, uova e legumi|pane e pasta|frutta e verdura|olio e burro|
+co|q|Quali alimenti danno soprattutto energia (carboidrati)?|pane, pasta e riso|carne e pesce|frutta secca|acqua|
+co|q|Vitamine e sali minerali si trovano soprattutto in…|frutta e verdura|olio e burro|dolci|bibite gassate|
+co|q|Gli antibiotici curano…|le infezioni da batteri|le infezioni da virus|tutte le malattie|solo il mal di testa|Non curano l’influenza, che è causata da un virus
+co|q|I vaccini servono a…|prevenire le malattie|curare le ferite|calmare il dolore|dare energia|
+co|t|Quale organo pompa il sangue?|cuore;il cuore|
+co|t|Quante ossa ha un adulto? (scrivi solo il numero)|206|
+co|v|Gli antibiotici curano l’influenza.|F|L’influenza è causata da un virus
+co|v|Lavarsi le mani aiuta a prevenire le malattie.|V|
+co|v|I polmoni pompano il sangue.|F|Il sangue è pompato dal cuore
+co|m|Abbina l’organo e la funzione|cuore=pompa il sangue;polmoni=scambiano ossigeno e anidride carbonica;stomaco=digerisce il cibo;cervello=controlla il corpo|
+co|m|Abbina il nutriente e l’alimento|carboidrati=pasta;proteine=legumi;vitamine=frutta;grassi=olio|
+vi|q|L’unità base di ogni essere vivente è…|la cellula|il cuore|l’atomo|l’organo|
+vi|q|La fotosintesi clorofilliana avviene…|nelle piante|negli animali|nei minerali|nei funghi|Serve la luce del sole
+vi|q|Con la fotosintesi le piante liberano…|ossigeno|azoto|idrogeno|anidride carbonica|
+vi|q|Con la fotosintesi le piante assorbono…|acqua e anidride carbonica|ossigeno e azoto|solo ossigeno|solo azoto|
+vi|q|Quale animale è un mammifero?|il delfino|il pesce rosso|il serpente|il pinguino|Il delfino allatta i suoi piccoli
+vi|q|Quale animale è un rettile?|il serpente|la rana|il delfino|il passero|
+vi|q|Quale animale è un invertebrato?|la farfalla|il gatto|il cavallo|il cane|Gli insetti non hanno la colonna vertebrale
+vi|q|Quante zampe ha un insetto?|6|4|8|10|Il ragno ne ha 8 e non è un insetto
+vi|q|Gli animali che mangiano solo vegetali sono…|erbivori|carnivori|onnivori|decompositori|
+vi|q|Nella catena alimentare, i produttori sono…|le piante|i leoni|i funghi|gli uomini|
+vi|q|I decompositori sono…|funghi e batteri|piante|erbivori|carnivori|Trasformano i resti in sostanze utili al suolo
+vi|t|Come si chiama il processo con cui le piante producono zuccheri con la luce?|fotosintesi;fotosintesi clorofilliana;la fotosintesi|
+vi|t|Quante zampe ha un insetto? (scrivi solo il numero)|6|
+vi|v|Il ragno è un insetto.|F|Ha 8 zampe: non è un insetto
+vi|v|Gli uccelli sono vertebrati.|V|
+vi|v|Le piante producono ossigeno con la fotosintesi.|V|
+vi|o|Metti in ordine la catena alimentare|Erba;Coniglio;Volpe|
+vi|m|Abbina l’animale e il gruppo|delfino=mammifero;aquila=uccello;rana=anfibio;serpente=rettile|
+am|q|Quale fonte di energia è rinnovabile?|il vento|il petrolio|il carbone|il gas naturale|
+am|q|Quale fonte di energia NON è rinnovabile?|il petrolio|il sole|l’acqua|il vento|Si esaurisce
+am|q|Che cosa produce l’effetto serra?|soprattutto l’anidride carbonica|l’ossigeno|l’azoto|il vapore dei laghi|È prodotta bruciando petrolio, carbone e gas
+am|q|Con la raccolta differenziata si…|separano i rifiuti per riciclarli|bruciano tutti i rifiuti|buttano i rifiuti nel mare|riuniscono tutti i rifiuti insieme|
+am|q|La plastica si ricava da…|petrolio|legno|vetro|sabbia|
+am|q|Quale comportamento fa risparmiare energia?|spegnere le luci che non servono|lasciare la televisione accesa|tenere le finestre aperte con il riscaldamento|usare la lavatrice mezza vuota|
+am|q|Un ecosistema è…|l’insieme degli esseri viventi e dell’ambiente in cui vivono|un insetto|una fonte di energia|un tipo di rifiuto|
+am|q|L’energia che viene dal calore della Terra si chiama…|geotermica|solare|eolica|idroelettrica|
+am|t|Come si chiama l’energia che viene dal vento?|eolica;energia eolica|
+am|v|Il sole è una fonte di energia rinnovabile.|V|
+am|v|Il carbone è una fonte rinnovabile.|F|Si esaurisce ed è inquinante
+am|v|Riciclare la carta aiuta l’ambiente.|V|
+am|m|Abbina la fonte e il nome dell’energia|sole=solare;vento=eolica;calore della Terra=geotermica;acqua=idroelettrica|
+te|q|Quanti sono i pianeti del sistema solare?|8|7|9|10|
+te|q|Il Sole è…|una stella|un pianeta|un satellite|una cometa|
+te|q|Qual è il pianeta più grande del sistema solare?|Giove|Saturno|la Terra|Marte|
+te|q|Qual è il pianeta più vicino al Sole?|Mercurio|Venere|Marte|Giove|
+te|q|Quale pianeta è chiamato «pianeta rosso»?|Marte|Venere|Giove|Mercurio|
+te|q|La rotazione della Terra su se stessa dura…|24 ore|365 giorni|un mese|12 ore|Produce il giorno e la notte
+te|q|La rivoluzione della Terra intorno al Sole dura circa…|365 giorni|24 ore|30 giorni|12 mesi e 6 giorni|È un anno
+te|q|Le stagioni dipendono da…|l’inclinazione dell’asse terrestre|la distanza dal Sole|le fasi della Luna|la rotazione della Terra|
+te|q|La Luna è…|il satellite naturale della Terra|un pianeta|una stella|una cometa|
+te|q|Le fasi della Luna si ripetono ogni…|29-30 giorni circa|7 giorni|365 giorni|24 ore|È il mese lunare
+te|q|Ogni 4 anni c’è l’anno bisestile, che dura…|366 giorni|365 giorni|364 giorni|367 giorni|
+te|t|Quanti sono i pianeti del sistema solare? (scrivi solo il numero)|8|
+te|t|Come si chiama il satellite naturale della Terra?|Luna;la Luna|
+te|v|La Terra gira intorno al Sole.|V|
+te|v|Il Sole è un pianeta.|F|Il Sole è una stella
+te|v|Il giorno e la notte dipendono dalla rotazione della Terra.|V|
+te|o|Metti i pianeti dal più vicino al più lontano dal Sole|Mercurio;Venere;Terra;Marte|
+te|m|Abbina il corpo celeste e la definizione|Sole=stella;Terra=pianeta;Luna=satellite naturale;Giove=pianeta più grande|
+tc|q|Quale materiale è un buon conduttore di elettricità?|il rame|la gomma|la plastica|il legno asciutto|
+tc|q|Quale materiale è un isolante?|la gomma|il rame|il ferro|l’alluminio|
+tc|q|Qual è la tensione domestica in Italia?|230 volt|110 volt|12 volt|1000 volt|
+tc|q|Il consumo di energia elettrica si misura in…|kWh|metri|litri|grammi|È il valore scritto in bolletta
+tc|q|Con le mani bagnate non si devono toccare…|gli apparecchi elettrici|i rubinetti|le spugne|i bicchieri|Esiste il rischio di scossa elettrica
+tc|q|Il salvavita (interruttore differenziale) serve a…|interrompere la corrente in caso di guasto|aumentare la tensione|risparmiare sulla bolletta|ricaricare il telefono|
+tc|q|Quale di queste è una macchina semplice?|la leva|il computer|il motore|il telefono|
+tc|q|L’hardware di un computer è…|la parte fisica|l’insieme dei programmi|la connessione a internet|la password|I programmi sono il software
+tc|q|Una password sicura è…|lunga, con lettere, numeri e simboli|il proprio nome|la data di nascita|123456|
+tc|q|Che cosa significa un cartello rosso rotondo?|divieto|obbligo|uscita di emergenza|pericolo|
+tc|q|Che cosa significa un cartello giallo triangolare?|pericolo|divieto|uscita di emergenza|obbligo|
+tc|q|Che cosa significa un cartello verde?|salvataggio o uscita di emergenza|divieto|pericolo|obbligo|
+tc|q|Quale numero chiami per l’ambulanza?|118|115|113|100|
+tc|q|Qual è il numero unico europeo di emergenza?|112|118|115|911|
+tc|q|Quale numero chiami per i vigili del fuoco?|115|118|113|112|
+tc|q|Che cosa fai se ti scotti?|raffreddi con acqua corrente fredda|metti burro o olio|copri subito con un panno caldo|metti del ghiaccio sulla pelle senza protezione|
+tc|q|Quale dispositivo di protezione serve per proteggere la testa?|il casco|i guanti|la mascherina|gli occhiali|
+tc|t|Quale numero chiami per l’ambulanza? (scrivi solo il numero)|118|
+tc|t|Qual è il numero unico europeo di emergenza? (scrivi solo il numero)|112|
+tc|v|Con le mani bagnate posso toccare una presa elettrica.|F|C’è il rischio di scossa elettrica
+tc|v|La password si può dire agli amici.|F|La password non si dà a nessuno
+tc|v|I guanti sono un dispositivo di protezione individuale.|V|
+tc|m|Abbina il colore del cartello e il significato|rosso=divieto;giallo=pericolo;azzurro=obbligo;verde=uscita di emergenza|
+tc|m|Abbina il numero e il servizio|112=numero unico europeo;118=ambulanza;115=vigili del fuoco;113=polizia|`;
+const B=D.split('\n').map(l=>l.split('|')).map(a=>({r:a[0],k:a[1],x:a[2],a:a.slice(3)}));
+
+const MENU=[{k:'ar',t:'Che cosa vuoi esercitare?',o:[['tutti','🎲 Tutto']].concat(AR)}];
+function mk(b){const a=b.a,lab=AR.find(z=>z[0]==b.r)[1],Z=o=>Object.assign({t:lab+' · '+KT[b.k],h:'<b>'+b.x+'</b>',n:''},o);
+if(b.k=='q')return Z({k:'c',o:sh(a.slice(0,4)),a:a[0],f:a[0],n:a[4]||''});
+if(b.k=='v')return Z({k:'c',o:['✅ Vero','❌ Falso'],a:a[0]=='V'?'✅ Vero':'❌ Falso',f:a[0]=='V'?'vero':'falso',n:a[1]||''});
+if(b.k=='k')return Z({k:'c',o:sh([a[0],a[1]]),a:a[0],f:a[0],n:a[2]||''});
+if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''});
+if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
+const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
+function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
+function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
+const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'').replace(/'/g,'’');
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
+function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
+if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
+if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
+const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach((t,n)=>bt((n+1)+'. '+t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}
+if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
+q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
+sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
+$('#tb1').onclick=()=>{$('#lez').hidden=false;$('#gm').hidden=true;$('#tb1').classList.add('on');$('#tb2').classList.remove('on')};$('#tb2').onclick=()=>{$('#lez').hidden=true;$('#gm').hidden=false;$('#tb2').classList.add('on');$('#tb1').classList.remove('on')};
+menu();
+</script></body></html>
+</body></html>

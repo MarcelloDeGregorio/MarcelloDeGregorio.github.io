@@ -59,101 +59,36 @@
             font-weight: bold;
         }
 
-        h2 {
+        /* PERCORSI DIDATTICI */
+
+        .percorso {
+            margin-top: 40px;
+        }
+
+        .percorso h2 {
             font-size: 28px;
             font-weight: normal;
             border-bottom: 1px solid #bbb;
             padding-bottom: 8px;
-            margin-top: 45px;
+            margin: 0 0 15px 0;
         }
 
-        .esercizio {
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 20px 25px;
-            margin: 18px 0;
-            border-radius: 4px;
-        }
-
-        .esercizio h3 {
-            margin: 0 0 8px 0;
-            font-size: 21px;
-            font-weight: normal;
-        }
-
-        .avvia {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 9px 18px;
-            background: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-        }
-
-        .avvia:hover {
-            background: #555;
-        }
-
-        .schede {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 22px;
-            margin-top: 25px;
-        }
-
-        .scheda {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .anteprima {
-            height: 260px;
-            background: #eee;
-        }
-
-        .anteprima iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .scheda-contenuto {
-            padding: 18px 20px 20px 20px;
-        }
-
-        .scheda h3 {
-            margin: 0 0 10px 0;
-            font-size: 19px;
-            font-weight: normal;
-            line-height: 1.4;
-        }
-
-        .scheda .avvia {
-            margin-top: 4px;
-        }
-
-        /* COLLEGAMENTO ALLA HOME */
-
-        .torna-home {
-            margin-top: 15px;
-            text-align: left;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-        }
-
-        .torna-home a {
-            color: #666;
-            text-decoration: none;
-        }
-
-        .torna-home a:hover {
-            color: #222;
+        .percorso h2 a {
+            color: #333;
             text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 5px;
+        }
+
+        .percorso h2 a:hover {
+            color: #666;
+        }
+
+        .percorso p {
+            font-size: 17px;
+            color: #555;
+            max-width: 750px;
+            margin: 0;
         }
 
         /* FOOTER */
@@ -166,6 +101,26 @@
             color: #777;
             font-family: Arial, Helvetica, sans-serif;
             font-size: 13px;
+        }
+
+            .navigazione-footer {
+            margin-bottom: 18px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .navigazione-footer a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .navigazione-footer a:hover {
+            color: #222;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin: 0;
         }
 
         /* VISUALIZZAZIONE SU SCHERMI PICCOLI */
@@ -184,8 +139,8 @@
                 margin-bottom: 35px;
             }
 
-            .schede {
-                grid-template-columns: 1fr;
+            .percorso h2 {
+                font-size: 26px;
             }
         }
     </style>
@@ -194,568 +149,59 @@
 <body>
 
     <header>
-
         <h1>Didattica per adulti</h1>
 
         <p class="introduzione">
-            Esercitazioni con applicazioni interattive e schede didattiche per l'apprendimento
-            della lingua italiana, pensate in particolare per studenti
-            adulti di recente integrazione.
+            Applicazioni interattive e schede didattiche per l'istruzione
+            degli adulti: materiali per l'alfabetizzazione e l'apprendimento
+            della lingua italiana, e risorse per il percorso di scuola media.
         </p>
-
     </header>
 
     <nav class="menu-pagine" aria-label="Navigazione principale">
-
         <a href="index.html">Home</a>
-
         <a href="index.html#biografia">Biografia e ricerca</a>
-
         <a href="pubblicazioni.html">Pubblicazioni</a>
-
         <a href="risorse.html" class="pagina-attiva">Risorse</a>
-
         <a href="index.html#contatti">Contatti</a>
-
     </nav>
 
     <main>
 
-        <h2>Esercitazioni</h2>
-
-        <div class="esercizio">
-            <h3>Articoli e pronomi</h3>
-            <a class="avvia" href="app-interattive/Articoli-e-pronomi.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Cittadini in Italia: le regole di base</h3>
-            <a class="avvia" href="app-interattive/Cittadini-in-Italia_le-regole-di-base.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Coniugazioni in breve: studiare, vedere, partire</h3>
-            <a class="avvia" href="app-interattive/Coniugazioni-in-breve_studiare-vedere-partire.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Dialoghi in scena: chiedo, accetto, ci accordiamo</h3>
-            <a class="avvia" href="app-interattive/Dialoghi-in-scena_chiedo-accetto-ci-accordiamo.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Frase minima ed espansioni</h3>
-            <a class="avvia" href="app-interattive/Frase-minima-ed-espansioni.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Gli articoli</h3>
-            <a class="avvia" href="app-interattive/Gli-articoli-in-breve.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>I nomi e le loro classificazioni</h3>
-            <a class="avvia" href="app-interattive/I-nomi-e-loro-classificazioni.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Il modo indicativo: verbi irregolari - andare, sapere, venire</h3>
-            <a class="avvia" href="app-interattive/Il-modo-indicativo_verbi irregolari-andare-sapere-venire.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Il modo indicativo: verbi regolari - comprare, temere, partire</h3>
-            <a class="avvia" href="app-interattive/Il-modo-indicativo_verbi-regolari-comprare-temere-partire.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Imparo a leggere e a scrivere</h3>
-            <a class="avvia" href="app-interattive/Imparo-a-leggere-e-scrivere.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Io mi presento: lavoro individuale</h3>
-            <a class="avvia" href="app-interattive/Io-mi-presento_lavoro-individuale.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Italiano per la vita di ogni giorno</h3>
-            <a class="avvia" href="app-interattive/Italiano-per-la-vita-di-ogni-giorno.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Maschile, femminile, singolare, plurale</h3>
-            <a class="avvia" href="app-interattive/Maschile-femminile_singolare-plurale.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Parlo con la scuola e con il medico</h3>
-            <a class="avvia" href="app-interattive/Parlo-con-la-scuola-e-con-il-medico.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Presentarsi collettivamente e conoscersi</h3>
-            <a class="avvia" href="app-interattive/Presentarsi-collettivamente-e-conoscersi.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Studiare, credere, partire: alcuni tempi</h3>
-            <a class="avvia" href="app-interattive/Studiare-credere-partire_alcuni tempi.html">Avvia esercizio</a>
-        </div>
-
-        <div class="esercizio">
-            <h3>Essere e avere</h3>
-            <a class="avvia" href="app-interattive/Verbo_essere-e-verbo-avere.html">Avvia esercizio</a>
-        </div>
-
-        <h2>Schede didattiche</h2>
-
-        <div class="schede">
-
-            <!-- NUOVE SCHEDE -->
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/27-meteo.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Meteo</h3>
-                    <a class="avvia" href="schede-didattiche/27-meteo.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/26-animali.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Animali</h3>
-                    <a class="avvia" href="schede-didattiche/26-animali.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/25-famiglia.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Famiglia</h3>
-                    <a class="avvia" href="schede-didattiche/25-famiglia.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/24-professioni.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Professioni</h3>
-                    <a class="avvia" href="schede-didattiche/24-professioni.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/23-verdura.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Verdura</h3>
-                    <a class="avvia" href="schede-didattiche/23-verdura.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/22-frutta.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Frutta</h3>
-                    <a class="avvia" href="schede-didattiche/22-frutta.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/21-alimenti.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Alimenti</h3>
-                    <a class="avvia" href="schede-didattiche/21-alimenti.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/20-vestiti.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Vestiti</h3>
-                    <a class="avvia" href="schede-didattiche/20-vestiti.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/19-ospedale.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Ospedale</h3>
-                    <a class="avvia" href="schede-didattiche/19-ospedale.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/18-strada.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Strada</h3>
-                    <a class="avvia" href="schede-didattiche/18-strada.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/17-anagrafe.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Anagrafe</h3>
-                    <a class="avvia" href="schede-didattiche/17-anagrafe.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/16-medico.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Medico</h3>
-                    <a class="avvia" href="schede-didattiche/16-medico.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/15-scuola-guida.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Scuola guida</h3>
-                    <a class="avvia" href="schede-didattiche/15-scuola-guida.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/14-questura.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Questura</h3>
-                    <a class="avvia" href="schede-didattiche/14-questura.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/13-mercato.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Mercato</h3>
-                    <a class="avvia" href="schede-didattiche/13-mercato.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/12-supermercato.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Supermercato</h3>
-                    <a class="avvia" href="schede-didattiche/12-supermercato.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/11-casa.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Casa</h3>
-                    <a class="avvia" href="schede-didattiche/11-casa.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/10-scuola.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Scuola</h3>
-                    <a class="avvia" href="schede-didattiche/10-scuola.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/07-maschile-e-femminile.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Maschile e femminile</h3>
-                    <a class="avvia" href="schede-didattiche/07-maschile-e-femminile.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/06-singolare-e-plurale.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Singolare e plurale</h3>
-                    <a class="avvia" href="schede-didattiche/06-singolare-e-plurale.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/05-pronomi-personali.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Pronomi personali</h3>
-                    <a class="avvia" href="schede-didattiche/05-pronomi-personali.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/04-numeri.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Numeri</h3>
-                    <a class="avvia" href="schede-didattiche/04-numeri.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/03-alfabetiere.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Alfabetiere</h3>
-                    <a class="avvia" href="schede-didattiche/03-alfabetiere.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/02-consonanti.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Consonanti</h3>
-                    <a class="avvia" href="schede-didattiche/02-consonanti.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/01-vocali.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Vocali</h3>
-                    <a class="avvia" href="schede-didattiche/01-vocali.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <!-- SCHEDE GIÀ PRESENTI -->
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/Schede_Italiano_L2_A1_A2.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Schede di italiano L2 — livello A1/A2</h3>
-                    <a class="avvia" href="schede-didattiche/Schede_Italiano_L2_A1_A2.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/Schede_Italiano_L2_PreA1.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Schede di italiano L2 — livello PreA1</h3>
-                    <a class="avvia" href="schede-didattiche/Schede_Italiano_L2_PreA1.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-articoli-e-pronomi.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Articoli e pronomi</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-articoli-e-pronomi.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-articoli.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Gli articoli</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-articoli.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-cittadini-in-italia.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Cittadini in Italia</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-cittadini-in-italia.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-essere-e-avere.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Essere e avere</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-essere-e-avere.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-i-nomi.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>I nomi</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-i-nomi.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-imparo-a-leggere-e-a-scrivere.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Imparo a leggere e a scrivere</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-imparo-a-leggere-e-a-scrivere.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-indicativo-irregolari.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Indicativo: verbi irregolari</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-indicativo-irregolari.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-indicativo-regolari.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Indicativo: verbi regolari</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-indicativo-regolari.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-io-mi-presento.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Io mi presento</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-io-mi-presento.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-italiano-vita-quotidiana.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Italiano per la vita quotidiana</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-italiano-vita-quotidiana.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-la-frase-minima.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>La frase minima</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-la-frase-minima.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-maschile-femminile-singolare-plurale.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Maschile, femminile, singolare, plurale</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-maschile-femminile-singolare-plurale.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-parlo-con-la-scuola-e-il-medico.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Parlo con la scuola e il medico</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-parlo-con-la-scuola-e-il-medico.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-presentarsi-e-conoscersi.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Presentarsi e conoscersi</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-presentarsi-e-conoscersi.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-studiare-credere-partire.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Studiare, credere, partire</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-studiare-credere-partire.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-            <div class="scheda">
-                <div class="anteprima">
-                    <iframe src="schede-didattiche/scheda-studiare-vedere-partire.pdf#page=1"></iframe>
-                </div>
-                <div class="scheda-contenuto">
-                    <h3>Studiare, vedere, partire</h3>
-                    <a class="avvia" href="schede-didattiche/scheda-studiare-vedere-partire.pdf">Apri scheda PDF</a>
-                </div>
-            </div>
-
-        </div>
+        <section class="percorso" aria-labelledby="titolo-alfabetizzazione">
+            <h2 id="titolo-alfabetizzazione">
+                <a href="alfabetizzazione.html">Alfabetizzazione</a>
+            </h2>
+
+            <p>
+                Esercitazioni interattive e schede didattiche per imparare
+                a leggere e a scrivere, apprendere la lingua italiana
+                e sviluppare le competenze linguistiche nella vita quotidiana.
+                Materiali pensati in particolare per studenti adulti
+                di recente integrazione.
+            </p>
+        </section>
+
+        <section class="percorso" aria-labelledby="titolo-scuola-media">
+            <h2 id="titolo-scuola-media">
+                <a href="scuola-media.html">Scuola media</a>
+            </h2>
+
+            <p>
+                Applicazioni interattive e schede didattiche per il percorso
+                di scuola media per adulti: italiano, matematica,
+                scienze e tecnologia, storia, geografia e cittadinanza.
+            </p>
+        </section>
 
     </main>
 
-    <div class="torna-home">
-        <a href="index.html">← Torna alla pagina principale</a>
-    </div>
-
     <footer>
-        © C. Marcello De Gregorio
+        <nav class="navigazione-footer" aria-label="Navigazione di fondo pagina">
+            <a href="index.html">← Torna alla pagina principale</a>
+        </nav>
+
+        <p class="copyright">© C. Marcello De Gregorio</p>
     </footer>
 
 </body>
