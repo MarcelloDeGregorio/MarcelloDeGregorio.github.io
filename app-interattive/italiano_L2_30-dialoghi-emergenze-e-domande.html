@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Italiano L2 - 30 situazioni essenziali</title>
+<style>
+:root{--b:#1458d4;--bd:#0b3b93;--bg:#f4f7fc;--ink:#17243a;--mut:#5d6878;--ok:#177547;--okbg:#e9f8ef;--no:#b4232d;--nobg:#fff0f1;--line:#dce4ef}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}.wrap{width:min(920px,100%);margin:auto;padding:16px}.hero{padding:24px;color:#fff;background:linear-gradient(135deg,var(--bd),#297be6);border-radius:22px}.hero h1{margin:0;font-size:clamp(1.65rem,4vw,2.5rem)}.hero p{margin:7px 0 0}.tools,.status,.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.tools{margin-top:16px}.btn,.choice,.tab{font:inherit;cursor:pointer}.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:750}.light{background:#fff;color:var(--bd)}.primary{background:var(--b);color:#fff}.soft{background:#e9f1ff;color:#174a9b}.tabs{display:flex;gap:8px;margin:16px 0}.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;font-weight:700}.tab.on{background:var(--ink);color:#fff}.status{justify-content:space-between;margin:12px 0}.pill{background:#fff;border-radius:999px;padding:8px 12px;font-weight:750}.progress{height:12px;background:#dee6f1;border-radius:99px;overflow:hidden}.bar{height:100%;background:#31a05f;width:0;transition:.25s}.card{margin-top:12px;padding:clamp(18px,4vw,30px);background:#fff;border:1px solid #e1e7f0;border-radius:20px;box-shadow:0 9px 28px #24426616}.visual{width:88px;height:88px;display:grid;place-items:center;border-radius:22px;background:linear-gradient(145deg,#eef4ff,#dfeaff);font-size:3.15rem;border:1px solid #d3e0f5;box-shadow:inset 0 1px #fff}.cat{margin-top:13px;color:var(--b);font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:.8rem}.scene{font-size:1.1rem;margin:6px 0}.prompt{margin:6px 0 18px;font-size:clamp(1.3rem,3vw,1.75rem)}.choices{display:grid;gap:11px}.choice{text-align:left;padding:14px 15px;background:#fff;border:2px solid var(--line);border-radius:14px;font-weight:650}.choice:hover:not(:disabled){border-color:var(--b);background:#f8faff}.choice.good{border-color:var(--ok);background:var(--okbg);color:#106139}.choice.bad{border-color:var(--no);background:var(--nobg);color:#8b1720}.feedback{display:none;margin-top:15px;padding:14px;border-radius:13px;font-weight:650}.feedback.show{display:block}.feedback.good{background:var(--okbg);color:#106139}.feedback.bad{background:var(--nobg);color:#8b1720}.actions{justify-content:space-between;margin-top:16px}.hide{display:none!important}.phrasegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.phrase{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fbfcff}.phrase b{display:block;color:var(--bd);margin-bottom:4px}.result{text-align:center}.result .emoji{font-size:4rem}.note{color:var(--mut);font-size:.9rem}.foot{text-align:center;color:var(--mut);font-size:.86rem;margin:16px}@media(max-width:560px){.wrap{padding:9px}.hero,.card{border-radius:15px}.visual{width:72px;height:72px;font-size:2.65rem}.actions .btn{width:100%}}button:focus-visible{outline:4px solid #ffbd38;outline-offset:2px}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <h1>Italiano L2: primi dialoghi</h1>
+    <p>30 situazioni concrete per comunicare appena arrivati in Italia.</p>
+    <div class="tools">
+      <button class="btn light" id="restartTop">↻ Nuovo esercizio</button>
+      <button class="btn light" id="soundToggle" aria-pressed="true">🔊 Suoni attivi</button>
+      <select id="voiceSelect" class="btn light" aria-label="Scegli la voce italiana">
+        <option value="">Voce predefinita</option>
+      </select>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab on" data-view="quiz">Esercizi</button>
+    <button class="tab" data-view="study">Ripassa le frasi</button>
+  </nav>
+
+  <section id="quiz">
+    <div class="status">
+      <span class="pill">Domanda <span id="n">1</span>/30</span>
+      <span class="pill">⭐ Punti: <span id="score">0</span></span>
+    </div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+
+    <article class="card" id="qcard">
+      <div class="visual" id="icon" role="img"></div>
+      <div class="cat" id="cat"></div>
+      <p class="scene" id="scene"></p>
+      <h2 class="prompt" id="prompt"></h2>
+      <div id="choices" class="choices"></div>
+      <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+      <div class="actions">
+        <button class="btn soft" id="listen">🔈 Ascolta la frase corretta</button>
+        <button class="btn primary hide" id="next">Prossima →</button>
+      </div>
+    </article>
+
+    <article class="card result hide" id="result">
+      <div class="emoji" id="resultIcon">🎉</div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultText"></p>
+      <button class="btn primary" id="again">Ricomincia</button>
+    </article>
+  </section>
+
+  <section id="study" class="hide">
+    <article class="card">
+      <h2>Frasi da ripassare</h2>
+      <p class="note">Le frasi sono lette lentamente, con una breve pausa nei puntini di sospensione. Nelle domande l’intonazione sale alla fine. La voce italiana dipende da quelle disponibili nel dispositivo: puoi cambiarla dal menu in alto.</p>
+      <div class="phrasegrid" id="phrasegrid"></div>
+    </article>
+  </section>
+
+  <p class="foot">File autonomo e utilizzabile offline. La voce italiana dipende dalle voci disponibili nel dispositivo.</p>
+</main>
+
+<script>
+const DATA=[{"icon": "🏢", "cat": "Saluti", "scene": "Al mattino entri in un ufficio.", "prompt": "Come saluti?", "answers": ["Buongiorno.", "Buonasera.", "Buon giorno a te.", "Buona mattina."], "correct": 0, "explain": "Al mattino si usa «Buongiorno».", "speak": "Buongiorno."}, {"icon": "🤝", "cat": "Presentarsi", "scene": "Incontri una persona per la prima volta.", "prompt": "Come ti presenti?", "answers": ["Mi chiamo Amir… piacere.", "Io chiamare Amir… piacere.", "Sono chiamato Amir… grazie.", "Il mio nome chiama Amir… piacere."], "correct": 0, "explain": "«Mi chiamo…» è la forma normale per presentarsi.", "speak": "Mi chiamo Amir… piacere."}, {"icon": "👂", "cat": "Comprensione", "scene": "Non senti bene una frase.", "prompt": "Che cosa chiedi?", "answers": ["Può ripetere… per favore?", "Può rispondere… per favore?", "Può ripetermi… per favore?", "Può dire ancora… per favore?"], "correct": 0, "explain": "«Può ripetere?» chiede di dire nuovamente la frase.", "speak": "Può ripetere… per favore?"}, {"icon": "🐢", "cat": "Comprensione", "scene": "La persona parla troppo velocemente.", "prompt": "Che cosa dici?", "answers": ["Può parlare più lentamente?", "Può parlare più basso lentamente?", "Può dire meno veloce?", "Può parlare piano più?"], "correct": 0, "explain": "«Più lentamente» modifica correttamente il verbo parlare.", "speak": "Può parlare più lentamente?"}, {"icon": "🚉", "cat": "Orientamento", "scene": "Cerchi la stazione.", "prompt": "Come chiedi informazioni?", "answers": ["Scusi… dov’è la stazione?", "Scusa… dove è una stazione?", "Scusi… dove sta stazione?", "Mi scusi… dove si trova stazione?"], "correct": 0, "explain": "Con uno sconosciuto è cortese «Scusi»; si dice «la stazione».", "speak": "Scusi… dov’è la stazione?"}, {"icon": "🚌", "cat": "Trasporti", "scene": "Vuoi sapere se l’autobus va in centro.", "prompt": "Quale domanda fai?", "answers": ["Questo autobus va in centro?", "Questo autobus viene al centro?", "Questo autobus va al centro città dentro?", "Questo autobus porta in centro?"], "correct": 0, "explain": "Per la destinazione si usa normalmente «andare in centro».", "speak": "Questo autobus va in centro?"}, {"icon": "🎫", "cat": "Trasporti", "scene": "Vuoi comprare un biglietto dell’autobus.", "prompt": "Che cosa dici?", "answers": ["Un biglietto dell’autobus… per favore.", "Uno biglietto per autobus… grazie.", "Il biglietto di un autobus… per piacere.", "Un biglietto per l’autobus… per favore."], "correct": 0, "explain": "«Un biglietto dell’autobus» è la richiesta naturale.", "speak": "Un biglietto dell’autobus… per favore."}, {"icon": "🚆", "cat": "Orari", "scene": "Vuoi sapere quando parte il treno.", "prompt": "Quale domanda fai?", "answers": ["A che ora parte il treno?", "In che ora parte il treno?", "Che ora il treno parte?", "A quale ora parte il treno?"], "correct": 0, "explain": "Per chiedere un orario si usa «A che ora…?».", "speak": "A che ora parte il treno?"}, {"icon": "☕", "cat": "Bar", "scene": "Sei al bar e vuoi ordinare un caffè.", "prompt": "Che cosa dici?", "answers": ["Vorrei un caffè… per favore.", "Voglio un caffè… dammi.", "Vorrei del caffè uno… grazie.", "Prenderei un caffè… per favore."], "correct": 0, "explain": "«Vorrei…, per favore» è cortese e naturale.", "speak": "Vorrei un caffè… per favore."}, {"icon": "🧾", "cat": "Ristorante", "scene": "Vuoi chiedere il conto.", "prompt": "Che cosa dici?", "answers": ["Il conto… per favore.", "La conta… per favore.", "Posso avere la ricevuta da mangiare?", "Mi porta il conto… grazie?"], "correct": 0, "explain": "Al ristorante si chiede «il conto».", "speak": "Il conto… per favore."}, {"icon": "🏷️", "cat": "Acquisti", "scene": "Vuoi conoscere il prezzo di un prodotto.", "prompt": "Quale domanda fai?", "answers": ["Quanto costa?", "Quanti costa?", "Come costa?", "Qual è il costo?"], "correct": 0, "explain": "Il prezzo si chiede con «Quanto costa?».", "speak": "Quanto costa?"}, {"icon": "💳", "cat": "Pagamenti", "scene": "Vuoi usare la carta.", "prompt": "Che cosa chiedi?", "answers": ["Posso pagare con la carta?", "Posso pagare dalla carta?", "Posso pagare in carta?", "Posso pagare per carta?"], "correct": 0, "explain": "Lo strumento di pagamento è introdotto da «con».", "speak": "Posso pagare con la carta?"}, {"icon": "👕", "cat": "Abbigliamento", "scene": "La maglietta è troppo piccola.", "prompt": "Come chiedi una taglia diversa?", "answers": ["Avete una taglia più grande?", "Avete una misura più grossa?", "Ha un taglio più grande?", "C’è una taglia più larga?"], "correct": 0, "explain": "Per i vestiti si usa «taglia».", "speak": "Avete una taglia più grande?"}, {"icon": "🥖", "cat": "Supermercato", "scene": "Cerchi il pane.", "prompt": "Che cosa chiedi?", "answers": ["Dove posso trovare il pane?", "Dove posso trovare del pani?", "Dove trovo un pane generale?", "Dove sta il reparto del pane?"], "correct": 0, "explain": "«Pane» è singolare e normalmente vuole l’articolo «il».", "speak": "Dove posso trovare il pane?"}, {"icon": "🩺", "cat": "Salute", "scene": "Hai un appuntamento con il medico.", "prompt": "Che cosa dici alla reception?", "answers": ["Ho un appuntamento con il dottore.", "Sono in appuntamento dal dottore.", "Ho appuntamento al medico.", "Ho una prenotazione dal dottore."], "correct": 0, "explain": "Si dice «avere un appuntamento con» una persona.", "speak": "Ho un appuntamento con il dottore."}, {"icon": "🤕", "cat": "Salute", "scene": "Hai dolore alla testa.", "prompt": "Come lo dici?", "answers": ["Ho mal di testa.", "Ho il male della testa.", "Mi fa male di testa.", "Mi fa male la testa."], "correct": 0, "explain": "L’espressione fissa è «avere mal di testa».", "speak": "Ho mal di testa."}, {"icon": "💊", "cat": "Farmacia", "scene": "Cerchi una farmacia nelle vicinanze.", "prompt": "Che cosa chiedi?", "answers": ["Dov’è la farmacia più vicina?", "Dov’è la farmacia più vicino?", "Dove c’è una farmacia molto prossima qui?", "Qual è la farmacia più vicina?"], "correct": 0, "explain": "«Vicina» concorda con «farmacia».", "speak": "Dov’è la farmacia più vicina?"}, {"icon": "🌡️", "cat": "Farmacia", "scene": "Hai la febbre da ieri.", "prompt": "Come lo spieghi al farmacista?", "answers": ["Ho la febbre da ieri.", "Sono con febbre da ieri.", "Tengo la febbre da ieri.", "Da ieri ho di febbre."], "correct": 0, "explain": "In italiano si dice «avere la febbre».", "speak": "Ho la febbre da ieri."}, {"icon": "📝", "cat": "Uffici", "scene": "Devi compilare un modulo e non sai come fare.", "prompt": "Come chiedi aiuto?", "answers": ["Mi può aiutare a compilare questo modulo?", "Mi può aiutare per compilare questo modulo?", "Può aiutarmi compilando questo modulo io?", "Può aiutarmi per questo modulo?"], "correct": 0, "explain": "Dopo «aiutare» si usa «a» più infinito.", "speak": "Mi può aiutare a compilare questo modulo?"}, {"icon": "📄", "cat": "Uffici", "scene": "Devi sapere che cosa portare allo sportello.", "prompt": "Che cosa chiedi?", "answers": ["Quali documenti devo portare?", "Che documenti devo portando?", "Quale documenti bisogna che porto?", "Che documenti bisogna portare?"], "correct": 0, "explain": "«Quali» concorda con «documenti» e dopo «devo» va l’infinito.", "speak": "Quali documenti devo portare?"}, {"icon": "🕘", "cat": "Orari", "scene": "Vuoi sapere quando apre un ufficio.", "prompt": "Quale domanda fai?", "answers": ["A che ora apre l’ufficio?", "Che ora si apre l’ufficio?", "A quale ora è aperto l’ufficio che apre?", "Quando orario apre l’ufficio?"], "correct": 0, "explain": "Per l’orario di apertura si usa «A che ora apre…?».", "speak": "A che ora apre l’ufficio?"}, {"icon": "📞", "cat": "Telefono", "scene": "Telefoni e cerchi la signora Rossi.", "prompt": "Che cosa dici?", "answers": ["Posso parlare con la signora Rossi?", "Posso parlare alla signora Rossi?", "Posso parlare dalla signora Rossi?", "Posso parlare alla signora Rossi, per favore?"], "correct": 0, "explain": "Si parla «con» una persona.", "speak": "Posso parlare con la signora Rossi?"}, {"icon": "✉️", "cat": "Telefono", "scene": "La persona cercata non c’è.", "prompt": "Come chiedi di lasciare un messaggio?", "answers": ["Posso lasciare un messaggio?", "Posso dare un messaggio lasciato?", "Posso lasciare una comunicazione a lui?", "Posso mettere un messaggio?"], "correct": 0, "explain": "L’espressione naturale è «lasciare un messaggio».", "speak": "Posso lasciare un messaggio?"}, {"icon": "📱", "cat": "Telefono", "scene": "Vuoi chiedere un recapito telefonico.", "prompt": "Quale domanda fai?", "answers": ["Qual è il suo numero di telefono?", "Quale è suo numero del telefono?", "Quanto è il numero del suo telefono?", "Mi dà il suo numero di telefono?"], "correct": 0, "explain": "«Qual è» e «il suo numero» sono le forme corrette.", "speak": "Qual è il suo numero di telefono?"}, {"icon": "🏠", "cat": "Casa", "scene": "Cerchi un appartamento in affitto.", "prompt": "Come chiedi il prezzo mensile?", "answers": ["Quanto costa l’affitto al mese?", "Quanto costa affittare per un mese sempre?", "Quanti soldi è l’affitto mensile?", "Qual è il prezzo dell’affitto per mese?"], "correct": 0, "explain": "La formula usuale è «affitto al mese».", "speak": "Quanto costa l’affitto al mese?"}, {"icon": "🚿", "cat": "Casa", "scene": "In casa non arriva l’acqua calda.", "prompt": "Come segnali il problema?", "answers": ["Non funziona l’acqua calda.", "L’acqua calda non lavora.", "Non va lavorando l’acqua calda.", "L’acqua calda è rotta e non va."], "correct": 0, "explain": "Per un impianto si usa «funzionare», non «lavorare».", "speak": "Non funziona l’acqua calda."}, {"icon": "🏫", "cat": "Scuola", "scene": "Vuoi sapere quando termina la lezione.", "prompt": "Che cosa chiedi?", "answers": ["A che ora finisce la lezione?", "A che ora si termina la lezione lei?", "Quando ora finisce lezione?", "A quale ora termina la lezione?"], "correct": 0, "explain": "La forma naturale è «A che ora finisce la lezione?».", "speak": "A che ora finisce la lezione?"}, {"icon": "📖", "cat": "Scuola", "scene": "Non conosci una parola italiana.", "prompt": "Che cosa chiedi?", "answers": ["Che cosa significa questa parola?", "Che cosa vuole dire di questa parola?", "Come significa questa parola?", "Cosa vuol dire questa parola?"], "correct": 0, "explain": "Il verbo «significare» non richiede una preposizione.", "speak": "Che cosa significa questa parola?"}, {"icon": "⌚", "cat": "Cortesia", "scene": "Arrivi in ritardo a un appuntamento.", "prompt": "Come ti scusi?", "answers": ["Mi scusi per il ritardo.", "Mi dispiace del ritardato.", "Scusa che sono tardi.", "Mi dispiace perché sono in ritardo."], "correct": 0, "explain": "La formula corretta è «Mi scusi per il ritardo».", "speak": "Mi scusi per il ritardo."}, {"icon": "🙏", "cat": "Cortesia", "scene": "Una persona ti ha aiutato.", "prompt": "Come la ringrazi?", "answers": ["Grazie mille per l’aiuto.", "Molte grazie per aiutarmi già.", "Ti ringrazio dell’aiutato.", "Grazie molto per il suo aiuto."], "correct": 0, "explain": "«Grazie mille per l’aiuto» è corretto e naturale.", "speak": "Grazie mille per l’aiuto."}];
+
+let order=[],idx=0,score=0,answered=false,sounds=true;
+const $=x=>document.getElementById(x);
+const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+
+/* ---------- Quiz ---------- */
+function start(){
+  stopSpeech();
+  order=shuffle(DATA);idx=0;score=0;
+  $('score').textContent=0;
+  $('result').classList.add('hide');
+  $('qcard').classList.remove('hide');
+  render();
+}
+
+function render(){
+  answered=false;
+  const q=order[idx];
+  $('n').textContent=idx+1;
+  $('bar').style.width=(idx/30*100)+'%';
+  $('icon').textContent=q.icon;
+  $('icon').setAttribute('aria-label','Icona della situazione: '+q.cat);
+  $('cat').textContent=q.cat;
+  $('scene').textContent=q.scene;
+  $('prompt').textContent=q.prompt;
+  $('feedback').className='feedback';
+  $('next').classList.add('hide');
+  $('choices').innerHTML='';
+  shuffle(q.answers.map((t,i)=>({t,ok:i===q.correct}))).forEach(x=>{
+    const b=document.createElement('button');
+    b.className='choice';
+    b.textContent=x.t;
+    b.onclick=()=>answer(b,x.ok,q);
+    $('choices').appendChild(b);
+  });
+}
+
+function answer(btn,ok,q){
+  if(answered)return;
+  answered=true;
+  document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+  const f=$('feedback');
+  if(ok){
+    score++;
+    $('score').textContent=score;
+    btn.classList.add('good');
+    f.className='feedback show good';
+    f.textContent='✓ Giusto. '+q.explain;
+    beep(true);
+  }else{
+    btn.classList.add('bad');
+    [...document.querySelectorAll('.choice')].find(b=>b.textContent===q.answers[q.correct])?.classList.add('good');
+    f.className='feedback show bad';
+    f.textContent='✗ Non è corretto. '+q.explain;
+    beep(false);
+  }
+  $('bar').style.width=((idx+1)/30*100)+'%';
+  $('next').classList.remove('hide');
+}
+
+function beep(ok){
+  if(!sounds)return;
+  const A=window.AudioContext||window.webkitAudioContext;
+  if(!A)return;
+  const a=new A(),o=a.createOscillator(),g=a.createGain();
+  o.connect(g);g.connect(a.destination);
+  o.type=ok?'sine':'triangle';
+  o.frequency.setValueAtTime(ok?650:190,a.currentTime);
+  if(ok)o.frequency.setValueAtTime(880,a.currentTime+.11);
+  g.gain.setValueAtTime(.11,a.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.32);
+  o.start();o.stop(a.currentTime+.34);
+}
+
+/* ---------- Sintesi vocale nativa (Web Speech API) ---------- */
+const TTS_OK='speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+const PREFERRED=/google|natural|neural|elsa|alice|cosimo|federica|paola|luca|isabella|diego|emma|siri|premium|enhanced/i;
+let itVoices=[],currentUtterance=null;
+
+function voiceScore(v){
+  let s=0;
+  if(/natural|neural|online/i.test(v.name))s+=50;
+  if(/google/i.test(v.name))s+=40;
+  if(/elsa|isabella|diego|cosimo|alice|federica|paola|luca|emma/i.test(v.name))s+=30;
+  if(/premium|enhanced|siri/i.test(v.name))s+=25;
+  if(/com\.apple/i.test(v.voiceURI||''))s+=20;
+  if(PREFERRED.test(v.name))s+=10;
+  if(/^it[-_]IT$/i.test(v.lang))s+=5;
+  if(v.default)s+=1;
+  return s;
+}
+
+function loadVoices(){
+  if(!TTS_OK)return;
+  const sel=$('voiceSelect');
+  const previous=sel.value;
+  itVoices=speechSynthesis.getVoices()
+    .filter(v=>/^it([-_]|$)/i.test(v.lang))
+    .sort((a,b)=>voiceScore(b)-voiceScore(a));
+  sel.innerHTML='';
+  if(!itVoices.length){
+    const o=document.createElement('option');
+    o.value='';
+    o.textContent='Voce predefinita del dispositivo';
+    sel.appendChild(o);
+    return;
+  }
+  itVoices.forEach((v,i)=>{
+    const o=document.createElement('option');
+    o.value=v.voiceURI||v.name;
+    o.textContent=(i===0?'★ ':'')+v.name;
+    sel.appendChild(o);
+  });
+  const keep=itVoices.find(v=>(v.voiceURI||v.name)===previous);
+  sel.value=keep?previous:(itVoices[0].voiceURI||itVoices[0].name);
+}
+
+function selectedVoice(){
+  const val=$('voiceSelect').value;
+  return itVoices.find(v=>(v.voiceURI||v.name)===val)||itVoices[0]||null;
+}
+
+function stopSpeech(){
+  if(TTS_OK){try{speechSynthesis.cancel()}catch(e){}}
+  currentUtterance=null;
+}
+
+function speakPaused(text){
+  if(!TTS_OK){
+    $('voiceSelect').innerHTML='<option value="">Sintesi vocale non supportata</option>';
+    return;
+  }
+  stopSpeech();
+  const v=selectedVoice();
+  /* Lettura unica e continua: il «?» resta nel testo, così il motore
+     applica la propria intonazione interrogativa nativa. */
+  const u=new SpeechSynthesisUtterance(text);
+  if(v){u.voice=v;u.lang=v.lang}else{u.lang='it-IT'}
+  u.rate=0.82;
+  u.pitch=1;
+  u.volume=1;
+  currentUtterance=u; /* evita la raccolta anticipata dell'oggetto in Chrome */
+  u.onend=u.onerror=()=>{if(currentUtterance===u)currentUtterance=null};
+  /* Breve attesa dopo cancel(): evita blocchi in Chrome, Safari e iOS. */
+  setTimeout(()=>{
+    try{
+      if(speechSynthesis.paused)speechSynthesis.resume();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  },60);
+}
+
+if(TTS_OK){
+  loadVoices();
+  if('onvoiceschanged' in speechSynthesis)speechSynthesis.onvoiceschanged=loadVoices;
+  /* Alcuni browser (Safari, Chrome Android) popolano l'elenco in ritardo. */
+  setTimeout(loadVoices,300);
+  setTimeout(loadVoices,1200);
+}else{
+  $('voiceSelect').innerHTML='<option value="">Sintesi vocale non supportata</option>';
+  $('voiceSelect').disabled=true;
+}
+
+/* ---------- Risultato finale ---------- */
+function finish(){
+  $('qcard').classList.add('hide');
+  $('result').classList.remove('hide');
+  const p=Math.round(score/30*100);
+  $('resultIcon').textContent=p>=80?'🎉':p>=60?'👍':'💪';
+  $('resultTitle').textContent=p>=80?'Ottimo lavoro!':p>=60?'Buon risultato!':'Continua ad allenarti!';
+  $('resultText').textContent=`Hai risposto correttamente a ${score} domande su 30 (${p}%).`;
+}
+
+/* ---------- Eventi ---------- */
+$('next').onclick=()=>{idx++;idx<30?render():finish()};
+$('listen').onclick=()=>speakPaused(order[idx].speak);
+$('again').onclick=start;
+$('restartTop').onclick=start;
+$('soundToggle').onclick=()=>{
+  sounds=!sounds;
+  $('soundToggle').textContent=sounds?'🔊 Suoni attivi':'🔇 Suoni disattivati';
+  $('soundToggle').setAttribute('aria-pressed',String(sounds));
+};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b===t));
+  $('quiz').classList.toggle('hide',t.dataset.view!=='quiz');
+  $('study').classList.toggle('hide',t.dataset.view!=='study');
+});
+
+/* ---------- Schede di ripasso ---------- */
+DATA.forEach(q=>{
+  const d=document.createElement('div');
+  d.className='phrase';
+  d.innerHTML=`<div style="font-size:2rem">${q.icon}</div><b>${q.speak}</b><span class="note">${q.cat}</span><br>`;
+  const b=document.createElement('button');
+  b.className='btn soft';
+  b.style.marginTop='9px';
+  b.textContent='🔈 Ascolta';
+  b.onclick=()=>speakPaused(q.speak);
+  d.appendChild(b);
+  $('phrasegrid').appendChild(d);
+});
+
+start();
+</script>
+</body>
+</html>

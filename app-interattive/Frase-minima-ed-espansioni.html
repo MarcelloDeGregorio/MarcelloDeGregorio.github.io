@@ -52,38 +52,38 @@ let cfg={},Q=[],i=0,sc=0,er=[];
 let mute=false,AC;
 function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
 
-const D=`🧑‍💻|Io|studio|ogni sera|quando|studiare|studi|studiano|v
-🌅|Mio padre|si alza|alle sei|quando|alzarsi|ti alzi|si alzano|v
-📱|Loro|chattano|dopo cena|quando|chattare|chatti|chatta|p
-🚶|Noi|passeggiamo|la domenica|quando|passeggiare|passeggiate|passeggia|p
+const D=`✏️|Io|studio|ogni sera|quando|studiare|studi|studiano|v
+⏰|Mio padre|si alza|alle sei|quando|alzarsi|ti alzi|si alzano|v
+📱📱|Loro|chattano|dopo cena|quando|chattare|chatti|chatta|p
+🚶🚶|Noi|passeggiamo|la domenica|quando|passeggiare|passeggiate|passeggia|p
 💼|Io|lavoro|di mattina|quando|lavorare|lavori|lavorano|v
 🎤|Anna|canta|stasera|quando|cantare|canti|cantano|p
-✈️|Loro|partono|domani|quando|partire|parte|partiamo|v
-🌳|Loro|camminano|nel parco|dove|camminare|cammina|camminiamo|p
+🧳🧳|Loro|partono|domani|quando|partire|parte|partiamo|v
+🚶‍♂️🚶‍♀️|Loro|camminano|nel parco|dove|camminare|cammina|camminiamo|p
 🏠|Io|resto|a casa|dove|restare|resti|restano|v
-🎬|Noi|andiamo|al cinema|dove|andare|andate|vanno|p
-🍕|Voi|mangiate|in pizzeria|dove|mangiare|mangiano|mangio|v
+🎬🎬|Noi|andiamo|al cinema|dove|andare|andate|vanno|p
+🍕🍕|Voi|mangiate|in pizzeria|dove|mangiare|mangiano|mangio|v
 📚|Sara|studia|in biblioteca|dove|studiare|studi|studiano|v
 🏊|Tu|nuoti|in piscina|dove|nuotare|nuoto|nuotano|p
-🛒|Mia madre|lavora|al mercato|dove|lavorare|lavori|lavorano|v
+🛒|Mia madre|lavora|al supermercato|dove|lavorare|lavori|lavorano|v
 ⚽|Ali|gioca|con i compagni|con chi|giocare|giochi|giocano|p
 💬|Sara|chatta|con le amiche|con chi|chattare|chatti|chattano|p
-🍝|Noi|cuciniamo|con la nonna|con chi|cucinare|cucinate|cucinano|p
-🎸|Marco|suona|con un amico|con chi|suonare|suoni|suonano|p
+🍝🍝|Noi|cuciniamo|con la nonna|con chi|cucinare|cucinate|cucinano|p
+🍽️|Marco|cena|con un amico|con chi|cenare|ceni|cenano|p
 🐕|Io|passeggio|con il mio cane|con chi|passeggiare|passeggi|passeggiano|p
-☕|Voi|parlate|con l’insegnante|con chi|parlare|parlo|parlano|v
+🗣️🗣️|Voi|parlate|con l’insegnante|con chi|parlare|parlo|parlano|v
 🎙️|Lei|canta|molto bene|come|cantare|canti|cantano|p
 🚗|Io|guido|piano|come|guidare|guidi|guidano|v
 🍳|Lui|cucina|volentieri|come|cucinare|cucini|cucinano|p
 📖|Tu|leggi|ad alta voce|come|leggere|leggo|leggono|p
-🎧|Loro|ascoltano|in silenzio|come|ascoltare|ascolta|ascoltiamo|p
-🏃|Noi|corriamo|lentamente|come|correre|correte|corrono|p
+🎧🎧|Loro|ascoltano|in silenzio|come|ascoltare|ascolta|ascoltiamo|p
+🏃🏃|Noi|corriamo|lentamente|come|correre|correte|corrono|p
 🎵|Anna|ascolta|la musica|che cosa|ascoltare|ascolti|ascoltano|p
-🎼|Marco|suona|la chitarra|che cosa|suonare|suoni|suonano|p
+🎸|Marco|suona|la chitarra|che cosa|suonare|suoni|suonano|p
 📕|Io|leggo|un libro|che cosa|leggere|leggi|leggono|p
 🍞|Mia madre|compra|il pane|che cosa|comprare|compri|comprano|v
 ▶️|Tu|guardi|un video|che cosa|guardare|guardo|guarda|p
-🍵|Voi|bevete|il tè|che cosa|bere|bevono|bevi|v`;
+🍵🍵|Voi|bevete|il tè|che cosa|bere|bevono|bevi|v`;
 const B=D.split('\n').map(l=>l.split('|')).map(a=>({e:a[0],S:a[1],V:a[2],X:a[3],T:a[4],I:a[5],w2:a[6],w3:a[7],c:a[8]}));
 const TL={'quando':'Quando?','dove':'Dove?','con chi':'Con chi?','come':'Come?','che cosa':'Che cosa?'};
 const CL={Io:'1s',Tu:'2s',Noi:'1p',Voi:'2p',Loro:'3p'},cl=s=>CL[s]||'3s';

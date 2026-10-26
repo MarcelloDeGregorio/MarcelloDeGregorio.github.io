@@ -55,7 +55,7 @@ function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').te
 $('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
 $('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;
 
-const S=[['med','🩺 Dal medico'],['far','💊 In farmacia'],['pos','📮 Alla posta'],['mon','💶 Money transfer'],['sco','🏫 A scuola'],['uff','🏛️ Ufficio e autorità'],['sup','🛒 Mercato e supermercato'],['lav','💬 Messaggio al lavoro'],['via','🧭 Chiedere la strada'],['cor','🤝 Formule di cortesia']];
+const S=[['med','🩺 Dal medico'],['far','💊 In farmacia'],['pos','📮 Alla posta'],['mon','💶 Money transfer'],['sco','🏫 A scuola'],['uff','🏢 Ufficio e autorità'],['sup','🛒 Mercato e supermercato'],['lav','💬 Messaggio al lavoro'],['via','🧭 Chiedere la strada'],['cor','🤝 Formule di cortesia']];
 const D=`med|r|Il medico chiede «Come sta?». Hai la febbre da due giorni.|Ho la febbre da due giorni.|Avere la febbre da due giorni.|Ho la febbre due giorni fa.|Sto la febbre da due giorni.
 med|r|Vuoi un appuntamento con il dottore.|Buongiorno, vorrei prenotare una visita.|Buongiorno, io volere una visita.|Buongiorno, prenota una visita per me.|Buongiorno, vorrei prenotare un visita.
 med|c|Mi fa male ___ stomaco.|lo|il|la|l’|davanti a s + consonante si usa lo: lo stomaco
