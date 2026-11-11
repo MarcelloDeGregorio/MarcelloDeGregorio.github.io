@@ -85,7 +85,7 @@ const U={mesi:['un mese','mesi'],anni:['un anno','anni'],settimane:['una settima
 const num=n=>n>=1&&n<=20?W[n]:String(n),per=(n,u)=>n==1?U[u][0]:num(n)+' '+U[u][1];
 const lst=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' e '+a[a.length-1];
 const v=id=>(g(id).value||'').trim(),sel=id=>[...document.querySelectorAll('#'+id+' .on')].map(b=>b.dataset.v);
-const tc=s=>s.replace(/(^|[\s’'-])(\p{L})/gu,(m,a,b)=>a+b.toUpperCase());
+const tc=s=>{if(s===s.toUpperCase()&&s!==s.toLowerCase())s=s.toLowerCase();return s.replace(/'/g,'’').replace(/(^|[\s’-])(\p{L})/gu,(m,a,b)=>a+b.toUpperCase())};
 function chips(id,items,single,def){const c=g(id);items.forEach(([val,lab])=>{const b=document.createElement('button');b.type='button';b.className='chip'+(val===def?' on':'');b.dataset.v=val;b.textContent=lab;b.onclick=()=>{if(single)[...c.children].forEach(x=>x.classList.remove('on'));b.classList.toggle('on',single?true:!b.classList.contains('on'));render()};c.appendChild(b)})}
 function opts(id,items,first){g(id).innerHTML=(first?'<option value="">— scegli —</option>':'')+items.map(([val,lab])=>'<option value="'+val+'">'+lab+'</option>').join('')}
 chips('gen',[['m','Maschile (sono arrivato)'],['f','Femminile (sono arrivata)']],true,'m');

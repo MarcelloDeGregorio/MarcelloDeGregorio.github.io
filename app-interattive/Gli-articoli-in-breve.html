@@ -58,14 +58,14 @@ $('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Su
 const N=[['libro','libri','m','📖'],['zaino','zaini','m','🎒'],['scoiattolo','scoiattoli','m','🐿️'],['specchio','specchi','m','🪞'],['albero','alberi','m','🌳'],['uomo','uomini','m','👨'],['gatto','gatti','m','🐱'],['treno','treni','m','🚆'],['telefono','telefoni','m','📱'],['elefante','elefanti','m','🐘'],['ombrello','ombrelli','m','☂️'],['pesce','pesci','m','🐟'],
 ['casa','case','f','🏠'],['scuola','scuole','f','🏫'],['mela','mele','f','🍎'],['donna','donne','f','👩'],['arancia','arance','f','🍊'],['ape','api','f','🐝'],['sedia','sedie','f','🪑'],['penna','penne','f','🖊️'],['automobile','automobili','f','🚗'],['isola','isole','f','🏝️'],['zebra','zebre','f','🦓'],['chiave','chiavi','f','🔑'],['scarpa','scarpe','f','👟']];
 const vow=w=>/^[aeiou]/i.test(w),sp=w=>/^(z|s[^aeiou]|gn|ps|x|y)/i.test(w);
-function art(w,g,pl,ind){if(ind)return g=='f'?(vow(w)?"un'":'una'):(sp(w)?'uno':'un');if(g=='f')return pl?'le':(vow(w)?"l'":'la');return pl?((vow(w)||sp(w))?'gli':'i'):(vow(w)?"l'":sp(w)?'lo':'il')}
+function art(w,g,pl,ind){if(ind)return g=='f'?(vow(w)?"un’":'una'):(sp(w)?'uno':'un');if(g=='f')return pl?'le':(vow(w)?"l’":'la');return pl?((vow(w)||sp(w))?'gli':'i'):(vow(w)?"l’":sp(w)?'lo':'il')}
 function why(w,g,pl,ind){if(ind)return g=='f'?(vow(w)?'femminile davanti a vocale: un’ (con apostrofo)':'femminile: una'):(sp(w)?'maschile davanti a z, s+consonante, gn, ps: uno':'maschile: un');
 if(g=='f')return pl?'femminile plurale: le':vow(w)?'femminile davanti a vocale: l’':'femminile singolare: la';
 return pl?((vow(w)||sp(w))?'maschile plurale davanti a vocale, z, s+consonante, gn, ps: gli':'maschile plurale davanti a consonante: i'):(vow(w)?'davanti a vocale: l’':sp(w)?'davanti a z, s+consonante, gn, ps: lo':'davanti a consonante: il')}
 const MENU=[{k:'mode',t:'Quali articoli?',o:[['det','il · lo · la · i · gli · le'],['ind','un · uno · una · un’'],['tutti','Tutti']]}];
 function build(c){const r=[],m=c.mode;
 N.forEach(([s,p,g,e])=>{[[0,0],[1,0],[0,1]].forEach(([pl,ind])=>{if(ind&&pl)return;if(m=='det'&&ind)return;if(m=='ind'&&!ind)return;
-const w=pl?p:s,a=art(w,g,pl,ind),o=ind?sh(["un","uno","una","un'"]):sh([a,...sh(['il','lo',"l'",'la','i','gli','le'].filter(x=>x!=a)).slice(0,3)]);
+const w=pl?p:s,a=art(w,g,pl,ind),o=ind?sh(["un","uno","una","un’"]):sh([a,...sh(['il','lo',"l’",'la','i','gli','le'].filter(x=>x!=a)).slice(0,3)]);
 const full=a+(a.endsWith("'")?'':' ')+w;
 r.push({t:ind?'Articolo indeterminativo':'Articolo determinativo',h:'<span class=em>'+(pl?e+e:e)+'</span><br><small>'+(pl?'più di uno':'uno')+'</small><br>___ <b>'+w+'</b>',o:o,a:a,f:full,s:full,n:why(w,g,pl,ind)})})});return r}
 
