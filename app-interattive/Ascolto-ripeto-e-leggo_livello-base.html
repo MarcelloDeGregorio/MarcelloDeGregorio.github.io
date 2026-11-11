@@ -51,7 +51,7 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px soli
 #end ul{padding-left:1.2em}#res{font-size:2.6rem;font-weight:700;margin:.2em 0}
 details{margin:14px 0;font-size:.95rem}summary{cursor:pointer;color:var(--mut);padding:6px 0}
 select{font:inherit;font-size:.95rem;max-width:100%;padding:6px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--fg)}
-.talk{animation:talkp .8s ease-in-out infinite;background:#ffe08a!important;color:#1b1b1b!important;border-color:#e0a100!important;outline:3px solid #e0a100;outline-offset:2px}@keyframes talkp{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@media (prefers-reduced-motion:reduce){.talk{animation:none}}
+.talk{animation:talkp .35s ease-out 1;background:#ffe08a!important;color:#1b1b1b!important;border-color:#e0a100!important;outline:3px solid #e0a100;outline-offset:2px}@keyframes talkp{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}@media (prefers-reduced-motion:reduce){.talk{animation:none}}
 </style></head><body><div class="w">
 
 <section id="menu">
@@ -316,4 +316,4 @@ $('#vsel').onchange=()=>{cfg.voice=$('#vsel').value;LS.set('ael.cfg',cfg)};
 $('#vtest').onclick=()=>say('Buongiorno! Come stai?',false,null,$('#vtest'));
 $('#reset').onclick=()=>{ERR={};LS.set('ael.err',ERR);$('#reset').textContent='Fatto ✓'};
 menu();show('menu');
-</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch)t.hidden=false})();</script></body></html>
+</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch){if(/Edg\//.test(u))t.innerHTML='🔊 Se la voce non sembra naturale, provane un’altra («Natural») dall’elenco, oppure usa <b>Chrome</b>.';t.hidden=false}})();</script></body></html>
