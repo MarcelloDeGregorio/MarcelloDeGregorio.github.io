@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Ascolto, ripeto e leggo · livello base</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap">
+<style>
+:root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--accfg:#fff;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;--ear:#7a3b00;--earbg:#fff1dc;--eye:#0b5cad;--eyebg:#e3effc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--accfg:#07213d;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6;--ear:#ffc47a;--earbg:#3a2a14;--eye:#8cc4ff;--eyebg:#14293f}}
+:root[data-theme="dark"]{--bg:#101722;--fg:#eaf0f8;--card:#1a2433;--line:#32445c;--acc:#5aa9ff;--accfg:#07213d;--ok:#6fdc9c;--okbg:#14382a;--ko:#ff8f84;--kobg:#42201d;--mut:#9fb0c6;--ear:#ffc47a;--earbg:#3a2a14;--eye:#8cc4ff;--eyebg:#14293f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.45 "Andika",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:560px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.3em 0 .5em}h2{font-size:1.1rem;margin:1.4em 0 .5em;font-weight:700}
+h2.a{color:var(--ear)}h2.l{color:var(--eye)}
+[hidden]{display:none!important}
+button{font:inherit;color:var(--fg);cursor:pointer}
+button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+.def.warn{border-color:var(--ko);background:var(--kobg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chip{padding:8px 14px;border:2px solid var(--line);background:var(--card);border-radius:999px;font-size:.95rem}
+.chip.on{border-color:var(--acc);background:var(--acc);color:var(--accfg)}
+.cl{font-size:.9rem;color:var(--mut);margin:.7em 0 .2em}
+.tiles{display:grid;gap:10px}
+.tile{display:flex;align-items:center;gap:14px;text-align:left;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:16px;background:var(--card);min-height:76px}
+.tile .ic{font-size:2.2rem;line-height:1;flex:none;width:2.6rem;text-align:center}
+.tile b{display:block;font-size:1.1rem}.tile small{color:var(--mut);font-size:.88rem;line-height:1.25;display:block}
+.tile.a{border-color:var(--ear);background:var(--earbg)}.tile.l{border-color:var(--eye);background:var(--eyebg)}
+.tile:active{transform:scale(.99)}
+.top{display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:.95rem;gap:8px}
+.bar{height:10px;background:var(--line);border-radius:5px;margin:6px 0 14px}.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:5px;transition:width .3s}
+#tag{font-weight:700;color:var(--acc)}
+#prompt{background:var(--card);border:2px solid var(--line);border-radius:16px;text-align:center;padding:18px 10px;font-size:1.2rem;line-height:1.5;margin:8px 0 12px;min-height:3em}
+#prompt small{font-size:1rem;color:var(--mut);display:block}
+.em{font-size:3.4rem;line-height:1.15}.em2{font-size:1.9rem;line-height:1;margin-right:.3em}
+.W{font-size:2.6rem;font-weight:700;letter-spacing:.06em;margin:.1em 0}.S{font-size:1.7rem;font-weight:700;line-height:1.4;margin:.1em 0}
+.hear{display:flex;gap:10px;justify-content:center;margin:0 0 12px;flex-wrap:wrap}
+.hb{padding:12px 20px;border-radius:14px;border:2px solid var(--ear);background:var(--earbg);font-size:1.15rem;font-weight:700;min-height:56px}
+.hb.slow{border-color:var(--line);background:var(--card)}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#opts.one{grid-template-columns:1fr}
+.opt{min-height:84px;font-size:1.3rem;font-weight:700;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px;display:flex;align-items:center;justify-content:center;gap:.2em;text-align:center}
+#opts.one .opt{justify-content:flex-start;text-align:left;font-size:1.15rem;padding:10px 14px}
+.opt .em{font-size:2.8rem}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.opt:disabled{cursor:default}
+.fb{min-height:3.4em;margin-top:12px;font-size:1.15rem;text-align:center}.fb.g{color:var(--ok)}.fb.b{color:var(--ko)}
+.fb .em{font-size:2.4rem}
+.btn{padding:14px 24px;border:0;border-radius:12px;background:var(--acc);color:var(--accfg);font-weight:700;margin-top:14px;min-height:56px}
+.btn.alt{background:var(--card);color:var(--fg);border:2px solid var(--line)}
+.tray{display:flex;flex-wrap:wrap;gap:8px;min-height:68px;padding:8px;border:2px dashed var(--line);border-radius:12px;margin:8px 0;justify-content:center}
+.tk{padding:10px 18px;border:2px solid var(--line);border-radius:10px;background:var(--card);font-size:1.7rem;font-weight:700;min-height:56px}
+.tk:disabled{opacity:.35}
+#end ul{padding-left:1.2em}#res{font-size:2.6rem;font-weight:700;margin:.2em 0}
+details{margin:14px 0;font-size:.95rem}summary{cursor:pointer;color:var(--mut);padding:6px 0}
+select{font:inherit;font-size:.95rem;max-width:100%;padding:6px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--fg)}
+</style></head><body><div class="w">
+
+<section id="menu">
+<h1>Ascolto, ripeto e leggo</h1>
+<div class="def">Tre cose da allenare: <b>👂 capire quando si parla</b>, <b>🗣️ ripetere</b> e <b>👀 leggere quello che è scritto</b>. Ogni gioco ha 8 domande. Si può ascoltare quante volte si vuole. Si comincia dall’alto.</div>
+<div class="def" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
+<div class="def warn" id="warn" hidden></div>
+
+<div class="cl">Lettere</div><div class="chips" id="cC"></div>
+<div class="cl">Voce</div><div class="chips" id="cV"></div>
+<div class="cl">Parole</div><div class="chips" id="cT"></div>
+
+<h2 class="a">👂 Capisco quando parlano</h2>
+<div class="tiles" id="ta"></div>
+<h2 class="l">👀 Leggo quello che è scritto</h2>
+<div class="tiles" id="tl"></div>
+
+<details><summary>🔊 Scegli la voce</summary>
+<p>Il computer o il telefono usa una voce italiana. Se non senti bene, prova un’altra voce.</p>
+<select id="vsel" aria-label="Voce italiana"></select> <button class="chip" id="vtest">Prova</button></details>
+
+<details><summary>Per l’insegnante</summary>
+<p><b>Ascolto:</b> parole con l’immagine, coppie di suoni (p/b, f/v, t/d, l/r, consonanti doppie, vocali), ordini di classe, frasi, domande e risposte, numeri. «Fai quello che dico» si fa insieme, con il corpo: la risposta giusta si vede dopo.</p>
+<p><b>Lettura:</b> sillaba iniziale, parola e immagine, parola ascoltata e scritta, costruzione con le sillabe, ordini, frasi, domande. Dopo ogni risposta il corsista vede, sente e legge la stessa parola.</p>
+<p>La voce è quella sintetica del dispositivo (va provata prima in classe). Le parole sbagliate tornano più spesso nei giochi successivi; i progressi restano solo su questo dispositivo.</p>
+<button class="chip" id="reset">Azzera le parole da ripassare</button></details>
+</section>
+
+<section id="play" hidden>
+<div class="top"><button class="chip" id="back">⬅ Menu</button><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" aria-label="Suoni sì/no">🔔</button></div>
+<div class="bar"><i id="bar"></i></div>
+<div id="tag"></div><div id="prompt"></div>
+<div class="hear" id="hear" hidden><button class="hb" id="h1">🔊 Ascolta</button><button class="hb slow" id="h2">🐢 Piano</button></div>
+<div id="area"></div><div class="fb" id="fb" aria-live="polite"></div>
+<div style="text-align:center"><button class="btn" id="next" hidden>Avanti ➜</button></div>
+</section>
+
+<section id="end" hidden><h1>Finito!</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const R=a=>a[Math.floor(Math.random()*a.length)];
+const U=a=>[...new Set(a)];
+const NQ=8;
+let cfg={c:'U',v:'slow',t:'1',voice:''};
+let ERR={};
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+cfg=Object.assign(cfg,LS.get('ael.cfg',{}));ERR=LS.get('ael.err',{});
+const K=s=>cfg.c=='U'?s.toUpperCase():s.toLowerCase();
+
+/* ---------- LESSICO ---------- */
+const LEX=`PA-NE|🍞|1
+SO-LE|☀️|1
+MA-NO|✋|1
+NA-SO|👃|1
+RA-NA|🐸|1
+PE-RA|🍐|1
+NA-VE|🚢|1
+TO-PO|🐁|1
+DA-DO|🎲|1
+MO-TO|🏍️|1
+RO-SA|🌹|1
+SA-LE|🧂|1
+LU-NA|🌙|1
+CA-SA|🏠|1
+ME-LA|🍎|1
+BI-CI|🚲|1
+LA-NA|🧶|1
+U-VA|🍇|1
+CA-NE|🐕|1
+BA-NA-NA|🍌|2
+PA-TA-TA|🥔|2
+CA-RO-TA|🥕|2
+LI-MO-NE|🍋|2
+MA-TI-TA|✏️|2
+PE-CO-RA|🐑|2
+ME-LO-NE|🍈|2
+LU-MA-CA|🐌|2
+LE-O-NE|🦁|2
+GAT-TO|🐱|2
+PAL-LA|⚽|2
+NON-NO|👴|2
+LI-BRO|📖|2
+POR-TA|🚪|2
+TRE-NO|🚆|2
+SCUO-LA|🏫|2
+FIO-RE|🌸|2
+AL-BE-RO|🌳|2
+LAT-TE|🥛|2
+PEN-NA|🖊️|2
+CHIA-VE|🔑|2
+UO-VO|🥚|2
+PE-SCE|🐟|2`.split('\n').map(l=>{const a=l.split('|');return{s:a[0].split('-'),w:a[0].replace(/-/g,''),e:a[1],t:+a[2]}});
+const LEXf=()=>LEX.filter(x=>cfg.t=='x'||x.t==+cfg.t);
+const byW={};LEX.forEach(x=>byW[x.w]=x);
+
+/* coppie di suoni: tipo c = consonanti, v = vocali, d = doppie */
+const PAIRS=`PANCA|BANCA|c
+PASSO|BASSO|c
+PALLA|BALLA|c
+FANNO|VANNO|c
+TENDA|TENTA|c
+LANA|RANA|c
+LIMA|RIMA|c
+PALA|PARA|c
+CENA|SCENA|c
+CHI|CI|c
+SI|SCI|c
+PESCA|PESA|c
+CASA|COSA|v
+SOLE|SALE|v
+PELO|PALO|v
+PENNA|PANNA|v
+CASA|CASSA|d
+PALA|PALLA|d
+PENA|PENNA|d
+NONO|NONNO|d
+SERA|SERRA|d
+CARO|CARRO|d
+PAPA|PAPPA|d
+FATO|FATTO|d
+ALA|ALLA|d`.split('\n').map(l=>{const a=l.split('|');return{a:a[0],b:a[1],t:a[2]}});
+const partner=w=>{const p=PAIRS.find(x=>x.a==w.toUpperCase()||x.b==w.toUpperCase());return p?(p.a==w.toUpperCase()?p.b:p.a):null};
+
+/* ordini della classe: testo, immagine, contrario */
+const CMD=[['Alzati','🧍⬆️','Siediti'],['Siediti','🪑','Alzati'],['Apri il libro','📖','Chiudi il libro'],['Chiudi il libro','📕','Apri il libro'],['Apri la porta','🚪🔓','Chiudi la porta'],['Chiudi la porta','🚪🔒','Apri la porta'],['Scrivi','✍️📝',''],['Leggi','👀🔤',''],['Tocca il naso','👃☝️',''],['Alza la mano','🙋✋',''],['Ripeti','🔁🗣️',''],['Bevi','🥤',''],['Mangia','🍽️',''],['Prendi la penna','🖊️🤲',''],['Batti le mani','👏','']].map(a=>({t:a[0],e:a[1],o:a[2]}));
+
+/* frasi: gruppi da quattro frasi che si assomigliano */
+const SENT=[
+[['Il bambino beve il latte','👦🥛'],['La bambina beve il latte','👧🥛'],['Il bambino mangia la mela','👦🍎'],['La bambina mangia la mela','👧🍎']],
+[['Il gatto dorme','🐱😴'],['Il gatto mangia','🐱🍽️'],['Il cane dorme','🐕😴'],['Il cane corre','🐕💨']],
+[['Piove','🌧️'],['C’è il sole','☀️'],['Nevica','❄️'],['C’è vento','🌬️']],
+[['Io mangio il pane','🧑🍞'],['Io bevo il tè','🧑🍵'],['Io leggo un libro','🧑📖'],['Io scrivo il mio nome','🧑✍️']],
+[['La mamma cucina','👩‍🍳'],['La mamma lavora','👩‍💼'],['Il papà cucina','👨‍🍳'],['Il papà lavora','👨‍💼']],
+[['L’auto è rossa','🚗🔴'],['L’auto è blu','🚗🔵'],['L’auto è verde','🚗🟢'],['L’auto è gialla','🚗🟡']],
+[['Vado a scuola','🏫'],['Vado a casa','🏠'],['Vado al supermercato','🛒'],['Vado dal medico','🏥']]
+].map(g=>g.map(a=>({t:a[0],e:a[1]})));
+
+/* domande e risposte */
+const QA=[['Come ti chiami?','Mi chiamo Ali.','🙋'],['Come stai?','Sto bene, grazie.','😊'],['Di dove sei?','Sono del Bangladesh.','🌍'],['Dove abiti?','Abito in via Roma.','🏠'],['Quanti anni hai?','Ho venticinque anni.','🎂'],['Hai una penna?','Sì, ho una penna.','🖊️'],['Che cosa fai?','Studio italiano.','📚'],['Che cosa mangi?','Mangio il riso.','🍚'],['Che cosa bevi?','Bevo il tè.','🍵'],['Dove vai?','Vado a scuola.','🏫'],['Con chi abiti?','Abito con mio fratello.','👥'],['Come ti senti?','Ho mal di testa.','🤕'],['Che ora è?','Sono le tre.','🕒']].map(a=>({q:a[0],a:a[1],e:a[2]}));
+
+/* numeri */
+const NU=['zero','uno','due','tre','quattro','cinque','sei','sette','otto','nove','dieci','undici','dodici','tredici','quattordici','quindici','sedici','diciassette','diciotto','diciannove'];
+const TE=['','','venti','trenta','quaranta','cinquanta','sessanta','settanta','ottanta','novanta'];
+function nword(n){if(n<20)return NU[n];if(n==100)return'cento';const d=Math.floor(n/10),u=n%10;let t=TE[d];if(u==1||u==8)t=t.slice(0,-1);return t+(u?NU[u]:'')}
+const CONF={13:30,14:40,15:50,16:60,17:70,18:80,19:90};Object.keys(CONF).forEach(k=>CONF[CONF[k]]=+k);
+
+/* ---------- VOCE ---------- */
+const TTS=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+let itV=[],curU=null;
+const vScore=v=>{let s=0;if(/natural|neural|online/i.test(v.name))s+=50;if(/google/i.test(v.name))s+=40;if(/elsa|isabella|diego|cosimo|alice|federica|paola|luca|emma/i.test(v.name))s+=30;if(/premium|enhanced|siri/i.test(v.name))s+=25;if(/^it[-_]IT$/i.test(v.lang))s+=5;return s};
+function loadV(){if(!TTS)return;const sel=$('#vsel');itV=speechSynthesis.getVoices().filter(v=>/^it([-_]|$)/i.test(v.lang)).sort((a,b)=>vScore(b)-vScore(a));sel.innerHTML='';
+ if(!itV.length){sel.innerHTML='<option value="">Voce predefinita del dispositivo</option>'}
+ else{itV.forEach((v,i)=>{const o=document.createElement('option');o.value=v.voiceURI||v.name;o.textContent=(i?'':'★ ')+v.name;sel.appendChild(o)});const k=itV.find(v=>(v.voiceURI||v.name)==cfg.voice);sel.value=k?cfg.voice:(itV[0].voiceURI||itV[0].name)}
+ const w=$('#warn');if(!itV.length&&speechSynthesis.getVoices().length){w.hidden=false;w.textContent='Non trovo una voce italiana su questo dispositivo: gli esercizi di ascolto potrebbero suonare male. Prova con Chrome o Edge, oppure con il telefono.'}else w.hidden=true}
+const pickV=()=>{const val=$('#vsel').value;return itV.find(v=>(v.voiceURI||v.name)==val)||itV[0]||null};
+function stopS(){if(TTS){try{speechSynthesis.cancel()}catch(e){}}curU=null}
+function say(text,slow,cb){if(!TTS||!text){cb&&setTimeout(cb,300);return}stopS();const u=new SpeechSynthesisUtterance(String(text).toLowerCase());const v=pickV();if(v){u.voice=v;u.lang=v.lang}else u.lang='it-IT';
+ u.rate=slow?0.5:(cfg.v=='slow'?0.68:0.88);u.pitch=1;u.volume=1;curU=u;let fd=false;const fin=()=>{if(fd)return;fd=true;if(curU===u)curU=null;cb&&cb()};u.onend=u.onerror=fin;
+ setTimeout(()=>{try{if(speechSynthesis.paused)speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){fin()}},60)}
+if(TTS){loadV();if('onvoiceschanged' in speechSynthesis)speechSynthesis.onvoiceschanged=loadV;setTimeout(loadV,300);setTimeout(loadV,1200)}else{const w=$('#warn');w.hidden=false;w.textContent='Questo browser non ha la sintesi vocale: gli esercizi di ascolto non funzionano. Usa Chrome, Edge o Safari.'}
+
+/* ---------- SUONI ---------- */
+let mute=false,AC;
+function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+.3);o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.32)})}catch(e){}}
+
+/* ---------- SCELTA PESATA (le parole sbagliate tornano di più) ---------- */
+function pw(list,key){const ws=list.map(x=>1+2*Math.min(3,ERR[key(x)]||0));let r=Math.random()*ws.reduce((a,b)=>a+b,0);for(let i=0;i<list.length;i++){r-=ws[i];if(r<=0)return list[i]}return list[list.length-1]}
+const emoOpt=(e,v)=>({h:'<span class="em">'+e+'</span>',v:v});
+const txtOpt=(t,v)=>({h:'<span>'+t+'</span>',v:v||t});
+const rev=(e,t)=>'<span class="em">'+e+'</span><br><b>'+K(t)+'</b>';
+
+/* ---------- GENERATORI ---------- */
+function others(list,item,n,keyf){const k=keyf||(x=>x.w);const seen=new Set([k(item)]),out=[];for(const x of sh(list)){if(seen.has(k(x)))continue;seen.add(k(x));out.push(x);if(out.length==n)break}return out}
+const W4=(w,pool)=>sh([w,...others(pool,w,3)]);
+
+const G={
+aParole(){const L=LEXf(),w=pw(L,x=>x.w),o=W4(w,L);return{type:'choose',tag:'👂 Ascolta e tocca l’immagine',prompt:'<div class="em">🔊</div>',say:w.w,key:w.w,opts:o.map(x=>emoOpt(x.e,x.w)),a:w.w,rv:rev(w.e,w.w),rs:w.w}},
+aDiversi(){const tt={'1':['c','v'],'2':['d'],'x':['c','v','d']}[cfg.t],L=PAIRS.filter(p=>tt.includes(p.t)),p=pw(L,x=>x.a),same=Math.random()<.4,a=Math.random()<.5?p.a:p.b,b=a==p.a?p.b:p.a;
+ return{type:'sd',tag:'👂 Uguali o diversi?',prompt:'<div class="em">🔊 🔊</div><small>Ascolta due volte</small>',s1:a,s2:same?a:b,key:p.a+p.b,opts:[txtOpt('= UGUALI','u'),txtOpt('≠ DIVERSI','d')],a:same?'u':'d',rv:same?'<b>= '+K(a)+' · '+K(a)+'</b><br>Sono uguali.':'<b>'+K(a)+' ≠ '+K(b)+'</b><br>Sono diversi.',rs:null}},
+aRipeto(){const L=LEXf(),w=pw(L,x=>x.w);return{type:'tpr',tag:'🗣️ Ascolta e ripeti',prompt:'<div class="em">🔊</div><small>Ascolta e ripeti a voce alta.<br>L’insegnante ascolta e dice se è giusto.</small>',say:w.w,key:'rip:'+w.w,rv:rev(w.e,w.w),rs:w.w}},
+aFaiOrdine(){const c=pw(CMD,x=>x.t);return{type:'tpr',tag:'🧍 Ascolta e fai',prompt:'<div class="em">🔊</div><small>Ascolta e fai quello che dico.<br>L’insegnante guarda e dice se è giusto.</small>',say:c.t,key:c.t,rv:rev(c.e,c.t),rs:c.t}},
+aOrdine(){const c=pw(CMD,x=>x.t),op=c.o?CMD.find(x=>x.t==c.o):null,rest=others(CMD,c,3,x=>x.t).filter(x=>!op||x.t!=op.t),o=sh([c,...(op?[op]:[]),...rest].slice(0,4));return{type:'choose',tag:'🧍 Ascolta l’ordine e tocca l’immagine',prompt:'<div class="em">🔊</div>',say:c.t,key:c.t,opts:o.map(x=>emoOpt(x.e,x.t)),a:c.t,rv:rev(c.e,c.t),rs:c.t}},
+aFrase(){const g=R(SENT),s=pw(g,x=>x.t);return{type:'choose',tag:'👂 Ascolta la frase e tocca l’immagine',prompt:'<div class="em">🔊</div>',say:s.t,key:s.t,opts:sh(g).map(x=>emoOpt(x.e,x.t)),a:s.t,rv:rev(s.e,s.t),rs:s.t}},
+aDomanda(){const d=pw(QA,x=>x.q),o=sh([d,...others(QA,d,3,x=>x.q)]);return{type:'choose',tag:'👂 Ascolta la domanda e scegli la risposta',prompt:'<div class="em">🔊</div>',say:d.q,key:d.q,one:true,opts:o.map(x=>({h:'<span class="em2">'+x.e+'</span><span>'+K(x.a)+'</span>',v:x.q})),a:d.q,rv:'<b>'+K(d.q)+'</b><br>'+d.e+' '+K(d.a),rs:d.q+' '+d.a}},
+aNumero(){let n;if(cfg.t=='1')n=1+Math.floor(Math.random()*20);else if(cfg.t=='2')n=R([13,14,15,16,17,18,19,30,40,50,60,70,80,90,12,20]);else n=Math.random()<.5?1+Math.floor(Math.random()*20):R([30,40,50,60,70,80,90]);
+ const pool=cfg.t=='2'||n>20?[12,13,14,15,16,17,18,19,20,30,40,50,60,70,80,90]:Array.from({length:20},(_,i)=>i+1);const o=U([n,...(CONF[n]?[CONF[n]]:[]),...sh(pool)]).slice(0,4);
+ return{type:'choose',tag:'👂 Ascolta il numero',prompt:'<div class="em">🔊</div><small>Quale numero?</small>',say:nword(n),key:'n'+n,opts:sh(o).map(x=>({h:'<span class="W">'+x+'</span>',v:String(x)})),a:String(n),rv:'<b>'+n+'</b><br>'+K(nword(n)),rs:nword(n)}},
+lSillaba(){const L=LEXf(),w=pw(L,x=>x.w),s0=w.s[0],m=s0.match(/^([BCDFGLMNPRSTVZ])([AEIOU])$/);let d=[];
+ if(m){const CF={P:'BTD',B:'PDV',T:'DPC',D:'TBP',M:'NB',N:'MR',L:'RT',R:'LN',S:'ZF',F:'VP',V:'FB',C:'GT',G:'CD',Z:'SC'};const v='AEIOU'.replace(m[2],'');d=[m[1]+R(v.split('')),...sh((CF[m[1]]||'').split('')).slice(0,2).map(c=>c+m[2]),m[1]+R(v.split(''))]}
+ else{d=sh(U(LEX.map(x=>x.s[0]))).filter(x=>x!=s0&&x[0]==s0[0])}
+ d=U(d.filter(x=>x!=s0)).concat(sh(U(LEX.map(x=>x.s[0]))).filter(x=>x!=s0&&!d.includes(x)));const o=sh([s0,...U(d).slice(0,3)]);
+ return{type:'choose',tag:'👀 Con quale sillaba inizia?',prompt:'<div class="em">'+w.e+'</div><small>Ascolta la parola</small>',say:w.w,key:w.w,opts:o.map(x=>({h:'<span class="W">'+K(x)+'</span>',v:x})),a:s0,rv:rev(w.e,w.s.join('-')),rs:w.w}},
+lParola(){const L=LEXf(),w=pw(L,x=>x.w),o=W4(w,L);return{type:'choose',tag:'👀 Leggi la parola e tocca l’immagine',prompt:'<div class="W">'+K(w.w)+'</div>',key:w.w,opts:o.map(x=>emoOpt(x.e,x.w)),a:w.w,rv:rev(w.e,w.w),rs:w.w,late:true}},
+lScrivo(){const L=LEXf(),w=pw(L,x=>x.w),p=partner(w.w),sim=sh(LEX.filter(x=>x.w!=w.w&&x.w!=(p||'').toUpperCase())).sort((a,b)=>(b.w[0]==w.w[0])-(a.w[0]==w.w[0])||Math.abs(a.w.length-w.w.length)-Math.abs(b.w.length-w.w.length)),ds=U([...(p?[p]:[]),...sim.map(x=>x.w)]).slice(0,3),o=sh([w.w,...ds]);
+ return{type:'choose',tag:'👀 Ascolta e scegli la parola scritta',prompt:'<div class="em">🔊</div><small>Come si scrive?</small>',say:w.w,key:w.w,opts:o.map(x=>({h:'<span class="W" style="font-size:1.9rem">'+K(x)+'</span>',v:x})),a:w.w,rv:rev(w.e,w.w),rs:w.w}},
+lCostruisco(){const L=LEXf(),w=pw(L,x=>x.w);return{type:'build',tag:'👀 Costruisci la parola',prompt:'<div class="em">'+w.e+'</div><small>Tocca le sillabe nell’ordine giusto</small>',say:null,hearLate:w.w,key:w.w,parts:w.s,a:w.w,rv:rev(w.e,w.s.join('-')),rs:w.w}},
+lOrdine(){const c=pw(CMD,x=>x.t),op=c.o?CMD.find(x=>x.t==c.o):null,rest=others(CMD,c,3,x=>x.t).filter(x=>!op||x.t!=op.t),o=sh([c,...(op?[op]:[]),...rest].slice(0,4));return{type:'choose',tag:'👀 Leggi l’ordine e tocca l’immagine',prompt:'<div class="S">'+K(c.t)+'!</div>',key:c.t,opts:o.map(x=>emoOpt(x.e,x.t)),a:c.t,rv:rev(c.e,c.t),rs:c.t,late:true}},
+lFrase(){const g=R(SENT),s=pw(g,x=>x.t);return{type:'choose',tag:'👀 Leggi la frase e tocca l’immagine',prompt:'<div class="S">'+K(s.t)+'</div>',key:s.t,opts:sh(g).map(x=>emoOpt(x.e,x.t)),a:s.t,rv:rev(s.e,s.t),rs:s.t,late:true}},
+lDomanda(){const d=pw(QA,x=>x.q),o=sh([d,...others(QA,d,3,x=>x.q)]);return{type:'choose',tag:'👀 Leggi la domanda e scegli la risposta',prompt:'<div class="S">'+K(d.q)+'</div>',key:d.q,one:true,opts:o.map(x=>({h:'<span class="em2">'+x.e+'</span><span>'+K(x.a)+'</span>',v:x.q})),a:d.q,rv:'<b>'+K(d.q)+'</b><br>'+d.e+' '+K(d.a),rs:d.q+' '+d.a,late:true}}
+};
+const ACT=[
+['a','aParole','🖼️','Parole e immagini','Sento una parola e tocco l’immagine'],
+['a','aDiversi','👂','Uguali o diversi?','Sento due suoni: sono uguali?'],
+['a','aFaiOrdine','🧍','Fai quello che dico','Sento un ordine e lo faccio'],
+['a','aRipeto','🗣️','Ascolto e ripeto','Sento una parola e la ripeto ad alta voce'],
+['a','aOrdine','🚪','Ordini e immagini','Sento un ordine e tocco l’immagine'],
+['a','aFrase','💬','Frasi e immagini','Sento una frase e tocco l’immagine'],
+['a','aDomanda','🙋','Domande e risposte','Sento una domanda e scelgo la risposta'],
+['a','aNumero','🔢','Numeri','Sento un numero e lo trovo'],
+['l','lSillaba','🔤','Con quale sillaba inizia?','Sento la parola e leggo le sillabe'],
+['l','lParola','🖼️','Leggo la parola','Leggo la parola e tocco l’immagine'],
+['l','lScrivo','✏️','Come si scrive?','Sento la parola e scelgo come si scrive'],
+['l','lCostruisco','🧩','Costruisco la parola','Metto le sillabe in ordine'],
+['l','lOrdine','📋','Leggo l’ordine','Leggo l’ordine e tocco l’immagine'],
+['l','lFrase','📖','Leggo la frase','Leggo la frase e tocco l’immagine'],
+['l','lDomanda','❓','Leggo la domanda','Leggo la domanda e scelgo la risposta']
+].map(a=>({g:a[0],id:a[1],ic:a[2],t:a[3],s:a[4]}));
+
+/* ---------- MENU ---------- */
+function chips(box,items,key){const b=$(box);b.innerHTML='';items.forEach(([v,t])=>{const c=document.createElement('button');c.className='chip'+(cfg[key]==v?' on':'');c.textContent=t;c.onclick=()=>{cfg[key]=v;LS.set('ael.cfg',cfg);[...b.children].forEach(x=>x.classList.remove('on'));c.classList.add('on')};b.appendChild(c)})}
+function menu(){chips('#cC',[['U','MAIUSCOLO'],['l','minuscolo']],'c');chips('#cV',[['slow','🐢 Lenta'],['norm','🙂 Normale']],'v');chips('#cT',[['1','Facili'],['2','Più difficili'],['x','Tutte']],'t');
+ ['a','l'].forEach(g=>{const box=$(g=='a'?'#ta':'#tl');box.innerHTML='';ACT.filter(x=>x.g==g).forEach(x=>{const b=document.createElement('button');b.className='tile '+g;b.innerHTML='<span class="ic">'+x.ic+'</span><span><b>'+x.t+'</b><small>'+x.s+'</small></span>';b.onclick=()=>start(x);box.appendChild(b)})})}
+
+/* ---------- GIOCO ---------- */
+let act,Q=[],i=0,sc=0,done=0,er=[],cur=null,answered=false,spokeTimer=0;
+const show=id=>['menu','play','end'].forEach(s=>$('#'+s).hidden=s!=id);
+function start(a){act=a;Q=[];const seen=new Set();let g=0;while(Q.length<NQ&&g++<200){const q=G[a.id]();if(!q||seen.has(q.key))continue;seen.add(q.key);Q.push(q)}i=0;sc=0;done=0;er=[];show('play');window.scrollTo(0,0);ask()}
+function ask(){const q=cur=Q[i];answered=false;$('#cnt').textContent=(done+1>NQ?NQ:done+1)+' / '+NQ;$('#sc').textContent='⭐ '+sc;$('#bar').style.width=(done/NQ*100)+'%';$('#tag').textContent=q.tag;$('#prompt').innerHTML=q.prompt;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;
+ const hs=!!(q.say||q.type=='sd');$('#hear').hidden=!hs;const A=$('#area');A.innerHTML='';
+ if(q.type=='choose'){const o=document.createElement('div');o.id='opts';if(q.one)o.className='one';A.appendChild(o);q.opts.forEach(t=>{const b=document.createElement('button');b.className='opt';b.innerHTML=t.h;b.onclick=()=>pick(t.v,b);o.appendChild(b)})}
+ else if(q.type=='sd'){const o=document.createElement('div');o.id='opts';A.appendChild(o);q.opts.forEach(t=>{const b=document.createElement('button');b.className='opt';b.innerHTML=t.h;b.onclick=()=>pick(t.v,b);o.appendChild(b)})}
+ else if(q.type=='tpr'){const mk=(t,ok)=>{const b=document.createElement('button');b.className='btn';b.textContent=t;b.onclick=()=>{A.querySelectorAll('button').forEach(x=>x.disabled=true);answered=true;if(ok){sc++;snd(true);$('#fb').className='fb g';$('#fb').innerHTML=q.rv;say(q.rs,false)}else{snd(false);$('#fb').className='fb b';$('#fb').innerHTML='🔁 '+q.rv}fin(ok,true)};A.appendChild(b)};mk('👍 Giusto',true);mk('🔁 Riproviamo',false)}
+ else if(q.type=='build'){buildUI(q,A)}
+ if(q.type=='choose'||q.type=='tpr'||q.type=='sd'){}
+ if(q.say){$('#h1').textContent='🔊 Ascolta';clearTimeout(spokeTimer);spokeTimer=setTimeout(()=>say(q.say,false),300)}
+ if(q.type=='sd'){clearTimeout(spokeTimer);spokeTimer=setTimeout(playSD,300)}
+}
+function playSD(){const q=cur;say(q.s1,false,()=>setTimeout(()=>{if(cur===q)say(q.s2,false)},700))}
+$('#h1').onclick=()=>{const q=cur;if(!q)return;if(q.type=='sd')playSD();else say(q.say||q.rs,false)};
+$('#h2').onclick=()=>{const q=cur;if(!q)return;if(q.type=='sd')say(q.s1,true,()=>setTimeout(()=>{if(cur===q)say(q.s2,true)},900));else say(q.say||q.rs,true)};
+function note(ok,q){const k=q.key;if(ok){if(ERR[k]){ERR[k]--;if(!ERR[k])delete ERR[k]}}else ERR[k]=Math.min(5,(ERR[k]||0)+1);LS.set('ael.err',ERR)}
+function fin(ok,tpr){if(!tpr)note(ok,cur);const q=cur;if(!ok&&!q.again){const c=Object.assign({},q,{again:true});Q.splice(Math.min(Q.length,i+3),0,c)}else done++;$('#bar').style.width=(Math.min(done,NQ)/NQ*100)+'%';$('#sc').textContent='⭐ '+sc;
+ const n=$('#next');n.hidden=false;n.textContent=(done>=NQ||i+1>=Q.length)?'Risultato ➜':'Avanti ➜';n.focus()}
+function pick(v,btn){if(answered)return;answered=true;const q=cur,ok=v==q.a;[...$('#area').querySelectorAll('.opt')].forEach(x=>x.disabled=true);btn.classList.add(ok?'ok':'ko');
+ if(!ok){[...$('#area').querySelectorAll('.opt')].forEach((x,k)=>{if(q.opts[k].v==q.a)x.classList.add('ok')});if(!q.again)er.push(q)}else if(!q.again)sc++;
+ snd(ok);$('#fb').className='fb '+(ok?'g':'b');$('#fb').innerHTML=(ok?'✅ Bravo!<br>':'❌ Ascolta e guarda bene.<br>')+q.rv;
+ if(q.late){$('#hear').hidden=false;cur=q;$('#h1').textContent='🔊 Ascolta'}
+ if(q.type=='sd'){$('#hear').hidden=false}
+ const sp=q.rs;if(sp&&!(q.type=='choose'&&ok&&q.say))setTimeout(()=>say(sp,!ok),350);fin(ok)}
+function buildUI(q,A){const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';A.append(tr,li);let seq=[];
+ const toks=sh(q.parts.map((p,k)=>({p:p,k:k})));const bs=toks.map(t=>{const b=document.createElement('button');b.className='tk';b.textContent=K(t.p);b.onclick=()=>{if(answered)return;b.disabled=true;seq.push(t);const c=document.createElement('button');c.className='tk';c.textContent=K(t.p);c.disabled=true;li.appendChild(c);if(seq.length==q.parts.length){answered=true;const ok=seq.map(x=>x.p).join('')==q.parts.join('');bs.forEach(x=>x.disabled=true);[...li.children].forEach(x=>x.style.borderColor=ok?'var(--ok)':'var(--ko)');if(!ok&&!q.again)er.push(q);else if(ok&&!q.again)sc++;snd(ok);$('#fb').className='fb '+(ok?'g':'b');$('#fb').innerHTML=(ok?'✅ Bravo!<br>':'❌ Guarda bene.<br>')+q.rv;setTimeout(()=>say(q.rs,!ok),350);fin(ok)}};tr.appendChild(b);return b});
+ const rs=document.createElement('button');rs.className='chip';rs.textContent='↺ Ricomincia';rs.onclick=()=>{if(answered)return;seq=[];li.innerHTML='';bs.forEach(x=>x.disabled=false)};A.appendChild(rs);
+ const hb=$('#hear');hb.hidden=false;$('#h1').textContent='🔊 Ascolta la parola'}
+$('#next').onclick=()=>{stopS();if(done>=NQ||i+1>=Q.length){end();return}i++;ask()};
+function end(){show('end');const u=U(er.map(x=>x.key));$('#res').textContent=sc+' su '+NQ;$('#msg').textContent=sc>=NQ-1?'Bravissimo!':sc>=Math.ceil(NQ*.6)?'Bene! Ancora un po’ di allenamento.':'Riprova: ascolta con calma e guarda bene.';
+ const E=$('#errs');E.innerHTML='';if(er.length){const seen=new Set(),ul=document.createElement('ul');er.forEach(q=>{if(seen.has(q.key))return;seen.add(q.key);const l=document.createElement('li');l.innerHTML=q.rv.replace(/<br>/g,' · ');ul.appendChild(l)});E.innerHTML='<h2>Da rivedere</h2>';E.appendChild(ul)}}
+$('#again').onclick=()=>start(act);$('#home').onclick=()=>{stopS();show('menu')};$('#back').onclick=()=>{stopS();clearTimeout(spokeTimer);show('menu')};
+$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕':'🔔'};
+$('#vsel').onchange=()=>{cfg.voice=$('#vsel').value;LS.set('ael.cfg',cfg)};
+$('#vtest').onclick=()=>say('Buongiorno! Come stai?',false);
+$('#reset').onclick=()=>{ERR={};LS.set('ael.err',ERR);$('#reset').textContent='Fatto ✓'};
+menu();show('menu');
+</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch)t.hidden=false})();</script></body></html>

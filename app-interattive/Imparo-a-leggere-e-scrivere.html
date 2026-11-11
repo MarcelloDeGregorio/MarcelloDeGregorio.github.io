@@ -34,7 +34,7 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .wd{padding:10px 16px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.6rem;font-weight:700}
 .wd:disabled{opacity:.7}
 #ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.8rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);letter-spacing:.06em}
-#prompt{font-size:1.2rem}.L{font-size:5.5rem;line-height:1.1;font-weight:700}.WD{font-size:2.5rem;font-weight:700;letter-spacing:.06em;margin:.15em 0}
+#prompt{font-size:1.2rem}.L{font-size:5.5rem;line-height:1.1;font-weight:700}.WD{font-size:2.5rem;font-weight:700;letter-spacing:.06em;margin:.15em 0}.gp{display:inline-block;width:1.5em;border-bottom:.09em solid currentColor;margin:0 .08em}
 .opt{min-height:80px;font-weight:700}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
 .btn.alt{border:2px solid var(--line)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
@@ -42,6 +42,7 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 </style></head><body><div class="w">
 <section id="menu"><h1>Imparo a leggere e a scrivere</h1>
 <div class="def">Si parte dalle lettere, poi suoni, sillabe, parole e frasi. Ogni esercizio si può fare in <b>STAMPATELLO MAIUSCOLO</b>, in <b>stampatello minuscolo</b> o in tutti e due.</div>
+<div class="def" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
 <div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
 <section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
 <div id="tag"></div><div id="prompt"></div><button class="chip" id="hear" hidden>🔊 Ascolta la parola</button><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
@@ -89,7 +90,7 @@ const LV={'1':['uguale','coppia','vocale'],'2':['iniziale','finale','conta','sin
 const MENU=[{k:'lv',t:'Quale livello?',o:[['tutti','🎲 Tutti'],['1','1 · Le lettere'],['2','2 · Suoni e sillabe'],['3','3 · Parole di 2 e 3 sillabe'],['4','4 · Le finali -O -A -I -E'],['5','5 · Frasi: chi e che cosa fa'],['6','6 · Frasi con espansione'],['7','7 · Scrivere: copio e completo']]},{k:'c',t:'Con quali lettere?',o:[['U','MAIUSCOLO'],['l','minuscolo'],['b','Aa Tutti e due']]}];
 const C=(s,c)=>c=='U'?s.toUpperCase():s.toLowerCase();
 function cv(w){for(let n=0;n<9;n++){const j=Math.floor(Math.random()*w.length),L=w[j];if(!CF[L])continue;const v=w.slice(0,j)+R(CF[L].split(''))+w.slice(j+1);if(!WL.some(y=>y.w==v))return v}return w.split('').reverse().join('')}
-function mk(t,c){const K=s=>C(s,c),Z=(k,tag,h,o)=>Object.assign({k:k,t:tag,h:h,n:''},o),em=e=>'<span class=em>'+e+'</span>',WD=s=>'<div class="WD">'+K(s)+'</div>',x=R(WL);
+function mk(t,c){const K=s=>C(s,c),Z=(k,tag,h,o)=>Object.assign({k:k,t:tag,h:h,n:''},o),em=e=>'<span class=em>'+e+'</span>',WD=s=>'<div class="WD">'+K(s).replace('¤','<span class="gp"></span>')+'</div>',x=R(WL);
 if(t=='uguale'){const L=R(AL);return Z('c','Trova la lettera uguale','<div class="L">'+K(L)+'</div>',{o:sh([L,...CF[L].split('')].map(K)),a:K(L),f:K(L),sz:'2.6rem',n:'attenzione alle lettere simili'})}
 if(t=='coppia'){const L=R(AL),oc=c=='U'?'l':'U';return Z('c','Maiuscola e minuscola','<div class="L">'+C(L,c)+'</div>',{o:sh([L,...CF[L].split('')].map(s=>C(s,oc))),a:C(L,oc),f:C(L,c)+' = '+C(L,oc),sz:'2.6rem'})}
 if(t=='vocale'){const L=R(AL),v=VO.includes(L);return Z('c','Vocale o consonante?','<div class="L">'+K(L)+'</div>',{o:[K('vocale'),K('consonante')],a:K(v?'vocale':'consonante'),f:K(L+' è una '+(v?'vocale':'consonante')),sz:'1.5rem',n:'le vocali sono A E I O U'})}
@@ -100,7 +101,7 @@ if(t=='sinizio')return Z('c','Qual è la prima sillaba?',em(x.e)+WD(x.w),{o:sh([
 if(t=='pimg'){const p=WL.filter(y=>y.s.length==x.s.length&&y.w!=x.w);return Z('c','Leggi: quale immagine?',WD(x.w),{o:sh([x.e,...pk(p.map(y=>y.e),3)]),a:x.e,f:K(x.w)+' = '+x.e,sz:'2.8rem'})}
 if(t=='imgp'){const p=WL.filter(y=>y.s.length==x.s.length&&y.w!=x.w);return Z('c','Quale parola è?',em(x.e),{o:sh([x.w,...pk(p.map(y=>y.w),2),cv(x.w)].map(K)),a:K(x.w),f:K(x.w),sz:'1.7rem'})}
 if(t=='ordsill')return Z('o','Metti in ordine le sillabe',em(x.e),{w:x.s.map(K),a:K(x.w),j:'',f:K(x.s.join('-'))});
-if(t=='sillmanca'){const j=Math.floor(Math.random()*x.s.length);return Z('c','Quale sillaba manca?',em(x.e)+WD(x.s.map((z,k)=>k==j?'__':z).join('-')),{o:sh([x.s[j],...pk(WL.map(y=>y.s[0]).filter(z=>z!=x.s[j]),3)].map(K)),a:K(x.s[j]),f:K(x.s.join('-')),sz:'2rem'})}
+if(t=='sillmanca'){const j=Math.floor(Math.random()*x.s.length);return Z('c','Quale sillaba manca?',em(x.e)+WD(x.s.map((z,k)=>k==j?'¤':z).join('-')),{o:sh([x.s[j],...pk(WL.map(y=>y.s[0]).filter(z=>z!=x.s[j]),3)].map(K)),a:K(x.s[j]),f:K(x.s.join('-')),sz:'2rem'})}
 if(t=='morfema'||t=='forma'){const m=R(M),f=Math.floor(Math.random()*4),e=(f%2?m[2]:m[1]),emo=f>1?e+e:e,ws=EN.map(z=>m[0]+z);
 if(t=='morfema')return Z('c','Quale finale?',em(emo)+WD(m[0]+'_'),{o:sh(EN.map(K)),a:K(EN[f]),f:K(ws[f]),sz:'2.6rem',n:K('O')+' = maschio, uno · '+K('A')+' = femmina, una · '+K('I')+' = maschi, più di uno · '+K('E')+' = femmine, più di uno'});
 return Z('c','Quale parola?',em(emo),{o:sh(ws.map(K)),a:K(ws[f]),f:K(ws[f]),sz:'1.5rem',n:K('O')+' = maschio, uno · '+K('A')+' = femmina, una · '+K('I')+' = maschi, più di uno · '+K('E')+' = femmine, più di uno'})}
@@ -112,7 +113,7 @@ const who=Math.random()<.5,a=who?y.S:y.V,F=who?nm:K;return Z('c',who?'Chi?':'Che
 if(t=='copiap')return Z('w','Copia la parola',em(x.e)+WD(x.w),{a:K(x.w),f:K(x.w)});
 if(t=='copiaf'){const y=R(SV.concat(SX)),full=(y.X?[y.S,y.V,y.X]:[y.S,y.V]).join(' '),KS=c=='U'?full.toUpperCase():full.charAt(0).toUpperCase()+full.slice(1).toLowerCase();return Z('w','Copia la frase',em(y.e)+'<div class="WD" style="font-size:1.8rem">'+KS+'.</div>',{a:KS,f:KS+'.'})}
 if(t=='mancal'){const j=Math.floor(Math.random()*x.w.length);return Z('w','Scrivi la lettera che manca',em(x.e)+WD(x.w.slice(0,j)+'_'+x.w.slice(j+1)),{a:K(x.w[j]),f:K(x.w),max:1})}
-if(t=='mancas'){const j=Math.floor(Math.random()*x.s.length);return Z('w','Scrivi la sillaba che manca',em(x.e)+WD(x.s.map((z,k)=>k==j?'___':z).join('-')),{a:K(x.s[j]),f:K(x.s.join('-'))})}}
+if(t=='mancas'){const j=Math.floor(Math.random()*x.s.length);return Z('w','Scrivi la sillaba che manca',em(x.e)+WD(x.s.map((z,k)=>k==j?'¤':z).join('-')),{a:K(x.s[j]),f:K(x.s.join('-'))})}}
 function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
 function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
 function go(){const ts=cfg.lv=='tutti'?[].concat(...Object.values(LV)):LV[cfg.lv],seen=new Set();Q=[];let n=0;for(let k=0;k<80&&Q.length<10;k++){const c=cfg.c=='b'?(n%2?'l':'U'):cfg.c,q=mk(R(ts),c);if(!q||seen.has(q.t+q.h))continue;seen.add(q.t+q.h);Q.push(q);n++}i=0;sc=0;er=[];show('play');nx()}
@@ -128,4 +129,4 @@ const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forE
 function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano, un passo alla volta.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
 $('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
 menu();
-</script></body></html>
+</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch)t.hidden=false})();</script></body></html>

@@ -21,6 +21,7 @@
         <option value="">Voce predefinita</option>
       </select>
     </div>
+    <p id="chromeTip" hidden style="margin:.7em 0 0;font-size:.95rem">🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</p>
   </header>
 
   <nav class="tabs">
@@ -274,5 +275,6 @@ DATA.forEach(q=>{
 
 start();
 </script>
+<script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch)t.hidden=false})();</script>
 </body>
 </html>
