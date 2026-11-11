@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Ascolto, ripeto e leggo · livello base</title>
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Ascolto, capisco, ripeto e leggo · livello base</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap">
 <style>
 :root{--bg:#eef3f8;--fg:#14233b;--card:#fff;--line:#c9d4e2;--acc:#0b5cad;--accfg:#fff;--ok:#17653a;--okbg:#d9f2e3;--ko:#a3281d;--kobg:#fbe2df;--mut:#51627a;--ear:#7a3b00;--earbg:#fff1dc;--eye:#0b5cad;--eyebg:#e3effc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -51,10 +51,11 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px soli
 #end ul{padding-left:1.2em}#res{font-size:2.6rem;font-weight:700;margin:.2em 0}
 details{margin:14px 0;font-size:.95rem}summary{cursor:pointer;color:var(--mut);padding:6px 0}
 select{font:inherit;font-size:.95rem;max-width:100%;padding:6px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--fg)}
+.talk{animation:talkp .8s ease-in-out infinite;background:#ffe08a!important;color:#1b1b1b!important;border-color:#e0a100!important;outline:3px solid #e0a100;outline-offset:2px}@keyframes talkp{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@media (prefers-reduced-motion:reduce){.talk{animation:none}}
 </style></head><body><div class="w">
 
 <section id="menu">
-<h1>Ascolto, ripeto e leggo</h1>
+<h1>Ascolto, capisco, ripeto e leggo</h1>
 <div class="def">Tre cose da allenare: <b>👂 capire quando si parla</b>, <b>🗣️ ripetere</b> e <b>👀 leggere quello che è scritto</b>. Ogni gioco ha 8 domande. Si può ascoltare quante volte si vuole. Si comincia dall’alto.</div>
 <div class="def" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
 <div class="def warn" id="warn" hidden></div>
@@ -208,9 +209,9 @@ function loadV(){if(!TTS)return;const sel=$('#vsel');itV=speechSynthesis.getVoic
  else{itV.forEach((v,i)=>{const o=document.createElement('option');o.value=v.voiceURI||v.name;o.textContent=(i?'':'★ ')+v.name;sel.appendChild(o)});const k=itV.find(v=>(v.voiceURI||v.name)==cfg.voice);sel.value=k?cfg.voice:(itV[0].voiceURI||itV[0].name)}
  const w=$('#warn');if(!itV.length&&speechSynthesis.getVoices().length){w.hidden=false;w.textContent='Non trovo una voce italiana su questo dispositivo: gli esercizi di ascolto potrebbero suonare male. Prova con Chrome o Edge, oppure con il telefono.'}else w.hidden=true}
 const pickV=()=>{const val=$('#vsel').value;return itV.find(v=>(v.voiceURI||v.name)==val)||itV[0]||null};
-function stopS(){if(TTS){try{speechSynthesis.cancel()}catch(e){}}curU=null}
-function say(text,slow,cb){if(!TTS||!text){cb&&setTimeout(cb,300);return}stopS();const u=new SpeechSynthesisUtterance(String(text).toLowerCase());const v=pickV();if(v){u.voice=v;u.lang=v.lang}else u.lang='it-IT';
- u.rate=slow?0.5:(cfg.v=='slow'?0.68:0.88);u.pitch=1;u.volume=1;curU=u;let fd=false;const fin=()=>{if(fd)return;fd=true;if(curU===u)curU=null;cb&&cb()};u.onend=u.onerror=fin;
+function stopS(){if(TTS){try{speechSynthesis.cancel()}catch(e){}}curU=null;document.querySelectorAll('.talk').forEach(x=>x.classList.remove('talk'))}
+function say(text,slow,cb,btn){if(!TTS||!text){cb&&setTimeout(cb,300);return}stopS();const u=new SpeechSynthesisUtterance(String(text).toLowerCase());const v=pickV();if(v){u.voice=v;u.lang=v.lang}else u.lang='it-IT';
+ u.rate=slow?0.5:(cfg.v=='slow'?0.68:0.88);u.pitch=1;u.volume=1;curU=u;const bt=btn||(slow?$('#h2'):$('#h1'));if(bt)bt.classList.add('talk');let fd=false;const fin=()=>{if(fd)return;fd=true;if(curU===u){curU=null;if(bt)bt.classList.remove('talk')}cb&&cb()};u.onend=u.onerror=fin;
  setTimeout(()=>{try{if(speechSynthesis.paused)speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){fin()}},60)}
 if(TTS){loadV();if('onvoiceschanged' in speechSynthesis)speechSynthesis.onvoiceschanged=loadV;setTimeout(loadV,300);setTimeout(loadV,1200)}else{const w=$('#warn');w.hidden=false;w.textContent='Questo browser non ha la sintesi vocale: gli esercizi di ascolto non funzionano. Usa Chrome, Edge o Safari.'}
 
@@ -312,7 +313,7 @@ function end(){show('end');const u=U(er.map(x=>x.key));$('#res').textContent=sc+
 $('#again').onclick=()=>start(act);$('#home').onclick=()=>{stopS();show('menu')};$('#back').onclick=()=>{stopS();clearTimeout(spokeTimer);show('menu')};
 $('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕':'🔔'};
 $('#vsel').onchange=()=>{cfg.voice=$('#vsel').value;LS.set('ael.cfg',cfg)};
-$('#vtest').onclick=()=>say('Buongiorno! Come stai?',false);
+$('#vtest').onclick=()=>say('Buongiorno! Come stai?',false,null,$('#vtest'));
 $('#reset').onclick=()=>{ERR={};LS.set('ael.err',ERR);$('#reset').textContent='Fatto ✓'};
 menu();show('menu');
 </script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch)t.hidden=false})();</script></body></html>
