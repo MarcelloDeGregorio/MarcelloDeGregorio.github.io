@@ -41,8 +41,19 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
     color:var(--fg);
     background:var(--card);
 }
+.vdef{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+.vdef.vwarn{border-color:var(--ko);background:var(--kobg)}
+.vdef summary{cursor:pointer}
+.spk{font:inherit;font-size:1rem;color:var(--fg);cursor:pointer;margin-top:8px;padding:8px 16px;border:2px solid var(--line);border-radius:999px;background:var(--card)}
+.spk.talk{border-color:var(--acc);background:var(--okbg)}
+.spk:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.vdef .chip{font:inherit;color:var(--fg);cursor:pointer;padding:6px 14px;border:2px solid var(--line);background:var(--card);border-radius:999px}
 </style></head><body><div class="w">
-<section id="menu"><h1>Studiare, vedere, partire</h1><div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<section id="menu"><h1>Studiare, vedere, partire</h1><div class="vdef" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
+<div class="vdef vwarn" id="warn" hidden></div>
+<div id="cfg"></div>
+<details class="vdef" id="vbox"><summary>🔊 Scegli la voce</summary><p>Il computer o il telefono usa una voce italiana. Se non senti bene, prova un’altra voce.</p><select id="vsel" aria-label="Voce italiana"></select> <button class="chip" id="vtest">Prova</button></details>
+<button class="btn" id="go">Gioca</button></section>
 <section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
 <div id="tag"></div><div id="prompt"></div><div id="opts"></div><div class="fb" id="fb" aria-live="polite"></div>
 <button class="btn" id="next" hidden>Avanti</button></section>
@@ -53,14 +64,33 @@ const $=s=>document.querySelector(s),sh=a=>a.map(x=>[Math.random(),x]).sort((a,b
 let cfg={},Q=[],i=0,sc=0,er=[];
 let mute=false,AC;
 function snd(ok){if(mute)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.currentTime;(ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]]).forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ok?'sine':'sawtooth';o.frequency.value=f;g.gain.setValueAtTime(.0001,n+d);g.gain.exponentialRampToValueAtTime(ok?.25:.15,n+d+.02);g.gain.exponentialRampToValueAtTime(.0001,n+d+(ok?.2:.3));o.connect(g);g.connect(AC.destination);o.start(n+d);o.stop(n+d+.35)})}catch(e){}}
+/* ---------- VOCE ---------- */
+const TTS=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+let itV=[],curU=null,SAY={};
+const vKey=()=>{try{return localStorage.getItem('voce_it')||''}catch(e){return ''}};
+const vScore=v=>{let s=0;if(/natural|neural|online/i.test(v.name))s+=50;if(/google/i.test(v.name))s+=40;if(/elsa|isabella|diego|cosimo|alice|federica|paola|luca|emma/i.test(v.name))s+=30;if(/premium|enhanced|siri/i.test(v.name))s+=25;if(/^it[-_]IT$/i.test(v.lang))s+=5;return s};
+function loadV(){if(!TTS)return;const sel=$('#vsel');itV=speechSynthesis.getVoices().filter(v=>/^it([-_]|$)/i.test(v.lang)).sort((a,b)=>vScore(b)-vScore(a));sel.innerHTML='';
+ if(!itV.length){sel.innerHTML='<option value="">Voce predefinita del dispositivo</option>'}
+ else{itV.forEach((v,i)=>{const o=document.createElement('option');o.value=v.voiceURI||v.name;o.textContent=(i?'':'★ ')+v.name;sel.appendChild(o)});const k=itV.find(v=>(v.voiceURI||v.name)==vKey());sel.value=k?vKey():(itV[0].voiceURI||itV[0].name)}
+ const w=$('#warn');if(!itV.length&&speechSynthesis.getVoices().length){w.hidden=false;w.textContent='Non trovo una voce italiana su questo dispositivo: la voce potrebbe suonare male. Prova con Chrome o Edge, oppure con il telefono.'}else w.hidden=true}
+const pickV=()=>{const val=$('#vsel').value;return itV.find(v=>(v.voiceURI||v.name)==val)||itV[0]||null};
+function stopS(){if(TTS){try{speechSynthesis.cancel()}catch(e){}}curU=null;document.querySelectorAll('.talk').forEach(x=>x.classList.remove('talk'))}
+function say(text,btn){if(!TTS||!text)return;stopS();const t=String(text).replace(/\/[a-zà-ù]+/gi,'').replace(/[«»_—–→·]+/g,' ').replace(/’\s+/g,'’').replace(/\s+/g,' ').trim().toLowerCase();const u=new SpeechSynthesisUtterance(t);const v=pickV();if(v){u.voice=v;u.lang=v.lang}else u.lang='it-IT';
+ u.rate=0.85;u.pitch=1;u.volume=1;curU=u;if(btn)btn.classList.add('talk');let fd=false;const fin=()=>{if(fd)return;fd=true;if(curU===u){curU=null;if(btn)btn.classList.remove('talk')}};u.onend=u.onerror=fin;
+ setTimeout(()=>{try{if(speechSynthesis.paused)speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){fin()}},60)}
+if(TTS){loadV();if('onvoiceschanged' in speechSynthesis)speechSynthesis.onvoiceschanged=loadV;setTimeout(loadV,300);setTimeout(loadV,1200);
+ $('#vsel').onchange=()=>{try{localStorage.setItem('voce_it',$('#vsel').value)}catch(e){}};$('#vtest').onclick=()=>say('Buongiorno, come stai?',$('#vtest'))}
+else{$('#vbox').hidden=true;const w=$('#warn');w.hidden=false;w.textContent='Questo browser non ha la sintesi vocale: il pulsante 🔊 non è disponibile. Usa Chrome, Edge o Safari.'}
+$('#errs').onclick=e=>{const b=e.target.closest('.spk');if(b)say(b.dataset.s,b)};
+function sayOf(q){return q.s||q.f}
 function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
 function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
 function go(){Q=sh(build(cfg)).slice(0,10);i=0;sc=0;er=[];show('play');nx()}
-function nx(){if(i>=Q.length)return fin();const q=Q[i];$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;const o=$('#opts');o.innerHTML='';q.o.forEach(t=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>ans(b,q);o.appendChild(b)})}
+function nx(){stopS();if(i>=Q.length)return fin();const q=Q[i];$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;const o=$('#opts');o.innerHTML='';q.o.forEach(t=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>ans(b,q);o.appendChild(b)})}
 function ans(b,q){[...$('#opts').children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=b.textContent==q.a;if(g)sc++;else{b.classList.add('ko');er.push(q.f)}snd(g);
-$('#fb').className='fb '+(g?'g':'b');$('#fb').textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#sc').textContent='⭐ '+sc;$('#next').hidden=false;i++}
+$('#fb').className='fb '+(g?'g':'b');$('#fb').textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');const sp=sayOf(q);if(sp){SAY[q.f]=sp;if(TTS){$('#fb').appendChild(document.createElement('br'));const s=document.createElement('button');s.className='spk';s.textContent='🔊 Ascolta';s.setAttribute('aria-label','Ascolta');s.onclick=()=>say(sp,s);$('#fb').appendChild(s)}}$('#sc').textContent='⭐ '+sc;$('#next').hidden=false;i++}
 function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=9?'Bravissimo!':sc>=6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano e ascolta.';
-$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+(TTS&&SAY[x]?' <button class="spk" data-s="'+SAY[x].replace(/"/g,'&quot;')+'" aria-label="Ascolta">🔊</button>':'')+'</li>').join('')+'</ul>':''}
 $('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};$('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;
 
 const P=['io','tu','lui','lei','noi','voi','loro'];
@@ -80,4 +110,4 @@ const d=[...new Set(cd)].filter(x=>x!=a).slice(0,3);
 r.push({t:v.toUpperCase()+' · '+T[t][0],h:'<small>'+T[t][1]+'</small><br><b>'+p+'</b> ___',o:sh([a,...d]),a:a,f:p+' '+a,s:'',n:(typeof NT!='undefined'&&NT[v]&&NT[v][t])||''})})));return r}
 
 menu();
-</script></body></html>
+</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch){if(/Edg\//.test(u))t.innerHTML='🔊 Se la voce non sembra naturale, provane un’altra («Natural») dall’elenco, oppure usa <b>Chrome</b>.';t.hidden=false}})();</script></body></html>

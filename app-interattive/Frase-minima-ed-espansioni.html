@@ -39,10 +39,21 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .btn.alt{border:2px solid var(--line)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
 :root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
+.vdef{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+.vdef.vwarn{border-color:var(--ko);background:var(--kobg)}
+.vdef summary{cursor:pointer}
+.spk{font:inherit;font-size:1rem;color:var(--fg);cursor:pointer;margin-top:8px;padding:8px 16px;border:2px solid var(--line);border-radius:999px;background:var(--card)}
+.spk.talk{border-color:var(--acc);background:var(--okbg)}
+.spk:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.vdef .chip{font:inherit;color:var(--fg);cursor:pointer;padding:6px 14px;border:2px solid var(--line);background:var(--card);border-radius:999px}
 </style></head><body><div class="w">
 <section id="menu"><h1>La frase minima</h1>
 <div class="def">Una frase minima ha un <b>soggetto</b> (chi fa l’azione), un <b>verbo</b> (che cosa fa) e un’<b>espansione</b> (che cosa, dove, quando, con chi, come). Esempio: <b>Marco</b> <b>suona</b> <b>la chitarra</b>.</div>
-<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<div class="vdef" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
+<div class="vdef vwarn" id="warn" hidden></div>
+<div id="cfg"></div>
+<details class="vdef" id="vbox"><summary>🔊 Scegli la voce</summary><p>Il computer o il telefono usa una voce italiana. Se non senti bene, prova un’altra voce.</p><select id="vsel" aria-label="Voce italiana"></select> <button class="chip" id="vtest">Prova</button></details>
+<button class="btn" id="go">Gioca</button></section>
 <section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
 <div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
 <section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section>
@@ -91,27 +102,46 @@ const TEC=[['tutte','🎲 Tutte le tecniche'],['verbo','Scegli il verbo'],['ordi
 const MENU=[{k:'tec',t:'Quale esercizio?',o:TEC},{k:'tema',t:'Di che cosa parliamo?',o:[['tutti','Tutto'],['v','Vita di ogni giorno'],['p','Passioni e tempo libero']]}];
 const DEF={soggetto:'Il soggetto dice chi fa l’azione.',verbo:'Il verbo dice che cosa fa il soggetto.',espansione:'L’espansione aggiunge informazioni: che cosa, dove, quando, con chi, come.'};
 function mk(x,t){const base=x.S+' '+x.V+' '+x.X,full=base+'.',em='<span class=em>'+x.e+'</span><br>';
-const Z=(k,tag,h,o)=>Object.assign({k:k,t:tag,h:h,f:full,n:''},o);
+const Z=(k,tag,h,o)=>Object.assign({k:k,t:tag,h:h,f:full,say:full,n:''},o);
 if(t=='verbo')return Z('c','Scegli il verbo',em+'<b>'+x.S+' ___ '+x.X+'.</b>',{o:sh([x.V,x.I,x.w2,x.w3]),a:x.V,n:'il verbo si accorda con il soggetto: «'+x.S+' '+x.V+'», non «'+x.I+'»'});
 if(t=='ordina')return x.T=='quando'?null:Z('o','Metti in ordine le parole',em,{w:base.split(' '),a:base});
 if(t=='analisi'){const p=sh(['soggetto','verbo','espansione'])[0],m={soggetto:x.S,verbo:x.V,espansione:x.X};return Z('c','Analizza la frase',em+'<b>'+full+'</b><br><small>Qual è '+(p=='espansione'?'l’espansione':'il '+p)+'?</small>',{o:sh([x.S,x.V,x.X]),a:m[p],n:DEF[p]})}
 if(t=='tipo')return Z('c','Che cosa indica l’espansione?',em+'<b>'+full+'</b><br><small>«'+x.X+'» risponde a…</small>',{o:sh([TL[x.T],...pk(Object.keys(TL).filter(k=>k!=x.T).map(k=>TL[k]),3)]),a:TL[x.T],n:'«'+x.X+'» risponde alla domanda «'+TL[x.T]+'»'});
 if(t=='scrivi')return Z('w','Scrivi il verbo',em+'<b>'+x.S+' ___ '+x.X+'.</b><br><small>Verbo: '+x.I+'</small>',{a:x.V,n:'con «'+x.S+'» si dice «'+x.V+'», non «'+x.I+'»'});
-if(t=='errore'){const bad=Math.random()<.5,wr=Math.random()<.5?x.I:x.w2;return Z('c','Giusta o sbagliata?',em+'<b>'+x.S+' '+(bad?wr:x.V)+' '+x.X+'.</b>',{o:['✅ Giusta','❌ Sbagliata'],a:bad?'❌ Sbagliata':'✅ Giusta',f:bad?'la frase è sbagliata. Giusto: '+full:'la frase è giusta.',n:bad?(wr==x.I?'il verbo va coniugato: non si usa l’infinito':'il verbo deve accordarsi con il soggetto «'+x.S+'»'):''})}
+if(t=='errore'){const bad=Math.random()<.5,wr=Math.random()<.5?x.I:x.w2;return Z('c','Giusta o sbagliata?',em+'<b>'+x.S+' '+(bad?wr:x.V)+' '+x.X+'.</b>',{o:['✅ Giusta','❌ Sbagliata'],a:bad?'❌ Sbagliata':'✅ Giusta',f:bad?'la frase è sbagliata. Giusto: '+full:'la frase è giusta: '+full,n:bad?(wr==x.I?'il verbo va coniugato: non si usa l’infinito':'il verbo deve accordarsi con il soggetto «'+x.S+'»'):''})}
 if(t=='emoji')return Z('c','Quale frase va con l’immagine?','<span class=em style="font-size:4rem">'+x.e+'</span>',{o:sh([full,...pk(B.filter(y=>y.e!=x.e&&y.I!=x.I).map(y=>y.S+' '+y.V+' '+y.X+'.'),3)]),a:full});
 if(t=='soggetto')return Z('c','Trova il soggetto',em+'<b>___ '+x.V+' '+x.X+'.</b>',{o:sh([x.S,...pk(['Io','Tu','Lui','Noi','Voi','Loro'].filter(s=>cl(s)!=cl(x.S)),3)]),a:x.S,n:'il verbo «'+x.V+'» si usa con «'+x.S+'»'});
 if(t=='espansione')return Z('c','Scegli l’espansione',em+'<b>'+x.S+' '+x.V+' ___.</b><br><small>'+TL[x.T]+'</small>',{o:sh([x.X,...pk(B.filter(y=>y.T!=x.T).map(y=>y.X),3)]),a:x.X,n:'«'+x.X+'» risponde alla domanda «'+TL[x.T]+'»'})}
 function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+/* ---------- VOCE ---------- */
+const TTS=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+let itV=[],curU=null,SAY={};
+const vKey=()=>{try{return localStorage.getItem('voce_it')||''}catch(e){return ''}};
+const vScore=v=>{let s=0;if(/natural|neural|online/i.test(v.name))s+=50;if(/google/i.test(v.name))s+=40;if(/elsa|isabella|diego|cosimo|alice|federica|paola|luca|emma/i.test(v.name))s+=30;if(/premium|enhanced|siri/i.test(v.name))s+=25;if(/^it[-_]IT$/i.test(v.lang))s+=5;return s};
+function loadV(){if(!TTS)return;const sel=$('#vsel');itV=speechSynthesis.getVoices().filter(v=>/^it([-_]|$)/i.test(v.lang)).sort((a,b)=>vScore(b)-vScore(a));sel.innerHTML='';
+ if(!itV.length){sel.innerHTML='<option value="">Voce predefinita del dispositivo</option>'}
+ else{itV.forEach((v,i)=>{const o=document.createElement('option');o.value=v.voiceURI||v.name;o.textContent=(i?'':'★ ')+v.name;sel.appendChild(o)});const k=itV.find(v=>(v.voiceURI||v.name)==vKey());sel.value=k?vKey():(itV[0].voiceURI||itV[0].name)}
+ const w=$('#warn');if(!itV.length&&speechSynthesis.getVoices().length){w.hidden=false;w.textContent='Non trovo una voce italiana su questo dispositivo: la voce potrebbe suonare male. Prova con Chrome o Edge, oppure con il telefono.'}else w.hidden=true}
+const pickV=()=>{const val=$('#vsel').value;return itV.find(v=>(v.voiceURI||v.name)==val)||itV[0]||null};
+function stopS(){if(TTS){try{speechSynthesis.cancel()}catch(e){}}curU=null;document.querySelectorAll('.talk').forEach(x=>x.classList.remove('talk'))}
+function say(text,btn){if(!TTS||!text)return;stopS();const t=String(text).replace(/\/[a-zà-ù]+/gi,'').replace(/[«»_—–→·]+/g,' ').replace(/’\s+/g,'’').replace(/\s+/g,' ').trim().toLowerCase();const u=new SpeechSynthesisUtterance(t);const v=pickV();if(v){u.voice=v;u.lang=v.lang}else u.lang='it-IT';
+ u.rate=0.85;u.pitch=1;u.volume=1;curU=u;if(btn)btn.classList.add('talk');let fd=false;const fin=()=>{if(fd)return;fd=true;if(curU===u){curU=null;if(btn)btn.classList.remove('talk')}};u.onend=u.onerror=fin;
+ setTimeout(()=>{try{if(speechSynthesis.paused)speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){fin()}},60)}
+if(TTS){loadV();if('onvoiceschanged' in speechSynthesis)speechSynthesis.onvoiceschanged=loadV;setTimeout(loadV,300);setTimeout(loadV,1200);
+ $('#vsel').onchange=()=>{try{localStorage.setItem('voce_it',$('#vsel').value)}catch(e){}};$('#vtest').onclick=()=>say('Buongiorno, come stai?',$('#vtest'))}
+else{$('#vbox').hidden=true;const w=$('#warn');w.hidden=false;w.textContent='Questo browser non ha la sintesi vocale: il pulsante 🔊 non è disponibile. Usa Chrome, Edge o Safari.'}
+$('#errs').onclick=e=>{const b=e.target.closest('.spk');if(b)say(b.dataset.s,b)};
+function sayOf(q){return q.say||q.f}
 function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
 function go(){const ts=cfg.tec=='tutte'?TEC.slice(1).map(t=>t[0]):[cfg.tec],items=[];B.filter(x=>cfg.tema=='tutti'||x.c==cfg.tema).forEach(x=>ts.forEach(t=>{const q=mk(x,t);if(q)items.push(q)}));Q=sh(items).slice(0,cfg.tec=='tutte'?12:10);i=0;sc=0;er=[];show('play');nx()}
-function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');const sp=sayOf(q);if(sp){SAY[q.f]=sp;if(TTS){f.appendChild(document.createElement('br'));const s=document.createElement('button');s.className='spk';s.textContent='🔊 Ascolta';s.setAttribute('aria-label','Ascolta');s.onclick=()=>say(sp,s);f.appendChild(s)}}$('#next').hidden=false;i++}
 function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
-function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+function nx(){stopS();if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
 if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
 if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.autocapitalize='none';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=n.value.trim().toLowerCase()==q.a.toLowerCase();n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
 if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join(' ')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
 const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forEach(t=>bt(t.w,'wd',()=>{ln.push(t);dr()},tr));ln.forEach(t=>bt(t.w,'wd',()=>{ln=ln.filter(z=>z!==t);dr()},li));ck.disabled=ln.length!=tk.length};dr()}}
-function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano e rileggi la frase.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano e rileggi la frase.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+(TTS&&SAY[x]?' <button class="spk" data-s="'+SAY[x].replace(/"/g,'&quot;')+'" aria-label="Ascolta">🔊</button>':'')+'</li>').join('')+'</ul>':''}
 $('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
 menu();
-</script></body></html>
+</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch){if(/Edg\//.test(u))t.innerHTML='🔊 Se la voce non sembra naturale, provane un’altra («Natural») dall’elenco, oppure usa <b>Chrome</b>.';t.hidden=false}})();</script></body></html>

@@ -42,6 +42,13 @@ table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,
 .btn.alt{border:2px solid var(--line)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
 :root[data-theme="dark"] .btn.alt{color:var(--fg);background:var(--card)}
+.vdef{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
+.vdef.vwarn{border-color:var(--ko);background:var(--kobg)}
+.vdef summary{cursor:pointer}
+.spk{font:inherit;font-size:1rem;color:var(--fg);cursor:pointer;margin-top:8px;padding:8px 16px;border:2px solid var(--line);border-radius:999px;background:var(--card)}
+.spk.talk{border-color:var(--acc);background:var(--okbg)}
+.spk:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.vdef .chip{font:inherit;color:var(--fg);cursor:pointer;padding:6px 14px;border:2px solid var(--line);background:var(--card);border-radius:999px}
 </style></head><body><div class="w"><div class="tabs"><button class="chip on" id="tb1">📖 Spiega</button><button class="chip" id="tb2">🎮 Esercitati</button></div><section id="lez"><div class="lz"><h1>Il nome e le sue classificazioni</h1>
 <p>Il <b>nome</b> è la parola che dà il nome a persone, animali, cose, luoghi e idee: <span class="ex">Anna</span>, <span class="ex">gatto</span>, <span class="ex">tavolo</span>, <span class="ex">Roma</span>, <span class="ex">felicità</span>.</p>
 <h2>1. Comuni e propri</h2>
@@ -59,7 +66,11 @@ table.tb{border-collapse:collapse;width:100%;margin:8px 0;font-size:1rem}.tb th,
 </section><div id="gm" hidden>
 <section id="menu"><h1>I nomi e le loro classificazioni</h1>
 <div class="def">Prima leggi la spiegazione, poi esercitati: nomi comuni e propri, concreti e astratti, individuali e collettivi, genere e numero.</div>
-<div id="cfg"></div><button class="btn" id="go">Gioca</button></section>
+<div class="vdef" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
+<div class="vdef vwarn" id="warn" hidden></div>
+<div id="cfg"></div>
+<details class="vdef" id="vbox"><summary>🔊 Scegli la voce</summary><p>Il computer o il telefono usa una voce italiana. Se non senti bene, prova un’altra voce.</p><select id="vsel" aria-label="Voce italiana"></select> <button class="chip" id="vtest">Prova</button></details>
+<button class="btn" id="go">Gioca</button></section>
 <section id="play" hidden><div class="top"><span id="cnt"></span><span id="sc"></span><button class="chip" id="mu" style="padding:2px 12px;font-size:.9rem" aria-label="Suoni sì/no">🔔 Suoni</button></div><div class="bar"><i id="bar"></i></div>
 <div id="tag"></div><div id="prompt"></div><div id="area"></div><div class="fb" id="fb" aria-live="polite"></div><button class="btn" id="next" hidden>Avanti</button></section>
 <section id="end" hidden><h1>Risultato</h1><div id="res"></div><div id="msg"></div><div id="errs"></div><button class="btn" id="again">Gioca ancora</button> <button class="btn alt" id="home">Menu</button></section></div>
@@ -132,12 +143,42 @@ if(b.k=='t')return Z({k:'w',acc:a[0].split(';'),f:a[0].split(';')[0],n:a[1]||''}
 if(b.k=='o'){const s=a[0].split(';');return Z({k:'o',w:s,a:s.join('|'),f:s.join(' → '),n:a[1]||''})}
 const p=a[0].split(';').map(s=>s.split('='));return Z({k:'m',p:p,f:p.map(z=>z[0]+' = '+z[1]).join(' · '),n:a[1]||''})}
 function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
+/* ---------- VOCE ---------- */
+const TTS=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
+let itV=[],curU=null,SAY={};
+const vKey=()=>{try{return localStorage.getItem('voce_it')||''}catch(e){return ''}};
+const vScore=v=>{let s=0;if(/natural|neural|online/i.test(v.name))s+=50;if(/google/i.test(v.name))s+=40;if(/elsa|isabella|diego|cosimo|alice|federica|paola|luca|emma/i.test(v.name))s+=30;if(/premium|enhanced|siri/i.test(v.name))s+=25;if(/^it[-_]IT$/i.test(v.lang))s+=5;return s};
+function loadV(){if(!TTS)return;const sel=$('#vsel');itV=speechSynthesis.getVoices().filter(v=>/^it([-_]|$)/i.test(v.lang)).sort((a,b)=>vScore(b)-vScore(a));sel.innerHTML='';
+ if(!itV.length){sel.innerHTML='<option value="">Voce predefinita del dispositivo</option>'}
+ else{itV.forEach((v,i)=>{const o=document.createElement('option');o.value=v.voiceURI||v.name;o.textContent=(i?'':'★ ')+v.name;sel.appendChild(o)});const k=itV.find(v=>(v.voiceURI||v.name)==vKey());sel.value=k?vKey():(itV[0].voiceURI||itV[0].name)}
+ const w=$('#warn');if(!itV.length&&speechSynthesis.getVoices().length){w.hidden=false;w.textContent='Non trovo una voce italiana su questo dispositivo: la voce potrebbe suonare male. Prova con Chrome o Edge, oppure con il telefono.'}else w.hidden=true}
+const pickV=()=>{const val=$('#vsel').value;return itV.find(v=>(v.voiceURI||v.name)==val)||itV[0]||null};
+function stopS(){if(TTS){try{speechSynthesis.cancel()}catch(e){}}curU=null;document.querySelectorAll('.talk').forEach(x=>x.classList.remove('talk'))}
+function say(text,btn){if(!TTS||!text)return;stopS();const t=String(text).replace(/\/[a-zà-ù]+/gi,'').replace(/[«»_—–→·]+/g,' ').replace(/’\s+/g,'’').replace(/\s+/g,' ').trim().toLowerCase();const u=new SpeechSynthesisUtterance(t);const v=pickV();if(v){u.voice=v;u.lang=v.lang}else u.lang='it-IT';
+ u.rate=0.85;u.pitch=1;u.volume=1;curU=u;if(btn)btn.classList.add('talk');let fd=false;const fin=()=>{if(fd)return;fd=true;if(curU===u){curU=null;if(btn)btn.classList.remove('talk')}};u.onend=u.onerror=fin;
+ setTimeout(()=>{try{if(speechSynthesis.paused)speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){fin()}},60)}
+if(TTS){loadV();if('onvoiceschanged' in speechSynthesis)speechSynthesis.onvoiceschanged=loadV;setTimeout(loadV,300);setTimeout(loadV,1200);
+ $('#vsel').onchange=()=>{try{localStorage.setItem('voce_it',$('#vsel').value)}catch(e){}};$('#vtest').onclick=()=>say('Buongiorno, come stai?',$('#vtest'))}
+else{$('#vbox').hidden=true;const w=$('#warn');w.hidden=false;w.textContent='Questo browser non ha la sintesi vocale: il pulsante 🔊 non è disponibile. Usa Chrome, Edge o Safari.'}
+$('#errs').onclick=e=>{const b=e.target.closest('.spk');if(b)say(b.dataset.s,b)};
+const ABB=true;
+function sayOf(q){try{const d=document.createElement('div');d.innerHTML=q.h||'';d.querySelectorAll('small').forEach(x=>x.remove());d.querySelectorAll('br').forEach(x=>x.replaceWith('\n'));
+ if(String(q.f).includes('→')&&q.k!='o'&&q.k!='m')q=Object.assign({},q,{f:String(q.f).split('→').pop().trim()});
+ const L=(q.t||'').split(' · ').slice(1).join(' · '),P=d.textContent.split('\n').map(x=>x.trim()).filter(Boolean).pop()||'',f=String(q.f||'');
+ if(q.k=='o')return String(q.a).split('|').join(' ');
+ if(q.k=='m')return ABB?f.replace(/ = /g,', ').replace(/ · /g,'. '):'';
+ if(/Vero o falso|«Lei» o «tu»/.test(L)||/^(vero|falso|tu|Lei)$/.test(f))return '';
+ if(/Che tipo di nome/.test(L))return P;
+ if(P.includes('___'))return P.replace(/\([^)]*\)/g,'').replace(/^Scrivi[^:]*:\s*/,'').replace('___',f);
+ let m=P.match(/di «([^»]+)»/);if(m&&/plurale/.test(P))return m[1]+', '+f;
+ m=P.match(/con «([^»]+)»/);if(m)return m[1]+' '+f;
+ return f}catch(e){return ''}}
 function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
 function go(){const pool=B.filter(b=>cfg.ar=='tutti'||b.r==cfg.ar);Q=sh(pool).slice(0,cfg.ar=='tutti'?12:10).map(mk);i=0;sc=0;er=[];show('play');nx()}
 const nz=s=>s.trim().toLowerCase().replace(/\s+/g,' ').replace(/\.$/,'').replace(/'/g,'’');
-function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');$('#next').hidden=false;i++}
+function dn(g,q){snd(g);if(g)sc++;else er.push(q.f);$('#sc').textContent='⭐ '+sc;const f=$('#fb');f.className='fb '+(g?'g':'b');f.textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');const sp=sayOf(q);if(sp){SAY[q.f]=sp;if(TTS){f.appendChild(document.createElement('br'));const s=document.createElement('button');s.className='spk';s.textContent='🔊 Ascolta';s.setAttribute('aria-label','Ascolta');s.onclick=()=>say(sp,s);f.appendChild(s)}}$('#next').hidden=false;i++}
 function bt(txt,cls,fn,p){const b=document.createElement('button');b.className=cls;b.textContent=txt;b.onclick=fn;p.appendChild(b);return b}
-function nx(){if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
+function nx(){stopS();if(i>=Q.length)return fin();const q=Q[i],a=$('#area');$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;a.innerHTML='';
 if(q.k=='c'){const o=document.createElement('div');o.id='opts';a.appendChild(o);q.o.forEach(t=>bt(t,'opt',function(){[...o.children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=t==q.a;if(!g)this.classList.add('ko');dn(g,q)},o))}
 if(q.k=='w'){const n=document.createElement('input');n.id='ans';n.autocomplete='off';n.placeholder='Scrivi qui';a.appendChild(n);const b=bt('Controlla','btn',()=>{if(!n.value.trim())return;n.disabled=true;b.hidden=true;const g=q.acc.some(z=>nz(z)==nz(n.value));n.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);n.onkeydown=e=>{if(e.key=='Enter')b.click()};n.focus()}
 if(q.k=='o'){const tk=sh(q.w.map((w,j)=>({w:w,j:j})));let ln=[];const tr=document.createElement('div'),li=document.createElement('div');tr.className='tray';li.className='tray';a.append(tr,li);const ck=bt('Controlla','btn',()=>{ck.hidden=true;[...a.querySelectorAll('.wd')].forEach(x=>x.disabled=true);const g=ln.map(t=>t.w).join('|')==q.a;li.style.borderColor=g?'var(--ok)':'var(--ko)';dn(g,q)},a);
@@ -145,8 +186,8 @@ const dr=()=>{tr.innerHTML='';li.innerHTML='';tk.filter(t=>!ln.includes(t)).forE
 if(q.k=='m'){const w=document.createElement('div');w.className='mt';a.appendChild(w);const L=document.createElement('div'),Rr=document.createElement('div');L.style.cssText=Rr.style.cssText='display:grid;gap:8px';w.append(L,Rr);let s=null,er2=0,dd=0;
 q.p.forEach(p=>bt(p[0],'opt',function(){if(this.disabled)return;[...L.children].forEach(x=>x.classList.remove('sel'));this.classList.add('sel');s=this},L));
 sh(q.p.map(p=>p[1])).forEach(t=>bt(t,'opt',function(){if(!s||this.disabled)return;const ok=q.p.find(p=>p[0]==s.textContent)[1]==t,l=s;s=null;l.classList.remove('sel');if(ok){l.classList.add('ok');this.classList.add('ok');l.disabled=this.disabled=true;if(++dd==q.p.length)dn(er2==0,q)}else{er2++;l.classList.add('ko');this.classList.add('ko');setTimeout(()=>{l.classList.remove('ko');this.classList.remove('ko')},600)}},Rr))}}
-function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=Q.length*.9?'Bravissimo!':sc>=Q.length*.6?'Bene! Ancora un po’ di allenamento.':'Riprova: ogni errore è un modo per imparare.';$('#errs').innerHTML=er.length?'<h2>Da ripassare</h2><ul>'+[...new Set(er)].map(x=>'<li>'+x+(TTS&&SAY[x]?' <button class="spk" data-s="'+SAY[x].replace(/"/g,'&quot;')+'" aria-label="Ascolta">🔊</button>':'')+'</li>').join('')+'</ul>':''}
 $('#go').onclick=go;$('#next').onclick=nx;$('#again').onclick=go;$('#home').onclick=menu;$('#mu').onclick=()=>{mute=!mute;$('#mu').textContent=mute?'🔕 Suoni':'🔔 Suoni'};
 $('#tb1').onclick=()=>{$('#lez').hidden=false;$('#gm').hidden=true;$('#tb1').classList.add('on');$('#tb2').classList.remove('on')};$('#tb2').onclick=()=>{$('#lez').hidden=true;$('#gm').hidden=false;$('#tb2').classList.add('on');$('#tb1').classList.remove('on')};
 menu();
-</script></body></html>
+</script><script>(function(){var u=navigator.userAgent,ios=/iPad|iPhone|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1),ch=/Chrome\//.test(u)&&!/Edg\/|OPR\/|SamsungBrowser|Firefox/.test(u),t=document.getElementById('chromeTip');if(t&&!ios&&!ch){if(/Edg\//.test(u))t.innerHTML='🔊 Se la voce non sembra naturale, provane un’altra («Natural») dall’elenco, oppure usa <b>Chrome</b>.';t.hidden=false}})();</script></body></html>
