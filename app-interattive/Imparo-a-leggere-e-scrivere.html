@@ -34,7 +34,7 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .wd{padding:10px 16px;border:2px solid var(--line);border-radius:10px;background:var(--card);font:inherit;color:var(--fg);cursor:pointer;font-size:1.6rem;font-weight:700}
 .wd:disabled{opacity:.7}
 #ans{width:100%;box-sizing:border-box;font:inherit;font-size:1.8rem;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);letter-spacing:.06em}
-#prompt{font-size:1.2rem}.L{font-size:5.5rem;line-height:1.1;font-weight:700}.WD{font-size:2.5rem;font-weight:700;letter-spacing:.06em;margin:.15em 0}.gp{display:inline-block;width:1.5em;border-bottom:.09em solid currentColor;margin:0 .08em}
+#prompt{font-size:1.2rem}.L{font-size:5.5rem;line-height:1.1;font-weight:700}.WD{font-size:2.5rem;font-weight:700;letter-spacing:.06em;margin:.15em 0}.gp{display:inline-block;width:1.5em;border-bottom:.09em solid currentColor;margin:0 .08em}.gp.gl{width:3em}
 .opt{min-height:80px;font-weight:700}.def{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1rem}
 .btn.alt{border:2px solid var(--line)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.alt{color:var(--fg);background:var(--card)}}
@@ -119,7 +119,7 @@ return Z('c','Quale parola?',em(emo),{o:sh(ws.map(K)),a:K(ws[f]),f:K(ws[f]),sz:'
 if(/[56]$/.test(t)){const ty=t.slice(0,-1),bk=t.endsWith('5')?SV:SX,y=R(bk),pa=y.X?[y.S,y.V].concat(y.X.split(' ')):[y.S,y.V],full=pa.join(' '),ot=bk.filter(z=>z!==y),KS=s=>c=='U'?s.toUpperCase():s.charAt(0).toUpperCase()+s.slice(1).toLowerCase(),nm=s=>c=='U'?s:s.charAt(0)+s.slice(1).toLowerCase(),sen=z=>(z.X?[z.S,z.V,z.X]:[z.S,z.V]).join(' ');
 if(ty=='sord')return Z('o','Metti in ordine le parole',em(y.e),{w:pa.map((z,j)=>j==0?KS(z):K(z)),a:KS(full),j:' ',f:KS(full)+'.'});
 if(ty=='simg'){const op=[full,...pk(ot.map(sen),3)];return Z('c','Quale frase va con l’immagine?',em(y.e),{o:sh(op.map(KS)),a:KS(full),f:KS(full)+'.',sz:'1.3rem'})}
-if(ty=='scompl'){const ex=!!y.X,a=ex?y.X:y.V;return Z('c','Completa la frase',em(y.e)+'<div class="WD">'+KS(y.S+' '+(ex?y.V+' ___':'___'))+'</div>',{o:sh([a,...pk(ot.map(z=>ex?z.X:z.V).filter(z=>z!=a),3)].map(K)),a:K(a),f:KS(full)+'.',sz:'1.5rem'})}
+if(ty=='scompl'){const ex=!!y.X,a=ex?y.X:y.V;return Z('c','Completa la frase',em(y.e)+'<div class="WD">'+KS(y.S+' '+(ex?y.V+' ¤':'¤')).replace('¤','<span class="gp gl"></span>')+'</div>',{o:sh([a,...pk(ot.map(z=>ex?z.X:z.V).filter(z=>z!=a),3)].map(K)),a:K(a),f:KS(full)+'.',sz:'1.5rem'})}
 const who=Math.random()<.5,a=who?y.S:y.V,F=who?nm:K;return Z('c',who?'Chi?':'Che cosa fa?','<div class="WD" style="font-size:1.8rem">'+KS(full)+'.</div>'+em(y.e),{o:sh([a,...pk(bk.map(z=>who?z.S:z.V).filter(z=>z!=a),3)].map(F)),a:F(a),f:F(a)+(who?' è il soggetto':' è il verbo'),sz:'1.6rem',n:who?'il soggetto è chi fa l’azione':'il verbo dice che cosa fa'})}
 if(t=='copiap')return Z('w','Copia la parola',em(x.e)+WD(x.w),{a:K(x.w),f:K(x.w)});
 if(t=='copiaf'){const y=R(SV.concat(SX)),full=(y.X?[y.S,y.V,y.X]:[y.S,y.V]).join(' '),KS=c=='U'?full.toUpperCase():full.charAt(0).toUpperCase()+full.slice(1).toLowerCase();return Z('w','Copia la frase',em(y.e)+'<div class="WD" style="font-size:1.8rem">'+KS+'.</div>',{a:KS,f:KS+'.'})}

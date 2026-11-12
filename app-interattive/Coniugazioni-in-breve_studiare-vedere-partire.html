@@ -48,6 +48,7 @@ h1{font-size:1.45rem;margin:.3em 0 .6em}h2{font-size:1.05rem;margin:1.2em 0 .5em
 .spk.talk{border-color:var(--acc);background:var(--okbg)}
 .spk:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .vdef .chip{font:inherit;color:var(--fg);cursor:pointer;padding:6px 14px;border:2px solid var(--line);background:var(--card);border-radius:999px}
+.gl{display:inline-block;width:2.4em;border-bottom:.09em solid currentColor;margin:0 .08em}
 </style></head><body><div class="w">
 <section id="menu"><h1>Studiare, vedere, partire</h1><div class="vdef" id="chromeTip" hidden>🔊 Per una voce più chiara usa <b>Chrome</b> (su computer o su Android).</div>
 <div class="vdef vwarn" id="warn" hidden></div>
@@ -86,7 +87,7 @@ function sayOf(q){return q.s||q.f}
 function show(id){['menu','play','end'].forEach(x=>$('#'+x).hidden=x!==id)}
 function menu(){const c0=$('#cfg');c0.innerHTML='';MENU.forEach(g=>{cfg[g.k]=cfg[g.k]||g.o[0][0];const d=document.createElement('div');d.innerHTML='<h2>'+g.t+'</h2>';const c=document.createElement('div');c.className='chips';g.o.forEach(([v,l])=>{const b=document.createElement('button');b.className='chip'+(cfg[g.k]==v?' on':'');b.textContent=l;b.onclick=()=>{cfg[g.k]=v;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on')};c.appendChild(b)});d.appendChild(c);c0.appendChild(d)});show('menu')}
 function go(){Q=sh(build(cfg)).slice(0,10);i=0;sc=0;er=[];show('play');nx()}
-function nx(){stopS();if(i>=Q.length)return fin();const q=Q[i];$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=q.h;$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;const o=$('#opts');o.innerHTML='';q.o.forEach(t=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>ans(b,q);o.appendChild(b)})}
+function nx(){stopS();if(i>=Q.length)return fin();const q=Q[i];$('#bar').style.width=(i/Q.length*100)+'%';$('#cnt').textContent=(i+1)+' / '+Q.length;$('#sc').textContent='⭐ '+sc;$('#tag').textContent=q.t;$('#prompt').innerHTML=String(q.h).replace(/_{3}/g,'<span class="gl"></span>');$('#fb').textContent='';$('#fb').className='fb';$('#next').hidden=true;const o=$('#opts');o.innerHTML='';q.o.forEach(t=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>ans(b,q);o.appendChild(b)})}
 function ans(b,q){[...$('#opts').children].forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add('ok')});const g=b.textContent==q.a;if(g)sc++;else{b.classList.add('ko');er.push(q.f)}snd(g);
 $('#fb').className='fb '+(g?'g':'b');$('#fb').textContent=(g?'✅ Giusto! ':'❌ La risposta giusta è: ')+q.f+(q.n?' — '+q.n:'');const sp=sayOf(q);if(sp){SAY[q.f]=sp;if(TTS){$('#fb').appendChild(document.createElement('br'));const s=document.createElement('button');s.className='spk';s.textContent='🔊 Ascolta';s.setAttribute('aria-label','Ascolta');s.onclick=()=>say(sp,s);$('#fb').appendChild(s)}}$('#sc').textContent='⭐ '+sc;$('#next').hidden=false;i++}
 function fin(){show('end');$('#res').textContent=sc+' su '+Q.length;$('#msg').textContent=sc>=9?'Bravissimo!':sc>=6?'Bene! Ancora un po’ di allenamento.':'Riprova: vai piano e ascolta.';
