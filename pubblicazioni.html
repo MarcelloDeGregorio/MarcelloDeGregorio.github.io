@@ -175,12 +175,16 @@
 
         .elenco-articoli a {
             color: #222;
-            text-decoration: none;
+            /* Sottolineatura sottile (per annullare: sostituire le 4 righe seguenti con text-decoration: none;) */
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #c8c6c0;
+            text-underline-offset: 4px;
         }
 
         .elenco-articoli a:hover {
             color: #555;
-            text-decoration: underline;
+            text-decoration-color: #555;
         }
 
         .profilo-orcid {
